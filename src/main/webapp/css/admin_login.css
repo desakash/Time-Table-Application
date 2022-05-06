@@ -1,0 +1,93 @@
+@charset "ISO-8859-1";
+
+
+ img{
+     
+      height: 150px;
+      width:200px !important;
+  }
+  .gpp_image{
+    background-image: url(https://gppune.ac.in/gpp/gpp_s20/images/header.jpg);
+    /* margin-top:65px; */
+    width: 100%;
+    height: 110px;
+     margin-left: 150px;
+  }
+  @media (max-width: 600px) {
+    .gpp_image{
+      background-image: url(mobile_logo.jpg);
+      margin-top:65px;
+      width: 100%;
+      height: 130px;
+      /* margin-left: 79px; */
+    }
+  }
+  
+body{
+   background-color: #42498F;
+} 
+  .p-t-130 {
+    padding-top: 90px;
+  }
+
+  .wrapper {
+    margin: 0 auto;
+    box-shadow: 0 60px 60px rgba(24, 24, 24, 0.5);
+
+  }
+  
+  .wrapper--w780 {
+    max-width: 400px;
+  }
+  .wrapper--w680 {
+    max-width: 500px;
+  }
+  #div1
+{
+  margin-left: 140px;
+  font-size:28px;
+  margin-bottom:10px;
+  font-family: sans-serif;
+}#div2
+{
+  margin-left: 10px;
+  /* margin-top: 60px; */
+}
+.form-row
+{
+  margin-top: 30px;
+}
+#div2
+{
+  margin-left: 120px;
+}
+#div3
+{  margin-left: 120px;
+   margin-top: 20px;
+}
+form i {
+  position: absolute;
+  margin-left: 200px;
+  margin-top: -28px;
+  cursor: pointer;
+}
+  .alert {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}

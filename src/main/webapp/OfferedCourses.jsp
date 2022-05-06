@@ -6,8 +6,10 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Faculty Master | GPP</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+<title>Offered Courses | GPP</title>
+    
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
@@ -19,10 +21,16 @@
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     
         <script src="https://kit.fontawesome.com/a4f00a5269.js" crossorigin="anonymous"></script>
-    <script>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.8.1/css/bootstrap-select.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.8.1/js/bootstrap-select.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+     <script>
    $('select').selectpicker();
     </script>
-
+    
  
 <script type="text/javascript">
 (function () {
@@ -121,42 +129,41 @@ function manage(pwd) {
               return true;
           }
       </script>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.8.1/css/bootstrap-select.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.8.1/js/bootstrap-select.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
       <script src="sweetalert2.all.min.js"></script>
 <script src="sweetalert2.min.js"></script>
 <link rel="stylesheet" href="sweetalert2.min.css">
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
- </head>
- <body>
- 		<%@ include file="html/sidenav.html" %>
-<!--  		<div id="header"></div>
- --> 		
-				
-    <%-- <%
-    	out.print("in jsp");
-    	if(!session.isNew())
-    	{
-    		session=request.getSession();
-        	String str=(String)session.getAttribute("success_msg");
-     %>
-    					 <div class="alert">
-  								<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
-  								<strong><%=str %></strong> 
-							</div>
-     
-     <%
-     
-    	}
-    	session.invalidate();
-    	
-    %>
-     --%>
- 
-  
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>   
+ <script>
+        $(document).ready(function(){
+          $("#datepicker").datepicker({
+             format: "yyyy",
+             viewMode: "years", 
+             minViewMode: "years",
+             autoclose:true
+          });   
+        })
+        
+        
+        </script>
+</head>
+<body>
+
+<script>
+$(document).ready(function(){
+  $("#datepicker").datepicker({
+     format: "yyyy",
+     viewMode: "years", 
+     minViewMode: "years",
+     autoclose:true
+  });   
+})
+
+
+</script>
+   
+<%@ include file="html/sidenav.html" %>
+
+
     <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
         <div class="wrapper wrapper--w680">
         <div class="card card-4">
@@ -167,7 +174,7 @@ function manage(pwd) {
     	if(!session.isNew())
     	{
     		session=request.getSession();
-        	String  success=(String)session.getAttribute("faculty-success");
+        	String  success=(String)session.getAttribute("offeredCourseSuccess");
         	if(success=="true")
         	{
      %>
@@ -176,7 +183,7 @@ function manage(pwd) {
     				Swal.fire({
       				//  position: 'top-end',
        						icon: 'success',
-       						title: 'Faculty Registered Successfully.',
+       						title: 'Courses Offered Successfully.',
        						showConfirmButton: false,
        						timer: 1500,
      					})
@@ -186,83 +193,66 @@ function manage(pwd) {
 		}
 	}
 	/* session.invalidate(); */
-	session.removeAttribute("faculty-success");
+	session.removeAttribute("offeredCourseSuccess");
   %>
         
-        <h2 class="title" style="font-size: 30px">Faculty Details</h2>
-        <form action="FacultyMasterController" method="post" class="row g-3 needs-validation" novalidate>
-         
-            <div class="col-md-6">
-              <label for="validationCustom01" style="font-size: 17px" class="form-label">Faculty Name</label>
-              <input type="text" class="form-control" name="faculty_name" id="validationCustom01" value="" style="font-size: 17px" required >
+        <h2 class="title" style="font-size: 30px">Offered Courses Details</h2>
+        <form action="OfferedCourseController" method="post" class="row g-3 needs-validation" novalidate>
+            <!-- <div class="col-md-6">
+              <label for="validationCustom01" style="font-size: 17px" class="form-label">Course Code</label>
+              <input type="text" class="form-control" name="course_code" id="validationCustom01" value="" style="font-size: 17px" required >
               <div class="valid-feedback" style="font-size: 17px">
                 Looks good!
               </div>
             </div>
             <div class="col-md-6">
-              <label for="validationCustom01" style="font-size: 17px" class="form-label">Faculty Abbreviation</label>
-              <input type="text" class="form-control" name="faculty_abbr" id="validationCustom01" value="" style="font-size: 17px" required >
+              <label for="validationCustom01" style="font-size: 17px" class="form-label">Course Name</label>
+              <input type="text" class="form-control" name="course_name" id="validationCustom01" value="" style="font-size: 17px" required >
               <div class="valid-feedback" style="font-size: 17px">
                 Looks good!
               </div>
             </div>
-            
             <div class="col-md-6">
-              <label for="validationCustom01" style="font-size: 17px" class="form-label">Faculty Email</label>
-              <input type="email" class="form-control" name="faculty_email" id="validationCustom01" value="" style="font-size: 17px" required >
+              <label for="validationCustom01" style="font-size: 17px" class="form-label">Course Abbreviation</label>
+              <input type="text" class="form-control" name="course_abbr" id="validationCustom01" value="" style="font-size: 17px" required >
               <div class="valid-feedback" style="font-size: 17px">
                 Looks good!
               </div>
-            </div>
-            
-            <div class="col-md-6">
-              <label for="validationCustom01" style="font-size: 17px" class="form-label">Faculty Designation</label>
-               <select class="form-select" style="font-size: 17px" id="validationCustom04" name="faculty_designation" required>
+            </div> -->
+			<div class="col-md-6">
+              <label for="validationCustom04" class="form-label" style="font-size: 17px" >Term</label>
+              <select class="form-select" style="font-size: 17px" id="validationCustom04" name="term" required>
                 <option selected disabled value="">Choose...</option>
-                <option style="font-size: 17px">Principal</option>
-                <option style="font-size: 17px">HOD</option>
-                 <option style="font-size: 17px">Lecturer</option>
-                
- -->              </select>
-<!--               <input type="text" class="form-control" name="faculty_abbr" id="validationCustom01" value="" style="font-size: 17px" required >
- -->              <div class="valid-feedback" style="font-size: 17px">
-                Looks good!
+                <option style="font-size: 17px">Even</option>
+                <option style="font-size: 17px">Odd</option>
+	              </select>
+              <div class="invalid-feedback" style="font-size: 17px">
+                 Please select a Term.
               </div>
             </div>
              <div class="col-md-6">
-              <label for="validationCustom01" style="font-size: 17px" class="form-label">Faculty Type</label>
-               <select class="form-select" style="font-size: 17px" id="validationCustom04" name="faculty_type" required>
-                <option selected disabled value="">Choose...</option>
-                <option style="font-size: 17px">Regular</option>
-                <option style="font-size: 17px">Visiting</option>
- -->              </select>
-<!--               <input type="text" class="form-control" name="faculty_abbr" id="validationCustom01" value="" style="font-size: 17px" required >
- -->              <div class="valid-feedback" style="font-size: 17px">
+              <label for="validationCustom01" style="font-size: 17px" class="form-label">Year</label>
+            <input type="text" class="form-control textfield" name="year" id="datepicker" style="font-size: 17px" value="" required>          
+              <div class="valid-feedback" style="font-size: 17px">
                 Looks good!
               </div>
             </div>
-			<%-- <div class="col-md-8">
-              <label for="validationCustom04" class="form-label" style="font-size: 17px" >Course Name</label>
-              <select class="form-select" style="font-size: 17px" id="validationCustom04" name="course" required multiple="multiple">
-              <option selected disabled value="">Choose...</option>
-              <%
-              		CourseDao cdao=new CourseDao();
-              		ResultSet rs=cdao.getCourseName();
-              		while(rs.next())
-              		{
-              %>
-                <option style="font-size: 17px"><%=rs.getString(1) %></option>
-              <%
-              		}  
-              %>
+            <!-- <div class="col-md-6">
+              <label for="validationCustom04" class="form-label" style="font-size: 17px" >Year</label>
+              <select class="form-select" style="font-size: 17px" id="validationCustom04" name="year" required>
+                <option selected disabled value="">Choose...</option>
+                <option style="font-size: 17px">2020</option>
+                <option style="font-size: 17px">2021</option>
+                <option style="font-size: 17px">2022</option>
+                <option style="font-size: 17px">2023</option>
+                <option style="font-size: 17px">2024</option>
+                <option style="font-size: 17px">2025</option>
 	              </select>
               <div class="invalid-feedback" style="font-size: 17px">
-                 Please select a Course Name.
+                 Please select a Term.
               </div>
-            </div> --%>
-            
-            <!-- ========================================================================================= -->
-         <%--  <div class="col-md-8">
+            </div> -->
+             <div class="col-md-8">
                <label for="validationCustom04" class="form-label" style="font-size: 17px" >Course Name</label><br>
            	
  					<select class="selectpicker form-label" style="font-size: 17px;" name="course" multiple data-live-search="true">
@@ -273,17 +263,39 @@ function manage(pwd) {
               		while(rs.next())
               		{
               %>
-              	 <option style="font-size: 17px"><%=rs.getString(1) %></option>
+              	 	<option style="font-size: 17px"><%=rs.getString(1) %></option>
               <%
               		}  
               %>
 	              </select>
-	        </div>  --%>
+	        </div>
            
-           	
+            <!-- <div class="col-md-6">
+              <label for="validationCustom01" style="font-size: 17px" class="form-label">No.of Theory</label>
+              <input type="text" class="form-control textfield" name="no_of_theory" id="validationCustom01" style="font-size: 17px" value="" id="onlyNumbers" name="onlyNumbers" onkeypress="return isNumber(event)" onpaste="return false;" required>
+              <div class="valid-feedback" style="font-size: 17px">
+                Looks good!
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label for="validationCustom01" style="font-size: 17px" class="form-label">No.of Practicals</label>
+              <input type="text" class="form-control textfield" name="no_of_pract" id="validationCustom01" style="font-size: 17px" value="" id="onlyNumbers" name="onlyNumbers" onkeypress="return isNumber(event)" onpaste="return false;" required>
+              <div class="valid-feedback" style="font-size: 17px">
+                Looks good!
+              </div>
+            </div>
+            
+            <div class="col-md-6">
+              <label for="validationCustom01" style="font-size: 17px" class="form-label">No.of Tutorials</label>
+              <input type="text" class="form-control textfield" name="no_of_tuts" id="validationCustom01" style="font-size: 17px" value="" id="onlyNumbers" name="onlyNumbers" onkeypress="return isNumber(event)" onpaste="return false;" required>
+              <div class="valid-feedback" style="font-size: 17px">
+                Looks good!
+              </div>
+            </div> -->
+           
            
             <div class="col-12">
-              <button class="btn btn-success" type="submit" style="font-size: 17px"; text-align:"center";> <i class="fas fa-plus"></i>  Add Faculty</button>
+              <button class="btn btn-success" type="submit" style="font-size: 17px"; text-align:"center";> <i class="fas fa-plus"></i> Offer Course</button>
             </div>
           </form>
        
@@ -292,6 +304,7 @@ function manage(pwd) {
         </div>
         </div>
         
-<script src="js/form.js"></script>        
- </body>
+<script src="js/form.js"></script>  
+
+</body>
 </html>

@@ -236,6 +236,9 @@ $(document).ready(function(){
               <div class="valid-feedback" style="font-size: 17px">
                 Looks good!
               </div>
+              <div class="invalid-feedback" style="font-size: 17px">
+                 Please select Year.
+              </div>
             </div>
             <!-- <div class="col-md-6">
               <label for="validationCustom04" class="form-label" style="font-size: 17px" >Year</label>
@@ -255,7 +258,7 @@ $(document).ready(function(){
              <div class="col-md-8">
                <label for="validationCustom04" class="form-label" style="font-size: 17px" >Course Name</label><br>
            	
- 					<select class="selectpicker form-label" style="font-size: 17px;" name="course" multiple data-live-search="true">
+ 					<select class="selectpicker form-label" style="font-size: 17px;" id="validationCustom04" name="course" multiple data-live-search="true">
  					
             	<%
               		CourseDao cdao=new CourseDao();
@@ -263,11 +266,17 @@ $(document).ready(function(){
               		while(rs.next())
               		{
               %>
-              	 	<option style="font-size: 17px"><%=rs.getString(1) %></option>
+              	 	<option style="font-size: 17px" value="<%=rs.getString(2)%>"><%=rs.getString(1)%>&nbsp&nbsp&nbsp<%=rs.getString(2) %></option>
               <%
               		}  
               %>
 	              </select>
+	              <div class="valid-feedback" style="font-size: 17px">
+                Looks good!
+              </div>
+	              <div class="invalid-feedback" style="font-size: 17px">
+                 Please select Courses.
+              </div>
 	        </div>
            
             <!-- <div class="col-md-6">

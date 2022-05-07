@@ -42,7 +42,7 @@ public class CourseDao {
 		con=DbConnection.getConnection();
 		try {
 			st=con.createStatement();
-			rs=st.executeQuery("select course_name from course_master");
+			rs=st.executeQuery("select course_code ,course_name from course_master");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

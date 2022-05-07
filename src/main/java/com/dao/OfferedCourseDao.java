@@ -22,9 +22,10 @@ public class OfferedCourseDao {
 		for(int j=0;j<ocs.getCourseCodes().size();j++)
 		{
 			try {
-				pstate=con.prepareStatement("insert into offered_course values(?,?)");
+				pstate=con.prepareStatement("insert into offered_courses values(?,?,?)");
 				pstate.setString(1, ocs.getTerm());
 				pstate.setString(2, ocs.getCourseCodes().get(j));
+				pstate.setString(3, ocs.getCourseNameList().get(j));
 				i=pstate.executeUpdate();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -34,5 +35,32 @@ public class OfferedCourseDao {
 		}
 		return i;
 	}
-
+	
+	public ResultSet getCourseCode(String courseName)
+	{
+		con=DbConnection.getConnection();
+		try {
+			pstate=con.prepareStatement("select course_code from offered_courses where course_name=?");
+			pstate.setString(1, courseName);
+			rs=pstate.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
+	
+	public ResultSet getOfferedCoursesName()
+	{
+		con=DbConnection.getConnection();
+		try {
+			st=con.createStatement();
+			rs=st.executeQuery("select course_code,course_name from offered_courses");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+		
+	}
 }

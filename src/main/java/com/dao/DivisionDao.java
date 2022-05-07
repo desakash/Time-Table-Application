@@ -48,5 +48,18 @@ public class DivisionDao {
 		return rs;
 	}
 	
+	public ResultSet getDivisionNames()
+	{
+		con=DbConnection.getConnection();
+		try {
+			st=con.createStatement();
+			rs=st.executeQuery("select division_name from division_master");
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
 
 }

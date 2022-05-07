@@ -3,6 +3,8 @@ package com.controller;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -44,7 +46,7 @@ public class OfferedCourseController extends HttpServlet {
 
 
 		String[] courseName=request.getParameterValues("course");
-		ArrayList<String> facultyCourseCodes=new ArrayList<String>();
+		ArrayList<String> offeredCourseCodes=new ArrayList<String>();
 
 		ResultSet rs=null; 
 		CourseDao cdao=new CourseDao();
@@ -54,7 +56,7 @@ public class OfferedCourseController extends HttpServlet {
 			rs=cdao.getCourseCode(courseName[i]);
 			if(rs.next())
 			{ 
-				facultyCourseCodes.add(rs.getString(1)); 
+				offeredCourseCodes.add(rs.getString(1)); 
 			}
 
 		} 
@@ -63,7 +65,8 @@ public class OfferedCourseController extends HttpServlet {
 			e.printStackTrace(); 
 		}
 		
-		OfferedCourses ocs=new OfferedCourses(term, facultyCourseCodes);
+		List<String> courseNameList=Arrays.asList(courseName);
+		OfferedCourses ocs=new OfferedCourses(term, offeredCourseCodes,courseNameList);
 		OfferedCourseDao ocdao=new OfferedCourseDao();
 		int j=ocdao.insertOfferedCourses(ocs);
 		if(j>0)

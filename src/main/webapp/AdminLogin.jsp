@@ -71,7 +71,7 @@
 
               <div id="div2">
                 <label for="validationCustom01" class="form-label">username :</label>
-                <input type="text" id="name" name="uname" class="form-control" placeholder="Enter username" onkeyup="manage(this)" />
+                <input type="text" id="name" name="uname" autocomplete="off" class="form-control" placeholder="Enter username" onkeyup="manage(this)" />
                 <div class="valid-feedback">
                 </div>
               </div>
@@ -81,7 +81,7 @@
               <p>
               <div id="div3">
                 <label for="validationCustom02" class="form-label">password :</label>
-                <input type="password" id="desig" name="pass" class="form-control" placeholder="Enter password"
+                <input type="password" id="desig" autocomplete="off" name="pass" class="form-control" placeholder="Enter password"
                   onkeyup="manage(this)" /> 
                   <i class="bi bi-eye-slash" id="togglePassword"></i>
                 

@@ -44,7 +44,7 @@ public class DivisionCourseAllocationController extends HttpServlet {
 		String term = t + year;
 		 String division=request.getParameter("division");
 
-		String[] allotedCourseNames=request.getParameterValues("courses");
+		String[] allotedCourseNames=request.getParameterValues("course");
 		ArrayList<String> allotedCourseCodes=new ArrayList<String>();
 		OfferedCourseDao ocdao=new OfferedCourseDao();
 		System.out.println(allotedCourseNames.length);

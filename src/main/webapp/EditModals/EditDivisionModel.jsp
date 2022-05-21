@@ -63,7 +63,7 @@ $(document).ready(function(){
         <!-- <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
         <div class="wrapper wrapper--w680">
         <div class="card card-4">
-        <div class="card-body"> -->
+        <div class="card-body">
         
       
 <!--         <h2 class="title" style="font-size: 30px">Division Details</h2>
@@ -71,31 +71,31 @@ $(document).ready(function(){
             <div class="col-md-7">
               <label for="validationCustom01" style="font-size: 17px" class="form-label">Division Name</label>
   
-              <input type="text" class="form-control" name="division_name" id="validationCustom01" value="<%=rs1.getString(2) %>" style="font-size: 17px" required >
+              <input type="text" class="form-control" name="division_name" id="validationCustom01" value="<%=rs1.getString(2) %>" style="font-size: 17px;width: 200px;" required >
               <input type="hidden" class="form-control" name="division_id" id="validationCustom01" value="<%=rs1.getString(1) %>" style="font-size: 17px" required >
               <div class="valid-feedback" style="font-size: 17px">
                 Looks good!
               </div>
                <div class="invalid-feedback" style="font-size: 17px">
-                 Please select Division Name
-              </div>
+<!--                  Please select Division Name
+ -->              </div>
             </div>
              <div class="col-md-7">
               <label for="validationCustom04" class="form-label" style="font-size: 17px" >Year</label>
               <select class="form-select" style="font-size: 17px" name="year" id="validationCustom04" required>
-                <option selected disabled value="<%=rs1.getInt(3) %>">Choose...</option>
+                <option selected disabled value="">Choose...</option>
                 <option style="font-size: 17px">First Year</option>
                 <option style="font-size: 17px">Second Year</option>
                 <option style="font-size: 17px">Third Year</option>
               </select>
               <div class="invalid-feedback" style="font-size: 17px">
-                 Please select Year.
-              </div>
+<!--                  Please select Year.
+ -->              </div>
             </div>
             <div class="col-md-6">
               <label for="validationCustom01" style="font-size: 17px" class="form-label">No of Practical Batches:</label>
              <select class="form-select" style="font-size: 17px" id="validationCustom04" name="pracbatches" required>
-                <option selected disabled value="<%=rs1.getInt(4) %>">Choose...</option>
+                <option selected disabled value="">Choose...</option>
                 <option style="font-size: 17px">1</option>
                 <option style="font-size: 17px">2</option>
                 <option style="font-size: 17px">3</option>
@@ -106,14 +106,14 @@ $(document).ready(function(){
                 Looks good!
               </div>
                <div class="invalid-feedback" style="font-size: 17px">
-                 Please select Number of Practical Batches.
-              </div>
+<!--                  Please select Number of Practical Batches.
+ -->              </div>
             </div>
             <div class="col-md-6">
               <label for="validationCustom01" style="font-size: 17px" class="form-label">No of Tutorial Batches:</label>
 <!--               <input type="text" class="form-control textfield" name="no_of_tuts" id="validationCustom01" style="font-size: 17px" value="" id="onlyNumbers" name="onlyNumbers" onkeypress="return isNumber(event)" onpaste="return false;" required>
  -->               <select class="form-select" style="font-size: 17px" id="validationCustom04" name="tutbatches" required>
-                <option selected disabled value="<%=rs1.getInt(5) %>">Choose...</option>
+                <option selected disabled value="">Choose...</option>
                 <option style="font-size: 17px">1</option>
                 <option style="font-size: 17px">2</option>
                 <option style="font-size: 17px">3</option>
@@ -123,8 +123,8 @@ $(document).ready(function(){
                 Looks good!
               </div>
                <div class="invalid-feedback" style="font-size: 17px">
-                 Please select Number of Tutorials Batches.
-              </div>
+<!--                  Please select Number of Tutorials Batches.
+ -->              </div>
             </div>
            
            
@@ -159,6 +159,7 @@ $(document).ready(function(){
 		}
 	
 		%>
+
 <script src="../js/form.js"></script>
 <script src="../js/sidenav.js"></script>
 </body>

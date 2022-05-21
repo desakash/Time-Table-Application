@@ -31,21 +31,46 @@
 $(document).ready(function(){
 	$("#exampleModal").modal('show');
 });
+
+
 </script>
+
+<title></title>
 </head>
 <body>
 
 <%@ include file="../ClassDetails.jsp" %> 
- <%
-	try{
-		int buildingId=Integer.parseInt(request.getParameter("buildingId"));
-		System.out.println(buildingId);
-		ClassDao cd=new ClassDao();
-		ResultSet rs=cd.getClassDetailsById(buildingId);
-/* 		ResultSet rs=bdao.getBuildingDetailsById(buildingId);
- */		if(rs.next())
-		{
-	%>
+ <script type="text/javascript">
+ 			var xmlHttp;
+ 			function showfloor(str)
+ 			{
+ 				console.log('hello'+str);
+ 				if(typeof XMLHttpRequest !=="undefined")
+ 				{
+ 					xmlHttp=new XMLHttpRequest();
+ 				}
+ 				else if (window.ActiveXObject)
+ 				{
+					xmlHttp=new ActiveXOjbject("Microsoft.XMLHTTP");
+				}
+ 				if(xmlHttp===null)
+ 				{
+ 					alert("Browser does not support XMLHTTP Request.");
+ 					return;
+ 				}
+ 				var url="ClassMasterDropdown?building="+str;
+ 				xmlHttp.onreadystatechange=stateChange;
+ 				xmlHttp.open("POST",url,true);
+ 				xmlHttp.send(null);
+ 			}
+ 			function stateChange()
+ 			{
+ 				if(xmlHttp.readyState===4 ||xmlHttp.readyState==='complete')
+ 				{
+ 					document.getElementById("floor").innerHTML=xmlHttp.responseText;
+ 				}
+ 			}
+ 		</script>
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -56,11 +81,10 @@ $(document).ready(function(){
         </button>
       </div>
       <div class="modal-body">
-         <h2 class="title" style="font-size: 30px">Class Details</h2>
-        <form action="ClassMasterController" method="post" class="row g-3 needs-validation" novalidate>
+        <form action="../EditClassController" method="post" class="row g-3 needs-validation" novalidate>
             <div class="col-md-7">
               <label for="validationCustom01" style="font-size: 17px" class="form-label">Class Name</label>
-              <input type="text" class="form-control" name="class_name" id="validationCustom01" value="<%=rs.getString(2)%>" style="font-size: 17px" required >
+              <input type="text" class="form-control" name="class_name" id="validationCustom01" value="" style="font-size: 17px;width: 200px;" required autocomplete="off" >
               <div class="valid-feedback" style="font-size: 17px">
                 Looks good!
               </div>
@@ -68,7 +92,7 @@ $(document).ready(function(){
             
             <div class="col-md-7">
               <label for="validationCustom04" class="form-label" style="font-size: 17px" >Type of Class</label>
-              <select class="form-select" style="font-size: 17px" id="validationCustom04" name="type" value="<%=rs.getString(3) %>" required>
+              <select class="form-select" style="font-size: 17px" id="validationCustom04" name="type" required>
                 <option selected disabled value="">Choose...</option>
                 <option style="font-size: 17px">Classroom</option>
                 <option style="font-size: 17px">Lab</option>
@@ -79,47 +103,35 @@ $(document).ready(function(){
                  Please select a Type of Class.
               </div>
             </div>
-<%             
-}
- %>
+
              <div class="col-md-6">
-              <%
-                                    
-                                    BuildingDao bdao=new BuildingDao();
-                                    ResultSet rs1=bdao.getBuildingNameById(rs.getInt(4));
-                                    if(rs1.next())
-                                    {
-                                   %>
-                                    	
               <label for="validationCustom04" class="form-label" style="font-size: 17px" >Building Name</label>
-              <select class="form-select" style="font-size: 17px" id="validationCustom04" onchange="showfloor(this.value)" value="<%=rs1.getString(4) %>" name="buildingName" required>
+              <select class="form-select" style="font-size: 17px" id="validationCustom04" onchange="showfloor(this.value)" name="buildingName" required>
                 <option selected disabled value="">Choose...</option>
-                 <%
-                	BuildingDao bdaoo=new BuildingDao();
-            		ResultSet rss=bdao.getBuildingName();
+                <%
+                	BuildingDao bdao=new BuildingDao();
+            		ResultSet rs=bdao.getBuildingName();
                 	while(rs.next())
                 	{
                 %>
-                	<option style="font-size: 17px"><%=rss.getString(1)%></option>
-                	<option style="font-size: 17px"><%=rss.getString(2) %></option>
-                <option style="font-size: 17px"><%=rss.getString(3) %></option>
-                <option style="font-size: 17px"><%=rss.getString(4) %></option>
+                	<option style="font-size: 17px"><%=rs.getString(1)%></option>
                 <% 
                 	}
                 	
-                %> 
+                %>
                 
+<!--                 <option style="font-size: 17px">Computer2</option>
+                <option style="font-size: 17px">Computer3</option>
+                <option style="font-size: 17px">Computer4</option> -->
               </select>
               <div class="invalid-feedback" style="font-size: 17px">
                  Please select a Building Name.
               </div>
             </div>
-           <%--  <% 
-            }
-                                    %> --%>
+            
             <div class="col-md-6">
               <label for="validationCustom04" class="form-label" style="font-size: 17px">Floor</label>
-              <select  class="form-select" style="font-size: 17px" id="floor" value="<%=rs.getInt(5) %>" name="floorNo" required>
+              <select  class="form-select" style="font-size: 17px" id="floor"  name="floorNo" required>
                 <option selected disabled value="">Choose...</option>
                  <!--<option style="font-size: 17px">1st</option>
                 <option style="font-size: 17px">2nd</option>
@@ -131,71 +143,15 @@ $(document).ready(function(){
               </div>
             </div>
             
-            
-            
-            
-           <!--  <div class="col-md-10">
-              <label for="validationCustom01" style="font-size: 17px" class="form-label">No of floors:</label>
-              <input type="text" class="form-control textfield" name="no_of_floors" id="validationCustom01" style="font-size: 17px" value="" id="onlyNumbers" name="onlyNumbers" onkeypress="return isNumber(event)" onpaste="return false;" required>
-              <div class="valid-feedback" style="font-size: 17px">
-                Looks good!
-              </div>
-            </div> -->
-           
-            <!-- <div class="col-md-12">
-              <label for="validationCustom01" style="font-size: 17px" class="form-label">Number of classrooms:</label>
-              <input type="text" class="form-control textfield" id="validationCustom01" value="" id="onlyNumbers" name="onlyNumbers" onkeypress="return isNumber(event)" onpaste="return false;" style="font-size: 17px" required>
-              <div class="valid-feedback" style="font-size: 17px">
-                Looks good!
-              </div>
-            </div>
-
-            <div class="col-md-12">
-              <label for="validationCustom01" class="form-label" style="font-size: 17px">No of labs:</label>
-              <input type="text" class="form-control textfield" id="validationCustom01" value="" id="onlyNumbers" name="onlyNumbers" onkeypress="return isNumber(event)" onpaste="return false;" style="font-size: 17px" required>
-              <div class="valid-feedback" style="font-size: 17px">
-                Looks good!
-              </div>
-            </div>
-
-            <div class="col-md-6">
-              <label for="validationCustom04" class="form-label" style="font-size: 17px" >Course</label>
-              <select class="form-select" style="font-size: 17px" id="validationCustom04" required>
-                <option selected disabled value="">Choose...</option>
-                <option style="font-size: 17px">Web Devlopment</option>
-                <option style="font-size: 17px">DataBase</option>
-                <option style="font-size: 17px">Java</option>
-              </select>
-              <div class="invalid-feedback" style="font-size: 17px">
-                 Please select a Course.
-              </div>
-            </div>
-           
-            <div class="col-12">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="invalidCheck" style="font-size: 17px" required>
-                <label class="form-check-label" style="font-size: 17px" for="invalidCheck">
-                  Agree to terms and conditions
-                </label>
-                <div class="invalid-feedback" style="font-size: 17px">
-                  You must agree before submitting.
-                </div>
-              </div>
-            </div> -->
-            <div class="col-12">
-              <button class="btn btn-success" type="submit" style="font-size: 17px"; text-align:"center";> <i class="fas fa-plus"></i> Add Class</button>
-            </div>
-          </form>
+      <div class="modal-footer">
+        <a href="../ClassDetails.jsp"> <button type="button" class="btn btn-secondary" style="font-size: 17px" data-dismiss="close">Close</button></a>
+        <button type="submit" class="btn btn-primary" style="font-size: 17px">Save changes</button>
+      </div>
+      </form>
       </div>
     </div>
   </div>
 </div>
-<%
-	}
-	}catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-%>
+
 </body>
 </html>

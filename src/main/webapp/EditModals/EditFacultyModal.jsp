@@ -38,17 +38,17 @@ $(document).ready(function(){
 		
 		int facultyId=Integer.parseInt(request.getParameter("facultyId"));
 		FacultyDao fd=new FacultyDao();
+		ResultSet rs=fd.getFacultyDetails();
 		
-	}catch(Exception e)
-{
+		if(rs.next())
+		{
+		%>	
 		
-}
-%>
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" style="font-size: 27px" id="exampleModalLabel">Update Building Details</h5>
+        <h5 class="modal-title" style="font-size: 27px" id="exampleModalLabel">Update Faculty</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -58,14 +58,15 @@ $(document).ready(function(){
          
             <div class="col-md-6">
               <label for="validationCustom01" style="font-size: 17px" class="form-label">Faculty Name</label>
-              <input type="text" class="form-control" name="faculty_name" id="validationCustom01" value="" style="font-size: 17px" required >
+              <input type="text" class="form-control"  name="faculty_name" id="validationCustom01" size="50" value="<%=rs.getString(2) %>" style="font-size: 17px" required >
+              <input type="hidden" class="form-control" name="faculty_id" id="validationCustom01" value="<%=facultyId%>" style="font-size: 17px" required>
               <div class="valid-feedback" style="font-size: 17px">
                 Looks good!
               </div>
             </div>
             <div class="col-md-6">
               <label for="validationCustom01" style="font-size: 17px" class="form-label">Faculty Abbreviation</label>
-              <input type="text" class="form-control" name="faculty_abbr" id="validationCustom01" value="" style="font-size: 17px" required >
+              <input type="text" class="form-control" name="faculty_abbr" id="validationCustom01" value="<%=rs.getString(3) %>" style="font-size: 17px" required >
               <div class="valid-feedback" style="font-size: 17px">
                 Looks good!
               </div>
@@ -73,7 +74,7 @@ $(document).ready(function(){
             
             <div class="col-md-6">
               <label for="validationCustom01" style="font-size: 17px" class="form-label">Faculty Email</label>
-              <input type="email" class="form-control" name="faculty_email" id="validationCustom01" value="" style="font-size: 17px" required >
+              <input type="email" class="form-control" name="faculty_email" id="validationCustom01" value="<%=rs.getString(4) %>" style="font-size: 17px" required >
               <div class="valid-feedback" style="font-size: 17px">
                 Looks good!
               </div>
@@ -89,9 +90,9 @@ $(document).ready(function(){
                 
  -->              </select>
 <!--               <input type="text" class="form-control" name="faculty_abbr" id="validationCustom01" value="" style="font-size: 17px" required >
- -->              <div class="valid-feedback" style="font-size: 17px">
+ -->              <!-- <div class="valid-feedback" style="font-size: 17px">
                 Looks good!
-              </div>
+              </div> -->
             </div>
              <div class="col-md-6">
               <label for="validationCustom01" style="font-size: 17px" class="form-label">Faculty Type</label>
@@ -99,24 +100,33 @@ $(document).ready(function(){
                 <option selected disabled value="">Choose...</option>
                 <option style="font-size: 17px">Regular</option>
                 <option style="font-size: 17px">Visiting</option>
- -->              </select>
-<!--               <input type="text" class="form-control" name="faculty_abbr" id="validationCustom01" value="" style="font-size: 17px" required >
+              </select>
+<!--             <!--   <input type="text" class="form-control" name="faculty_abbr" id="validationCustom01" value="" style="font-size: 17px" required >
  -->              <div class="valid-feedback" style="font-size: 17px">
                 Looks good!
-              </div>
+              </div> 
             </div>
 
-          </form>
 
       <div class="modal-footer">
         <a href="../FacultyDetails.jsp"> <button type="button" class="btn btn-secondary" style="font-size: 17px" data-dismiss="close">Close</button></a>
         <button type="submit" class="btn btn-primary" style="font-size: 17px">Save changes</button>
       </div>
-      </form>
+                </form>
+      
       </div>
     </div>
   </div>
 </div>
-      
+<% 
+}
+		
+	}catch(Exception e)
+{
+		
+}
+%>
+   <script src="../js/form.js"></script>
+<script src="../js/sidenav.js"></script>   
 </body>
 </html>

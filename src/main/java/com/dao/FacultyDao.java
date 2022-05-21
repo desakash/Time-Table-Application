@@ -73,5 +73,27 @@ public class FacultyDao {
 		}
 		return i;
 	}
+	
+	public int update_faculty(String faculty_name,String faculty_abbr,String faculty_email,String faculty_designation,String faculty_type, int faculty_id)
+	{
+		con=DbConnection.getConnection();
+		
+		try {
+			pstate=con.prepareStatement("update faculty_master set faculty_name=?,faculty_abbreviation=?,faculty_email=?,faculty_designation=?,faculty_type=? where faculty_id=?");
+			pstate.setString(1, faculty_name);
+			pstate.setString(2, faculty_abbr);
+			pstate.setString(3, faculty_email);
+			pstate.setString(4, faculty_designation);
+			pstate.setString(5, faculty_type);
+			pstate.setInt(6, faculty_id);
+			i=pstate.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return i;
+	}
 
 }

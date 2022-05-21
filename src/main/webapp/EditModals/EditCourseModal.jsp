@@ -30,7 +30,10 @@
 $(document).ready(function(){
 	$("#exampleModal").modal('show');
 });
+
+
 </script>
+
 <title></title>
 </head>
 <body>
@@ -47,7 +50,7 @@ $(document).ready(function(){
 		
 %> 
 		
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
     
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -69,7 +72,7 @@ $(document).ready(function(){
         <form action="../EditCourseController" method="post" class="row g-3 needs-validation" novalidate>
             <div class="col-md-6">
               <label for="validationCustom01" style="font-size: 17px" class="form-label">Course Code</label>
-              <input type="text" class="form-control" name="course_code" id="validationCustom01" value="<%=rs.getString(1) %>" style="font-size: 17px" required >
+              <input type="text" class="form-control" name="course_code" id="validationCustom01" value="<%=rs.getString(1) %>" style="font-size: 17px;width: 200px;" required >
               <input type="hidden" class="form-control" name="courseId" id="validationCustom01" value="<%=rs.getString(1)%>" style="font-size: 17px" required >
               
               
@@ -79,14 +82,14 @@ $(document).ready(function(){
             </div>
             <div class="col-md-6">
               <label for="validationCustom01" style="font-size: 17px" class="form-label">Course Name</label>
-              <input type="text" class="form-control" name="course_name" id="validationCustom01" value="<%=rs.getString(2) %>" style="font-size: 17px" required >
+              <input type="text" class="form-control" name="course_name" id="validationCustom01" value="<%=rs.getString(2) %>" style="font-size: 17px;width: 200px;" required >
               <div class="valid-feedback" style="font-size: 17px">
                 Looks good!
               </div>
             </div>
             <div class="col-md-6">
               <label for="validationCustom01" style="font-size: 17px" class="form-label">Course Abbreviation</label>
-              <input type="text" class="form-control" name="course_abbr" id="validationCustom01" value="<%=rs.getString(3) %>" style="font-size: 17px" required >
+              <input type="text" class="form-control" name="course_abbr" id="validationCustom01" value="<%=rs.getString(3) %>" style="font-size: 17px;width: 200px;" required >
               <div class="valid-feedback" style="font-size: 17px">
                 Looks good!
               </div>
@@ -94,7 +97,7 @@ $(document).ready(function(){
 			<div class="col-md-6">
               <label for="validationCustom04" class="form-label" style="font-size: 17px" >Year</label>
               <select class="form-select" style="font-size: 17px" id="validationCustom04" name="year" required>
-                <option selected disabled value="<%=rs.getInt(4) %>">Choose...</option>
+                <option selected disabled value="">Choose...</option>
                 <option style="font-size: 17px">First Year</option>
                 <option style="font-size: 17px">Second Year</option>
                 <option style="font-size: 17px">Third Year</option>
@@ -105,14 +108,14 @@ $(document).ready(function(){
             </div>
             <div class="col-md-6">
               <label for="validationCustom01" style="font-size: 17px" class="form-label">No.of Theory</label>
-              <input type="text" class="form-control textfield" name="no_of_theory" id="validationCustom01" style="font-size: 17px" value="<%=rs.getInt(5) %>" id="onlyNumbers" name="onlyNumbers" onkeypress="return isNumber(event)" onpaste="return false;" required>
+              <input type="text" class="form-control textfield" name="no_of_theory" id="validationCustom01" style="font-size: 17px;width: 200px;" value="<%=rs.getInt(5) %>" id="onlyNumbers" name="onlyNumbers" onkeypress="return isNumber(event)" onpaste="return false;" required>
               <div class="valid-feedback" style="font-size: 17px">
                 Looks good!
               </div>
             </div>
             <div class="col-md-6">
               <label for="validationCustom01" style="font-size: 17px" class="form-label">No.of Practicals</label>
-              <input type="text" class="form-control textfield" name="no_of_pract" id="validationCustom01" style="font-size: 17px" value="<%=rs.getInt(6) %>" id="onlyNumbers" name="onlyNumbers" onkeypress="return isNumber(event)" onpaste="return false;" required>
+              <input type="text" class="form-control textfield" name="no_of_pract" id="validationCustom01" style="font-size: 17px;width: 200px;" value="<%=rs.getInt(6) %>" id="onlyNumbers" name="onlyNumbers" onkeypress="return isNumber(event)" onpaste="return false;" required>
               <div class="valid-feedback" style="font-size: 17px">
                 Looks good!
               </div>
@@ -120,7 +123,7 @@ $(document).ready(function(){
             
             <div class="col-md-6">
               <label for="validationCustom01" style="font-size: 17px" class="form-label">No.of Tutorials</label>
-              <input type="text" class="form-control textfield" name="no_of_tuts" id="validationCustom01" style="font-size: 17px" value="<%=rs.getInt(7) %> " id="onlyNumbers" name="onlyNumbers" onkeypress="return isNumber(event)" onpaste="return false;" required>
+              <input type="text" class="form-control textfield" name="no_of_tuts" id="validationCustom01" style="font-size: 17px;width: 200px;" value="<%=rs.getInt(7) %> " id="onlyNumbers" name="onlyNumbers" onkeypress="return isNumber(event)" onpaste="return false;" required>
               <div class="valid-feedback" style="font-size: 17px">
                 Looks good!
               </div>
@@ -132,8 +135,8 @@ $(document).ready(function(){
               <button class="btn btn-success" type="submit" style="font-size: 17px"; text-align:"center";> <i class="fas fa-plus"></i> Add Division</button>
             </div> -->
                        <div class="modal-footer">
-        <a href="../CourseDetails.jsp"> <button type="button" class="btn btn-secondary" style="font-size: 17px" data-dismiss="close">Close</button></a>
-       <button type="submit" class="btn btn-primary" style="font-size: 17px">Save changes</button>
+        <a href="../CourseDetails.jsp"> <button type="button" class="btn btn-secondary" style="font-size: 17px" data-dismiss="close" data-backdrop="static" data-keyboard="false">Close</button></a>
+       <button type="submit" class="btn btn-primary" style="font-size: 17px" data-backdrop="static" data-keyboard="false">Save changes</button>
       </div>
     </form>
       

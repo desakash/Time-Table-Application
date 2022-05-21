@@ -26,14 +26,16 @@
 </head>
 <body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
  
- 		<%@ include file="html/sidenav.html" %> 
+<%@ include file="html/sidenav.html" %> 
 
 <% 
 if(!session.isNew())
 {
 	String delete_msg=(String)session.getAttribute("success-msg");
+	String update_msg=(String)session.getAttribute("update-msg");
 	if(delete_msg=="true")
 	{
+		
 		%>
 		<script type="text/javascript">
 		Swal.fire({
@@ -46,8 +48,24 @@ if(!session.isNew())
 	</script>
 		<% 
 	}
+	if(update_msg=="true")
+	{
+		%>
+		<script type="text/javascript">
+		Swal.fire({
+			//  position: 'top-end',
+			icon : 'success',
+			title : 'Faculty updated Successfully',
+			showConfirmButton : false,
+			timer : 1500,
+		})
+	</script>
+		<% 
+	}
 }
 session.removeAttribute("success-msg");
+session.removeAttribute("update-msg");
+
 %>
 
     <div class="container" style="margin-top: 150px;margin-left: 200px;">

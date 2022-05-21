@@ -47,6 +47,19 @@ public class DivisionDao {
 		}
 		return rs;
 	}
+	public ResultSet getDivisionDetailsById(int divId)
+	{
+		con=DbConnection.getConnection();
+		try {
+			pstate=con.prepareStatement("select *from division_master where division_id=?");
+			pstate.setInt(1, divId);
+		    rs=pstate.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
 	
 	public ResultSet getDivisionNames()
 	{
@@ -60,6 +73,42 @@ public class DivisionDao {
 			e.printStackTrace();
 		}
 		return rs;
+	}
+	
+	public int updateDivision(String divisionName,int yearInt,int pracbatches,int tutbatches,int divisionId)
+	{
+		con=DbConnection.getConnection();
+		
+		try {
+			pstate=con.prepareStatement("update division_master set division_name=?,year=?,no_of_pract_batches=?,no_of_tut_batches=? where division_id=?");
+			pstate.setString(1, divisionName);
+			pstate.setInt(2, yearInt);
+			pstate.setInt(3, pracbatches);
+			pstate.setInt(4, tutbatches);
+			pstate.setInt(5, divisionId);
+			
+			i=pstate.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return i;
+	}
+	
+	public int deleteDivision(int divisionId)
+	{
+		con=DbConnection.getConnection();
+		try {
+			pstate=con.prepareStatement("delete from division_master where division_id=?");
+			pstate.setInt(1, divisionId);
+			
+			i=pstate.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return i;
 	}
 
 }

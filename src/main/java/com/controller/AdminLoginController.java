@@ -29,6 +29,7 @@ public class AdminLoginController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		HttpSession session=request.getSession();
+		
 		String uname=request.getParameter("uname");
 		String pass=request.getParameter("pass");
 		if(uname.equals("admin")&&(pass.equals("admin")))

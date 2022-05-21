@@ -100,6 +100,59 @@ public class BuildingDao {
 		}
 		return rs;
 	}
-
 	
+	
+	
+	public ResultSet getBuildingDetailsById(int buildingId)
+	{
+		con=DbConnection.getConnection();
+		try {
+			pstate=con.prepareStatement("select *from building_master where building_id=?");
+			pstate.setInt(1, buildingId);
+			rs=pstate.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
+
+	public int buldingUpdate(String buildingName,int buildingFloor,int buildingId)
+	{
+		con=DbConnection.getConnection();
+		
+		try {
+			
+			pstate=con.prepareStatement("update building_master set building_name=? ,building_floors=? where building_id=? ");
+			pstate.setString(1, buildingName);
+			pstate.setInt(2, buildingFloor);
+			pstate.setInt(3, buildingId);
+			
+			i=pstate.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return i;
+		
+	}
+	
+	public int buildingDelete(int buildingId)
+	{
+		con=DbConnection.getConnection();
+		try {
+			pstate=con.prepareStatement("delete from class_master where building_id=?");
+			pstate.setInt(1, buildingId);
+			i=pstate.executeUpdate();
+
+			pstate=con.prepareStatement("delete from building_master where building_id=?");
+			pstate.setInt(1, buildingId);
+			
+			i=pstate.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return i;
+	}
 }

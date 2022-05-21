@@ -48,5 +48,32 @@ public class ClassDao {
 		return rs;
 	}
 
-
+	public ResultSet getClassDetailsById(int buildingId)
+	{
+		con=DbConnection.getConnection();
+		try {
+			pstate=con.prepareStatement("select *from class_master where building_id=?");
+			pstate.setInt(1, buildingId);
+			rs=pstate.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
+	public int deleteClass(int classId)
+	{
+		con=DbConnection.getConnection();
+		try {
+			pstate=con.prepareStatement("delete from class_master where class_id=?");
+			pstate.setInt(1,classId);
+			
+			i=pstate.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return i;
+	}
 }

@@ -176,8 +176,8 @@ function manage(pwd) {
   <%
 		}
 	}
-	/* session.invalidate(); */
-	session.removeAttribute("succes");
+/* 	session.invalidate();
+ */	session.removeAttribute("building-success");
   %>
         
         <h2 class="title" style="font-size: 30px">Building Details</h2>
@@ -207,6 +207,9 @@ function manage(pwd) {
         </div>
         </div>
         </div>
+        
+        
+
         
 <script src="js/form.js"></script>        
  </body>

@@ -62,8 +62,9 @@
    							</script>	
 				<%
 						}
-                		}
-                		session.invalidate();
+                	}
+/*                 		session.invalidate();
+ */                		session.removeAttribute("error_msg");
                 		
 				%> 
           <form action="AdminLoginController" method="post" class="row g-3 needs-validation" style="margin-top: 30px;" novalidate>

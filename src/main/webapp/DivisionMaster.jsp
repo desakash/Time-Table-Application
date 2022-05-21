@@ -152,7 +152,7 @@ function manage(pwd) {
 		}
 	}
 	/* session.invalidate(); */
-	session.removeAttribute("success");
+	session.removeAttribute("division-success");
   %>
   
         <h2 class="title" style="font-size: 30px">Division Details</h2>

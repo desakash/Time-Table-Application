@@ -59,5 +59,19 @@ public class FacultyDao {
 		}
 		return rs;
 	}
+	
+	public int deleteFaculty(int facultyId)
+	{
+		con=DbConnection.getConnection();
+		try {
+			pstate=con.prepareStatement("delete from faculty_master where faculty_id=?");
+			pstate.setInt(1, facultyId);
+			i=pstate.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return i;
+	}
 
 }

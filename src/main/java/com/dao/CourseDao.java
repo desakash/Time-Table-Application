@@ -75,4 +75,57 @@ public class CourseDao {
 		}
 		return rs;
 	}
+	
+	public ResultSet getCourseDetailsById(String courseId)
+	{
+		con=DbConnection.getConnection();
+		try {
+			pstate=con.prepareStatement("select * from course_master where course_code=?");
+			pstate.setString(1, courseId);
+			rs=pstate.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
+	
+	public int deleteCourse(String courseCode)
+	{
+		con=DbConnection.getConnection();
+		try {
+			pstate=con.prepareStatement("delete from course_master where course_code=?");
+			
+			pstate.setString(1, courseCode);
+			
+			i=pstate.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return i;
+	}
+	
+	public int updateCourse(String courseCode,String courseName,String courseAbbr,int yearInt,int noOfTheory,int noOfPractical,int noOfTutorials,String courseId)
+	{
+		con=DbConnection.getConnection();
+		try {
+			pstate=con.prepareStatement("update course_master set course_code=? ,course_name=?, course_abbreviation=?,year=? ,no_of_theory=?, no_of_practicals=?, no_of_tutorials=? where course_code=?");
+			pstate.setString(1, courseCode);
+			pstate.setString(2, courseName);
+			pstate.setString(3, courseAbbr);
+			pstate.setInt(4, yearInt);
+			pstate.setInt(5, noOfTheory);
+			pstate.setInt(6, noOfPractical);
+			pstate.setInt(7,noOfTutorials);
+			pstate.setString(8, courseId);
+			
+			i=pstate.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return i;
+	}
 }

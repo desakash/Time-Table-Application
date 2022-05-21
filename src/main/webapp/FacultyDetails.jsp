@@ -18,10 +18,37 @@
     <script src="https://use.fontawesome.com/6867b8e1d6.js"></script>
     <link rel="stylesheet" href="css/table.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    
+    <script src="sweetalert2.all.min.js"></script>
+<script src="sweetalert2.min.js"></script>
+<link rel="stylesheet" href="sweetalert2.min.css">
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
  
  		<%@ include file="html/sidenav.html" %> 
+
+<% 
+if(!session.isNew())
+{
+	String delete_msg=(String)session.getAttribute("success-msg");
+	if(delete_msg=="true")
+	{
+		%>
+		<script type="text/javascript">
+		Swal.fire({
+			//  position: 'top-end',
+			icon : 'success',
+			title : 'Faculty Deleted Successfully',
+			showConfirmButton : false,
+			timer : 1500,
+		})
+	</script>
+		<% 
+	}
+}
+session.removeAttribute("success-msg");
+%>
 
     <div class="container" style="margin-top: 150px;margin-left: 200px;">
         <div class="row">
@@ -74,10 +101,10 @@
                                     
                                     <td>
                                         <ul class="action-list">
-                                            <button type="button" class="btn btn-success " style="font-size: 15px"><i class="fa fa-edit">  </i> Edit</button>&nbsp 
+                                           <a href="EditModals/EditFacultyModal.jsp?facultyId=<%=rs.getInt(1)%>"> <button type="button" class="btn btn-success " style="font-size: 15px"><i class="fa fa-edit">  </i> Edit</button>&nbsp</a> 
 
                                             <!-- <li><a href="#" data-tip="edit"><i class="fa fa-edit"></i></a></li> -->
-                                            <button type="button" class="btn btn-danger "  style="font-size: 15px"><i class="fa fa-trash"> </i> Delete</button>&nbsp
+                                         <a href="DeleteFacultyController?facultyId=<%=rs.getInt(1) %>">   <button type="button" class="btn btn-danger "  style="font-size: 15px"><i class="fa fa-trash"> </i> Delete</button>&nbsp</a>
                                             <button type="button" class="btn btn-warning "  style="font-size: 15px"><i class="fa fa-eye"> </i> Courses</button>
 
                                             <!-- <li><a href="#" data-tip="delete"><i class="fa fa-trash"></i></a></li> -->

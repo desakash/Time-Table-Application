@@ -22,11 +22,67 @@
     <script src="https://use.fontawesome.com/6867b8e1d6.js"></script>
     <link rel="stylesheet" href="css/table.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-       
+    <script src="sweetalert2.all.min.js"></script>
+<script src="sweetalert2.min.js"></script>
+<link rel="stylesheet" href="sweetalert2.min.css">
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <script>
+function call()
+{
+$(document).ready(function(){
+	$("#exampleModal").modal('show');
+});
+}
+</script> 
 </head>
   <body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
  
  		<%@ include file="html/sidenav.html" %>  
+
+
+<%
+	if(!session.isNew())
+	{
+		String delete_msg=(String)session.getAttribute("success-msg");
+		String success_msg=(String)session.getAttribute("update-msg");
+		
+		if(delete_msg=="true")
+		{
+			%>
+			<script type="text/javascript">
+		Swal.fire({
+			//  position: 'top-end',
+			icon : 'success',
+			title : 'Division Deleted Successfully',
+			showConfirmButton : false,
+			timer : 1500,
+		})
+	</script>
+	<%
+		}
+		
+		if(success_msg=="true")
+		{
+		%>	
+			<script type="text/javascript">
+			Swal.fire({
+				//  position: 'top-end',
+				icon : 'success',
+				title : 'Division Updated Successfully',
+				showConfirmButton : false,
+				timer : 1500,
+			})
+		</script>
+		<%
+		}
+	}
+session.removeAttribute("success-msg");
+session.removeAttribute("update-msg");
+
+
+
+
+%>
 
     <div class="container" style="margin-top: 150px;margin-left: 200px;">
         <div class="row">
@@ -62,8 +118,9 @@
                             <ol id="list">
                             <tbody>
                             <%
+                            ResultSet rs=null;
                             DivisionDao ddao=new DivisionDao();
-                            ResultSet rs=ddao.getDivisionDetails();
+                             rs=ddao.getDivisionDetails();
                             int cnt=1;
                             while(rs.next())
                             {
@@ -78,10 +135,10 @@
                                     <td>&nbsp&nbsp&nbsp&nbsp<%=rs.getInt(5) %></td> 
                                     <td>
                                         <ul class="action-list">
-                                            <button type="button" class="btn btn-success " style="font-size: 15px"><i class="fa fa-edit">  </i> Edit</button>&nbsp &nbsp &nbsp
+                                           <a href="EditModals/EditDivisionModel.jsp?divisionId=<%=rs.getInt(1)%>"> <button type="button"  class="btn btn-success " style="font-size: 15px"><i class="fa fa-edit">  </i> Edit</button>&nbsp &nbsp &nbsp</a>
 
                                             <!-- <li><a href="#" data-tip="edit"><i class="fa fa-edit"></i></a></li> -->
-                                            <button type="button" class="btn btn-danger "  style="font-size: 15px"><i class="fa fa-trash"> </i> Delete</button>
+                                          <a href="DeleteDivisionController?divisionId=<%=rs.getInt(1)%>"> <button type="button" class="btn btn-danger "  style="font-size: 15px"><i class="fa fa-trash"> </i> Delete</button></a>
 
                                             <!-- <li><a href="#" data-tip="delete"><i class="fa fa-trash"></i></a></li> -->
                                         </ul>
@@ -104,7 +161,122 @@
                 </div>
             </div>
         </div>
+<!--     </div>
+ -->    
+    
+    	
+    <%-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" style="font-size: 27px" id="exampleModalLabel">Update Division Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
+        <div class="wrapper wrapper--w680">
+        <div class="card card-4">
+        <div class="card-body">
+        
+      
+<!--         <h2 class="title" style="font-size: 30px">Division Details</h2>
+ -->        <form action="EditDivisionController" method="post" class="row g-3 needs-validation" novalidate>
+            <div class="col-md-7">
+              <label for="validationCustom01" style="font-size: 17px" class="form-label">Division Name</label>
+                <%
+/*         int divisionId=Integer.parseInt(request.getParameter("divisionId"));
+ */    	ResultSet rs1=ddao.getDivisionDetails();
+    if(rs1.next())
+    {
+    %>	
+  
+              <input type="text" class="form-control" name="division_name" id="validationCustom01" value="<%=rs1.getString(2) %>" style="font-size: 17px" required >
+              <div class="valid-feedback" style="font-size: 17px">
+                Looks good!
+              </div>
+               <div class="invalid-feedback" style="font-size: 17px">
+                 Please select Division Name
+              </div>
+            </div>
+             <div class="col-md-7">
+              <label for="validationCustom04" class="form-label" style="font-size: 17px" >Year</label>
+              <select class="form-select" style="font-size: 17px" name="year" id="validationCustom04" required>
+                <option selected disabled value="<%=rs1.getInt(3)%>">Choose...</option>
+                <option style="font-size: 17px">First Year</option>
+                <option style="font-size: 17px">Second Year</option>
+                <option style="font-size: 17px">Third Year</option>
+              </select>
+              <div class="invalid-feedback" style="font-size: 17px">
+                 Please select Year.
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label for="validationCustom01" style="font-size: 17px" class="form-label">No of Practical Batches:</label>
+             <select class="form-select" style="font-size: 17px" id="validationCustom04" name="pracbatches" required>
+                <option selected disabled value="<%=rs1.getInt(4)%>">Choose...</option>
+                <option style="font-size: 17px">1</option>
+                <option style="font-size: 17px">2</option>
+                <option style="font-size: 17px">3</option>
+<!--                 <option style="font-size: 17px">Drawing Hall</option>
+ -->              </select>
+<!--               <input type="text" class="form-control textfield" name="no_of_pract" id="validationCustom01" style="font-size: 17px" value="" id="onlyNumbers" name="onlyNumbers" onkeypress="return isNumber(event)" onpaste="return false;" required>
+ -->              <div class="valid-feedback" style="font-size: 17px">
+                Looks good!
+              </div>
+               <div class="invalid-feedback" style="font-size: 17px">
+                 Please select Number of Practical Batches.
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label for="validationCustom01" style="font-size: 17px" class="form-label">No of Tutorial Batches:</label>
+<!--               <input type="text" class="form-control textfield" name="no_of_tuts" id="validationCustom01" style="font-size: 17px" value="" id="onlyNumbers" name="onlyNumbers" onkeypress="return isNumber(event)" onpaste="return false;" required>
+ -->               <select class="form-select" style="font-size: 17px" id="validationCustom04" name="tutbatches" required>
+                <option selected disabled value=" <%=rs1.getInt(5)%>">Choose...</option>
+                <option style="font-size: 17px">1</option>
+                <option style="font-size: 17px">2</option>
+                <option style="font-size: 17px">3</option>
+<!--                 <option style="font-size: 17px">Drawing Hall</option>
+ -->              </select>
+              <div class="valid-feedback" style="font-size: 17px">
+                Looks good!
+              </div>
+               <div class="invalid-feedback" style="font-size: 17px">
+                 Please select Number of Tutorials Batches.
+              </div>
+            </div>
+           
+           
+            <!-- <div class="col-12">
+              <button class="btn btn-success" type="submit" style="font-size: 17px"; text-align:"center";> <i class="fas fa-plus"></i> Add Division</button>
+            </div> -->
+                       </form>
+       
+        </div>
+        
+        </div>
+        </div>
+        </div>
+        
+
+      <div class="modal-footer">
+        <a href="DivisionDetails.jsp"> <button type="button" class="btn btn-secondary" style="font-size: 17px" data-dismiss="close">Close</button></a>
+       <a href="DeleteDivisionController" ><button type="submit" class="btn btn-primary" style="font-size: 17px">Save changes</button></a>
+      </div>
+      
+      </div>
     </div>
+  </div>
+</div>
+
+<%
+}
+    
+    %> --%>
+    
+    
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->

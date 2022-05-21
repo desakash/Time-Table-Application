@@ -159,7 +159,7 @@ function manage(pwd) {
         <form action="DivisionMasterController" method="post" class="row g-3 needs-validation" novalidate>
             <div class="col-md-7">
               <label for="validationCustom01" style="font-size: 17px" class="form-label">Division Name</label>
-              <input type="text" class="form-control" name="division_name" id="validationCustom01" value="" style="font-size: 17px" required >
+              <input type="text" class="form-control" name="division_name" id="validationCustom01" value="" style="font-size: 17px" autocomplete="off" required >
               <div class="valid-feedback" style="font-size: 17px">
                 Looks good!
               </div>

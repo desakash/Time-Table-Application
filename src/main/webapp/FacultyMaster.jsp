@@ -194,14 +194,14 @@ function manage(pwd) {
          
             <div class="col-md-6">
               <label for="validationCustom01" style="font-size: 17px" class="form-label">Faculty Name</label>
-              <input type="text" class="form-control" name="faculty_name" id="validationCustom01" value="" style="font-size: 17px" required >
+              <input type="text" class="form-control" name="faculty_name" id="validationCustom01" autocomplete="off" value="" style="font-size: 17px" required >
               <div class="valid-feedback" style="font-size: 17px">
                 Looks good!
               </div>
             </div>
             <div class="col-md-6">
               <label for="validationCustom01" style="font-size: 17px" class="form-label">Faculty Abbreviation</label>
-              <input type="text" class="form-control" name="faculty_abbr" id="validationCustom01" value="" style="font-size: 17px" required >
+              <input type="text" class="form-control" name="faculty_abbr" id="validationCustom01" value="" style="font-size: 17px" autocomplete="off" autocapitalize="sentences" required >
               <div class="valid-feedback" style="font-size: 17px">
                 Looks good!
               </div>
@@ -209,7 +209,7 @@ function manage(pwd) {
             
             <div class="col-md-6">
               <label for="validationCustom01" style="font-size: 17px" class="form-label">Faculty Email</label>
-              <input type="email" class="form-control" name="faculty_email" id="validationCustom01" value="" style="font-size: 17px" required >
+              <input type="email" class="form-control" name="faculty_email" id="validationCustom01" value="" autocomplete="off" style="font-size: 17px" required >
               <div class="valid-feedback" style="font-size: 17px">
                 Looks good!
               </div>

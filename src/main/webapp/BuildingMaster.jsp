@@ -184,14 +184,14 @@ function manage(pwd) {
         <form action="BuildingMasterController" method="post" class="row g-3 needs-validation" novalidate>
             <div class="col-md-7">
               <label for="validationCustom01" style="font-size: 17px" class="form-label">Building Name</label>
-              <input type="text" class="form-control" name="building_name" id="validationCustom01" value="" style="font-size: 17px" required >
+              <input type="text" class="form-control" name="building_name" id="validationCustom01" value="" style="font-size: 17px" required autocomplete="off">
               <div class="valid-feedback" style="font-size: 17px">
                 Looks good!
               </div>
             </div>
             <div class="col-md-10">
               <label for="validationCustom01" style="font-size: 17px" class="form-label">No of floors:</label>
-              <input type="text" class="form-control textfield" name="no_of_floors" id="validationCustom01" style="font-size: 17px" value="" id="onlyNumbers" name="onlyNumbers" onkeypress="return isNumber(event)" onpaste="return false;" required>
+              <input type="text" class="form-control textfield" name="no_of_floors" id="validationCustom01" style="font-size: 17px" value="" id="onlyNumbers" autocomplete="off" name="onlyNumbers" onkeypress="return isNumber(event)" onpaste="return false;" required>
               <div class="valid-feedback" style="font-size: 17px">
                 Looks good!
               </div>

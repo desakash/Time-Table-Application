@@ -1,3 +1,4 @@
+<%@page import="com.dao.SlotDao"%>
 <%@page import="com.dao.DivisionDao"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="com.dao.BuildingDao"%>
@@ -7,7 +8,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Division Details - GPP</title>
+<title>Slot Details - GPP</title>
 <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -35,7 +36,7 @@
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col col-md-6 col-xs-12">
-                                <h4 class="title">Division Details </h4>
+                                <h4 class="title">Slot Details </h4>
                             </div>
                             <div class="col-md-6 col-xs-12 text-right">
                                 <div class="btn_group">
@@ -52,30 +53,28 @@
                             <thead>
                                 
                                     <th>Sr.No</th>
-                                    <th>Name</th>
-                                    <th>Year</th>
-                                    <th>Practical<br>Batches</th>
-                                    <th>Tutorial<br>Batches</th>
+                                    <th>Day</th>
+                                    <th>From Time</th>
+                                    <th>To Time</th>
                                     <th>Action</th>
                                     
                             </thead>
                             <ol id="list">
                             <tbody>
                             <%
-                            DivisionDao ddao=new DivisionDao();
-                            ResultSet rs=ddao.getDivisionDetails();
+                            int flag=0;
+                            SlotDao sdao=new SlotDao();
+                            ResultSet rs=sdao.getAllSlots();
                             int cnt=1;
                             while(rs.next())
                             {
-                            
+                            	
                             %>
                                 <tr>
                                     <td><%=cnt %></td>
-                                    <%-- <td><%=rs.getInt(1) %></td> --%>
+                                    <td><%=rs.getString(1) %></td>
                                     <td><%=rs.getString(2) %></td>
-                                    <td><%=rs.getInt(3) %></td>
-                                    <td>&nbsp&nbsp&nbsp&nbsp<%=rs.getInt(4) %></td>
-                                    <td>&nbsp&nbsp&nbsp&nbsp<%=rs.getInt(5) %></td> 
+                                    <td><%=rs.getString(3) %></td>
                                     <td>
                                         <ul class="action-list">
                                             <button type="button" class="btn btn-success " style="font-size: 15px"><i class="fa fa-edit">  </i> Edit</button>&nbsp &nbsp &nbsp
@@ -90,6 +89,7 @@
                               <%
                               		cnt++;
                             	}
+                            
                               %>
                             </tbody>
                         </ol>

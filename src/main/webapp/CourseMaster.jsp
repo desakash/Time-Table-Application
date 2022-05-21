@@ -184,21 +184,21 @@ function manage(pwd) {
         <form action="CourseMasterController" method="post" class="row g-3 needs-validation" novalidate>
             <div class="col-md-6">
               <label for="validationCustom01" style="font-size: 17px" class="form-label">Course Code</label>
-              <input type="text" class="form-control" name="course_code" id="validationCustom01" value="" style="font-size: 17px" required >
+              <input type="text" class="form-control" name="course_code" id="validationCustom01" value="" style="font-size: 17px" required autocomplete="off">
               <div class="valid-feedback" style="font-size: 17px">
                 Looks good!
               </div>
             </div>
             <div class="col-md-6">
               <label for="validationCustom01" style="font-size: 17px" class="form-label">Course Name</label>
-              <input type="text" class="form-control" name="course_name" id="validationCustom01" value="" style="font-size: 17px" required >
+              <input type="text" class="form-control" name="course_name" id="validationCustom01" value="" style="font-size: 17px" required autocomplete="off">
               <div class="valid-feedback" style="font-size: 17px">
                 Looks good!
               </div>
             </div>
             <div class="col-md-6">
               <label for="validationCustom01" style="font-size: 17px" class="form-label">Course Abbreviation</label>
-              <input type="text" class="form-control" name="course_abbr" id="validationCustom01" value="" style="font-size: 17px" required >
+              <input type="text" class="form-control" name="course_abbr" id="validationCustom01" value="" autocomplete="off" autocapitalize="characters" style="font-size: 17px" required >
               <div class="valid-feedback" style="font-size: 17px">
                 Looks good!
               </div>
@@ -217,14 +217,14 @@ function manage(pwd) {
             </div>
             <div class="col-md-6">
               <label for="validationCustom01" style="font-size: 17px" class="form-label">No.of Theory</label>
-              <input type="text" class="form-control textfield" name="no_of_theory" id="validationCustom01" style="font-size: 17px" value="" id="onlyNumbers" name="onlyNumbers" onkeypress="return isNumber(event)" onpaste="return false;" required>
+              <input type="text" class="form-control textfield" name="no_of_theory" id="validationCustom01" style="font-size: 17px" value="" id="onlyNumbers" name="onlyNumbers" onkeypress="return isNumber(event)" onpaste="return false;" autocomplete="off" required>
               <div class="valid-feedback" style="font-size: 17px">
                 Looks good!
               </div>
             </div>
             <div class="col-md-6">
               <label for="validationCustom01" style="font-size: 17px" class="form-label">No.of Practicals</label>
-              <input type="text" class="form-control textfield" name="no_of_pract" id="validationCustom01" style="font-size: 17px" value="" id="onlyNumbers" name="onlyNumbers" onkeypress="return isNumber(event)" onpaste="return false;" required>
+              <input type="text" class="form-control textfield" name="no_of_pract" id="validationCustom01" style="font-size: 17px" value="" id="onlyNumbers" autocomplete="off" name="onlyNumbers" onkeypress="return isNumber(event)" onpaste="return false;" required>
               <div class="valid-feedback" style="font-size: 17px">
                 Looks good!
               </div>
@@ -232,7 +232,7 @@ function manage(pwd) {
             
             <div class="col-md-6">
               <label for="validationCustom01" style="font-size: 17px" class="form-label">No.of Tutorials</label>
-              <input type="text" class="form-control textfield" name="no_of_tuts" id="validationCustom01" style="font-size: 17px" value="" id="onlyNumbers" name="onlyNumbers" onkeypress="return isNumber(event)" onpaste="return false;" required>
+              <input type="text" class="form-control textfield" name="no_of_tuts" id="validationCustom01" style="font-size: 17px" autocomplete="off" value="" id="onlyNumbers" name="onlyNumbers" onkeypress="return isNumber(event)" onpaste="return false;" required>
               <div class="valid-feedback" style="font-size: 17px">
                 Looks good!
               </div>

@@ -71,6 +71,13 @@
         </div>
         <ul class="nav-list">
         <li>
+          <a href="dashboard.jsp">
+            <i class="fa-solid fa-home " aria-hidden="true"></i>
+            <span class="links_name">DashBoard</span>
+          </a>
+          <span class="tooltip">DashBoard</span>
+        </li>
+        <li>
           <a href="BuildingMaster.jsp">
             <i class="fa-solid fa-building " aria-hidden="true"></i>
             <span class="links_name">Building Master</span>
@@ -144,7 +151,7 @@
            <span class="tooltip">NAVIN ADD KAR</span>
          </li>
      -->
-          <li class="profile">
+          <!-- <li class="profile">
             <div class="profile-details">
               <img src="#" alt="" />
               <div class="name_job">
@@ -153,7 +160,7 @@
               </div>
             </div>
             <a href="logout.html"><i class="bx bx-log-out" id="log_out"></i></a>
-          </li>
+          </li> -->
         </ul>
     
       </div>

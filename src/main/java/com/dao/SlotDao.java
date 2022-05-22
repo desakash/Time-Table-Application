@@ -60,5 +60,36 @@ public class SlotDao {
 		}
 		return rs;
 	}
+	
+	public ResultSet getSlotDetailsById(String day)
+	{
+		con=DbConnection.getConnection();
+		try {
+			pstate=con.prepareStatement("select *from slot_master where day=?");
+			pstate.setString(1, day);
+			rs=pstate.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
+	
+	public int update(String day,String fromTime,String toTime,String day1)
+	{
+		try {
+			pstate=con.prepareStatement("update slot_master set day=?,fromtime=?,totime=? where day=?");
+			pstate.setString(1,day);
+			pstate.setString(2,fromTime);
+			pstate.setString(3,toTime);
+			pstate.setString(4, day1);
+			
+			i=pstate.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return i;
+	}
 
 }

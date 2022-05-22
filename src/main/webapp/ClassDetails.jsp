@@ -32,9 +32,11 @@
  			if(!session.isNew())
  			{
  				String delete_msg=(String)session.getAttribute("delete-success");
+ 				String success_msg=(String)session.getAttribute("update-msg");
  				
  				if(delete_msg=="true")
  				{
+ 					success_msg="false";
  					%>
  					<script type="text/javascript">
 		Swal.fire({
@@ -47,8 +49,24 @@
 	</script>	
 	<% 
  				}
+ 				if(success_msg=="true")
+ 				{
+ 					%>
+ 					<script type="text/javascript">
+ 					Swal.fire({
+ 						//  position: 'top-end',
+ 						icon : 'success',
+ 						title : 'Class updated Successfully',
+ 						showConfirmButton : false,
+ 						timer : 1500,
+ 					})
+ 				</script>	
+ 				<%
+ 				}
  			}
  		session.removeAttribute("delete-success");
+ 		session.removeAttribute("update-msg");
+
 
  		%>
  		
@@ -115,7 +133,7 @@
                                     <td><%=rs.getInt(5)%></td>
                                     <td>
                                         <ul class="action-list">
-                                           <a href="EditModals/EditClassModal.jsp?buildingId=<%=rs.getInt(1) %> "> <button type="button" class="btn btn-success " style="font-size: 15px"><i class="fa fa-edit">  </i> Edit</button></a>&nbsp &nbsp &nbsp
+                                           <a href="EditModals/EditClassModal.jsp?classId=<%=rs.getInt(1) %> "> <button type="button" class="btn btn-success " style="font-size: 15px"><i class="fa fa-edit">  </i> Edit</button></a>&nbsp &nbsp &nbsp
                                           <a href="DeleteClassController?classId=<%=rs.getInt(1)%>"><button type="button" class="btn btn-danger "  style="font-size: 15px"><i class="fa fa-trash"> </i> Delete</button></a>
 
                                             <!-- <li><a href="#" data-tip="edit"><i class="fa fa-edit"></i></a></li> -->

@@ -48,12 +48,12 @@ public class ClassDao {
 		return rs;
 	}
 
-	public ResultSet getClassDetailsById(int buildingId)
+	public ResultSet getClassDetailsById(int classId)
 	{
 		con=DbConnection.getConnection();
 		try {
-			pstate=con.prepareStatement("select *from class_master where building_id=?");
-			pstate.setInt(1, buildingId);
+			pstate=con.prepareStatement("select *from class_master where class_id=?");
+			pstate.setInt(1, classId);
 			rs=pstate.executeQuery();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -75,5 +75,25 @@ public class ClassDao {
 		}
 		
 		return i;
+	}
+	
+	public int updateClass(int class_id,String className,String classType,int buildingId,int floorNo)
+	{
+		con=DbConnection.getConnection();
+		try {
+			pstate=con.prepareStatement("update class_master set CLASSROOM_NAME=?,CLASS_TYPE=?,BUILDING_ID=?,CLASS_FLOOR=? where CLASS_ID=?");
+			pstate.setString(1,className);
+			pstate.setString(2, classType);
+			pstate.setInt(3, buildingId);
+			pstate.setInt(4, floorNo);
+			pstate.setInt(5, class_id);
+			
+			i=pstate.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return i;
+
 	}
 }

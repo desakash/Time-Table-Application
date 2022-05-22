@@ -56,9 +56,9 @@ $(document).ready(function(){
  				if(xmlHttp===null)
  				{
  					alert("Browser does not support XMLHTTP Request.");
- 					return;
+ 					return;	
  				}
- 				var url="ClassMasterDropdown?building="+str;
+ 				var url="../ClassMasterDropdown?building="+str;
  				xmlHttp.onreadystatechange=stateChange;
  				xmlHttp.open("POST",url,true);
  				xmlHttp.send(null);
@@ -71,11 +71,24 @@ $(document).ready(function(){
  				}
  			}
  		</script>
+ 		
+ 		<%
+ 			int classId=Integer.parseInt(request.getParameter("classId"));
+ 			ClassDao cd=new ClassDao();
+ 			ResultSet rs1=cd.getClassDetailsById(classId);
+ 			try{
+ 				
+ 				if(rs1.next())
+ 	 			{
+ 	 				
+ 	 			
+ 			
+ 		%>
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" style="font-size: 27px" id="exampleModalLabel">Update Building Details</h5>
+        <h5 class="modal-title" style="font-size: 27px" id="exampleModalLabel">Update class Details</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -84,7 +97,11 @@ $(document).ready(function(){
         <form action="../EditClassController" method="post" class="row g-3 needs-validation" novalidate>
             <div class="col-md-7">
               <label for="validationCustom01" style="font-size: 17px" class="form-label">Class Name</label>
-              <input type="text" class="form-control" name="class_name" id="validationCustom01" value="" style="font-size: 17px;width: 200px;" required autocomplete="off" >
+              <input type="text" class="form-control" name="class_name" id="validationCustom01" value="<%=rs1.getString(2) %>" style="font-size: 17px;width: 200px;" required autocomplete="off" >
+              <input type="hidden" class="form-control" name="class_id" id="validationCustom01" value="<%=classId%>" style="font-size: 17px;width: 200px;" required autocomplete="off" >
+              <input type="hidden" class="form-control" name="building_id" id="validationCustom01" value="<%=rs1.getInt(4)%>" style="font-size: 17px;width: 200px;" required autocomplete="off" >
+              
+              
               <div class="valid-feedback" style="font-size: 17px">
                 Looks good!
               </div>
@@ -119,11 +136,14 @@ $(document).ready(function(){
                 	}
                 	
                 %>
+               
                 
 <!--                 <option style="font-size: 17px">Computer2</option>
                 <option style="font-size: 17px">Computer3</option>
                 <option style="font-size: 17px">Computer4</option> -->
+               
               </select>
+              
               <div class="invalid-feedback" style="font-size: 17px">
                  Please select a Building Name.
               </div>
@@ -132,6 +152,7 @@ $(document).ready(function(){
             <div class="col-md-6">
               <label for="validationCustom04" class="form-label" style="font-size: 17px">Floor</label>
               <select  class="form-select" style="font-size: 17px" id="floor"  name="floorNo" required>
+              
                 <option selected disabled value="">Choose...</option>
                  <!--<option style="font-size: 17px">1st</option>
                 <option style="font-size: 17px">2nd</option>
@@ -152,6 +173,19 @@ $(document).ready(function(){
     </div>
   </div>
 </div>
+<%
+}
+ 			}catch(Exception e)
+ 			{
+ 				e.getStackTrace();
+ 			}
+ %>
+<script type="text/javascript">
 
+$('#exampleModal').on('hide.bs.modal', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+});</script>
 </body>
 </html>

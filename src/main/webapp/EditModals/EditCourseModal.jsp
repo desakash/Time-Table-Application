@@ -159,7 +159,13 @@ $(document).ready(function(){
     </div>
   </div>
 </div> -->
+<script type="text/javascript">
 
+$('#exampleModal').on('hide.bs.modal', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+});</script>
 <script src="../js/form.js"></script>
 <script src="../js/sidenav.js"></script>
 </body>

@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+</script>
 <meta charset="ISO-8859-1">
 <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css /">
  -->    <!-- Bootstrap CSS -->
@@ -27,13 +28,16 @@
 
 <script>
 
-$(document).ready(function(){
+ $(document).ready(function(){
 	$("#exampleModal").modal('show');
 });
 </script>
+
+
 </head>
 <body>
-	<%@ include file="../BuildingDetails.jsp" %> 
+	<%@ include file="../BuildingDetails.jsp" %>
+	
 	<%
 	try{
 		int buildingId=Integer.parseInt(request.getParameter("buildingId"));
@@ -44,7 +48,8 @@ $(document).ready(function(){
 		{
 	%>
 	
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	
+<div class="modal fade" id="exampleModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -92,7 +97,13 @@ $(document).ready(function(){
 		e.printStackTrace();
 	}
 %>
+<script type="text/javascript">
 
+$('#exampleModal').on('hide.bs.modal', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+});</script>
 
 <script src="../js/form.js"></script>
 <script src="../js/sidenav.js"></script>

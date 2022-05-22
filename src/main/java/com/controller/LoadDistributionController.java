@@ -49,24 +49,25 @@ public class LoadDistributionController extends HttpServlet {
 		
 		
 		FacultyDao fdao=new FacultyDao();
-		rs=fdao.getFacultyDesigByName(facultyName);
+		ResultSet rs1=null;
+		rs1=fdao.getFacultyDesigByName(facultyName);
 		try {
-			if(rs.next())
+			if(rs1.next())
 			{
-				facultyDesignation=rs.getString(1);
-				System.out.println("facultyDesignation"+facultyDesignation);
+				facultyDesignation=rs1.getString(1);
 			}
-		} catch (SQLException e) {
+		} catch (SQLException e2) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e2.printStackTrace();
 		}
+			
+		
 		
 		int faculty_id=0;
-		rs=fdao.getFacultyIdByName(facultyName);
+		rs1=fdao.getFacultyIdByName(facultyName);
 		try {
-			if(rs.next())
+			if(rs1.next())
 			{
-				System.out.println("in getFacultyIdByName function");
 				faculty_id=rs.getInt(1);
 			}
 		} catch (SQLException e1) {

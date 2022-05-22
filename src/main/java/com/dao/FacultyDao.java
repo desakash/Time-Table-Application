@@ -113,7 +113,7 @@ public class FacultyDao {
 	public ResultSet getFacultyDesigByName(String facultyName)
 	{
 		con=DbConnection.getConnection();
-		
+		System.out.println("in getFacultyDesigByName"+facultyName);
 		try {
 			pstate=con.prepareStatement("select faculty_designation from faculty_master where faculty_name=?");
 			pstate.setString(1, facultyName);
@@ -122,11 +122,16 @@ public class FacultyDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		if(rs==null)
+		{
+			System.out.println("rs in null in designation");
+		}
 		return rs;
 	}
 	
 	public ResultSet getFacultyIdByName(String facultyName)
 	{
+		System.out.println("hello in getFcaultyIdBy Name");
 		con=DbConnection.getConnection();
 		try {
 			pstate=con.prepareStatement("select faculty_id from faculty_master where faculty_name=?");
@@ -135,6 +140,10 @@ public class FacultyDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		if(rs==null)
+		{
+			System.out.println("rs in null in id");
 		}
 		
 		return rs;

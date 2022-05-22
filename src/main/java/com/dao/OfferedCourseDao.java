@@ -63,4 +63,19 @@ public class OfferedCourseDao {
 		return rs;
 		
 	}
+	
+	public ResultSet getOfferedCourseForDivision(String division)
+	{
+		con=DbConnection.getConnection();
+		
+		try {
+			pstate=con.prepareStatement("select *from division_course_allocation where division=?");
+			pstate.setString(1, division);
+			rs=pstate.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
 }

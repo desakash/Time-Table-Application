@@ -128,4 +128,34 @@ public class CourseDao {
 		
 		return i;
 	}
+	
+	public ResultSet getCourseDetailsByCourseName(String course)
+	{
+		con=DbConnection.getConnection();
+		
+		try {
+			pstate=con.prepareStatement("select *from course_master where course_name=?");
+			pstate.setString(1, course);
+			rs=pstate.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
+	
+	public ResultSet getCourseAbbrByCourseCode(String courseCode)
+	{
+		con=DbConnection.getConnection();
+		try {
+			pstate=con.prepareStatement("select course_abbreviation from course_master where course_code=?");
+			pstate.setString(1, courseCode);
+			rs=pstate.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return rs;
+	}
 }

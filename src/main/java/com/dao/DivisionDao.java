@@ -110,5 +110,19 @@ public class DivisionDao {
 		
 		return i;
 	}
+	
+	public ResultSet getDivisionDetailsByDivisionName(String division)
+	{
+		con=DbConnection.getConnection();
+		try {
+			pstate=con.prepareStatement("select *from division_master where division_name=?");
+			pstate.setString(1, division);
+			rs=pstate.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
 
 }

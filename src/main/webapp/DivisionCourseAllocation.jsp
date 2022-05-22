@@ -28,7 +28,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.8.1/js/bootstrap-select.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
       
-      
+         <script src="sweetalert2.all.min.js"></script>
+<script src="sweetalert2.min.js"></script>
+<link rel="stylesheet" href="sweetalert2.min.css">
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>   
 </head>
 <body>
 
@@ -41,8 +44,8 @@
     	
     	if(!session.isNew())
     	{
-    		session=request.getSession();
-        	String  success=(String)session.getAttribute("allotedCourse-Success");
+    		//session=request.getSession();
+        	String success=(String)session.getAttribute("allotedCourse-Success");
         	if(success=="true")
         	{
      %>
@@ -61,12 +64,12 @@
 		}
 	}
 	/* session.invalidate(); */
-	session.removeAttribute("succes");
+	session.removeAttribute("allotedCourse-Success");
   %>
         
         
         <h5 class="title" style="font-size: 30px"> Division Course Allocation</h5>
-        <form class="row g-3 needs-validation" novalidate>
+        <form class="row g-3 needs-validation" action="DivisionCourseAllocationController" method="post" novalidate>
            
             <div class="col-md-6">
               <label for="validationCustom04" class="form-label" style="font-size: 17px">Term</label>

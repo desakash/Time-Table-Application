@@ -53,7 +53,7 @@ public class EditCourseController extends HttpServlet {
 		
 		int noOfTheory=Integer.parseInt(request.getParameter("no_of_theory"));
 		int noOfPractical=Integer.parseInt(request.getParameter("no_of_pract"));
-		int noOfTutorials=Integer.parseInt(request.getParameter("no_of_tuts"));
+		int noOfTutorials=Integer.parseInt(request.getParameter("no_of_tuts").trim());
 
 		CourseDao cd=new CourseDao();
 		int i=cd.updateCourse(courseCode,courseName,courseAbbr,yearInt,noOfTheory,noOfPractical,noOfTutorials,courseId);

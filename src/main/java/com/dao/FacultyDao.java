@@ -95,5 +95,23 @@ public class FacultyDao {
 		
 		return i;
 	}
+	
+	public ResultSet getFacultyDesigByName(String facultyName)
+	{
+		con=DbConnection.getConnection();
+		
+		try {
+			pstate=con.prepareStatement("select faculty_designation from faculty_master where faculty_name=?");
+			pstate.setString(1, facultyName);
+			rs=pstate.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return rs;
+	}
+	
+
 
 }

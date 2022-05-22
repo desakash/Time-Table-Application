@@ -30,9 +30,17 @@ input {
   overflow: hidden;
 }
     </style>
+    
+     <script src="sweetalert2.all.min.js"></script>
+<script src="sweetalert2.min.js"></script>
+<link rel="stylesheet" href="sweetalert2.min.css">
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
 </head>
 <body>
+
 <%@ include file="html/sidenav.html" %>
+
 
 <script type="text/javascript">
  			var xmlHttp;
@@ -173,8 +181,34 @@ input {
         <div class="wrapper wrapper--w680">
         <div class="card card-4">
         <div class="card-body">
+        
+        <%
+        	if(!session.isNew())
+			{   
+        		String loadDistribute_success=(String)session.getAttribute("loadDistribute-success");
+        		if(loadDistribute_success=="true")
+        		{
+        %>
+        			<script type="text/javascript">
+				
+    				Swal.fire({
+      				//  position: 'top-end',
+       						icon: 'success',
+       						title: 'Load Distributed Successfully.',
+       						showConfirmButton: false,
+       						timer: 1500,
+     					})
+ 
+  					</script>
+  		<% 
+        		}
+
+			}
+        
+        session.removeAttribute("loadDistribute-success");
+        %>
         <h2 class="title" style="font-size: 30px">Load Distribution</h2>
-        <form class="row g-3 needs-validation" novalidate>
+        <form class="row g-3 needs-validation" action="LoadDistributionController" method="post" novalidate>
            
 
             <div class="col-md-6">
@@ -256,7 +290,7 @@ input {
          <br><br><br>  <br><br><br>  
             <div class="col-md-6">
               <label for="validationCustom04" class="form-label"  style="font-size: 17px">Practical</label>
-              <select class="form-select" id="validationCustom04" name="Practical_hours"  style="font-size: 17px" required>
+              <select class="form-select" id="validationCustom04" name="practical_hours"  style="font-size: 17px" required>
                 <option selected disabled value=""  style="font-size: 17px">Practicals</option>
                 <option  style="font-size: 17px">0</option>
                 <option  style="font-size: 17px">1</option>

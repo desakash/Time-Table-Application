@@ -43,8 +43,10 @@ public class LoadDistributionController extends HttpServlet {
 		
 		String facultyName=request.getParameter("faculty_name");
 		
-		int faculty_id=0;
+		
 		String facultyDesignation=null;
+		
+		
 		
 		FacultyDao fdao=new FacultyDao();
 		rs=fdao.getFacultyDesigByName(facultyName);
@@ -52,15 +54,28 @@ public class LoadDistributionController extends HttpServlet {
 			if(rs.next())
 			{
 				facultyDesignation=rs.getString(1);
+				System.out.println("facultyDesignation"+facultyDesignation);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
+		int faculty_id=0;
+		rs=fdao.getFacultyIdByName(facultyName);
+		try {
+			if(rs.next())
+			{
+				System.out.println("in getFacultyIdByName function");
+				faculty_id=rs.getInt(1);
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		String divisionName=request.getParameter("division_name");
-		String courseCode=request.getParameter("offered_course").substring(0, 5);
+		String courseCode=request.getParameter("offered_course").substring(0, 6);
 		String courseAbbr=null;
 		
 		CourseDao cdao=new CourseDao();
@@ -69,6 +84,7 @@ public class LoadDistributionController extends HttpServlet {
 			if(rs.next())
 			{
 				courseAbbr=rs.getString(1);
+				System.out.println("courseAbbr : "+courseAbbr);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -76,16 +92,17 @@ public class LoadDistributionController extends HttpServlet {
 		}
 		
 		String theory=request.getParameter("theory");
-		int practical=Integer.parseInt(request.getParameter("practical"));
-		int tutorial=Integer.parseInt(request.getParameter("tutorial"));
+		int practical=Integer.parseInt(request.getParameter("practical_hours"));
+		int tutorial=Integer.parseInt(request.getParameter("tutorial_hours"));
 		int th=0;
 		rs=cdao.getCourseDetailsById(courseCode);
 		try {
 			if(rs.next())
 			{
-				if(theory.equals("yes"))
+				if(theory.equals("Yes"))
 				{
 					th=rs.getInt(5);
+					System.out.println("theory : "+th);
 				}
 			}
 		} catch (SQLException e) {
@@ -98,17 +115,17 @@ public class LoadDistributionController extends HttpServlet {
 		String C_Batch=request.getParameter("c");
 		
 		int practicalCount=0;
-		if(A_Batch.equals("on"))
+		if(A_Batch!=null && A_Batch.equals("on"))
 		{
 			sb.append("A Batch");
 			practicalCount++;
 		}
-		if(B_Batch.equals("on"))
+		if(B_Batch!=null && B_Batch.equals("on"))
 		{
 			sb.append(", B Batch");
 			practicalCount++;
 		}
-		if(C_Batch.equals("on"))
+		if(C_Batch!=null && C_Batch.equals("on"))
 		{
 			sb.append(", C Batch");
 			practicalCount++;
@@ -121,17 +138,17 @@ public class LoadDistributionController extends HttpServlet {
 		String t3=request.getParameter("t3");
 		
 		int tutorialCount=0;
-		if(t1.equals("on"))
+		if(t1!=null && t1.equals("on"))
 		{
 			sb2.append("T1 Batch");
 			tutorialCount++;
 		}
-		if(t2.equals("on"))
+		if(t2!=null && t2.equals("on"))
 		{
 			sb2.append(", T2 Batch");
 			tutorialCount++;
 		}
-		if(t3.equals("on"))
+		if(t3!=null && t3.equals("on"))
 		{
 			sb.append(", T3 Batch");
 			tutorialCount++;
@@ -145,13 +162,14 @@ public class LoadDistributionController extends HttpServlet {
 		
 		int load=(practical*practicalCount)+th+(tutorial*tutorialCount);
 		
-		LoadDistribution ld=new LoadDistribution(facultyName, facultyDesignation, divisionName, courseCode, courseAbbr, th, practical, practicalBatches, tutorial,tutorialBatches, load);
+		LoadDistribution ld=new LoadDistribution(faculty_id,facultyName, facultyDesignation, divisionName, courseCode, courseAbbr, th, practical, practicalBatches, tutorial,tutorialBatches, load);
 		
 		LoadDistributionDao lddao=new LoadDistributionDao();
 		int i=lddao.DistributeLoad(ld);
 		if(i>0)
 		{
-			
+			session.setAttribute("loadDistribute-success", "true");
+			response.sendRedirect("LoadDistribution.jsp");
 		}
 		
 		

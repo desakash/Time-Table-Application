@@ -1,6 +1,5 @@
 package com.dao;
 
-import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -94,6 +93,19 @@ public class FacultyDao {
 		}
 		
 		return i;
+	}
+	public ResultSet getFacultyDetailsbyid(int facultyId)
+	{
+		con=DbConnection.getConnection();
+		try {
+			pstate=con.prepareStatement("select *from faculty_master where faculty_id=?");
+			pstate.setInt(1,facultyId);
+			rs=pstate.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
 	}
 
 }

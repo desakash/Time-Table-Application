@@ -38,7 +38,7 @@ $(document).ready(function(){
 		
 		int facultyId=Integer.parseInt(request.getParameter("facultyId"));
 		FacultyDao fd=new FacultyDao();
-		ResultSet rs=fd.getFacultyDetails();
+		ResultSet rs=fd.getFacultyDetailsbyid(facultyId);
 		
 		if(rs.next())
 		{
@@ -58,7 +58,7 @@ $(document).ready(function(){
          
             <div class="col-md-6">
               <label for="validationCustom01" style="font-size: 17px" class="form-label">Faculty Name</label>
-              <input type="text" class="form-control"  name="faculty_name" id="validationCustom01" size="50" value="<%=rs.getString(2) %>" style="font-size: 17px" required >
+              <input type="text" class="form-control"  name="faculty_name" id="validationCustom01" value="<%=rs.getString(2) %>" style="font-size: 17px ; width: 200px;" required >
               <input type="hidden" class="form-control" name="faculty_id" id="validationCustom01" value="<%=facultyId%>" style="font-size: 17px" required>
               <div class="valid-feedback" style="font-size: 17px">
                 Looks good!
@@ -66,7 +66,7 @@ $(document).ready(function(){
             </div>
             <div class="col-md-6">
               <label for="validationCustom01" style="font-size: 17px" class="form-label">Faculty Abbreviation</label>
-              <input type="text" class="form-control" name="faculty_abbr" id="validationCustom01" value="<%=rs.getString(3) %>" style="font-size: 17px" required >
+              <input type="text" class="form-control" name="faculty_abbr" id="validationCustom01" value="<%=rs.getString(3) %>" style="font-size: 17px ; width: 200px;" required >
               <div class="valid-feedback" style="font-size: 17px">
                 Looks good!
               </div>
@@ -74,7 +74,7 @@ $(document).ready(function(){
             
             <div class="col-md-6">
               <label for="validationCustom01" style="font-size: 17px" class="form-label">Faculty Email</label>
-              <input type="email" class="form-control" name="faculty_email" id="validationCustom01" value="<%=rs.getString(4) %>" style="font-size: 17px" required >
+              <input type="email" class="form-control" name="faculty_email" id="validationCustom01" value="<%=rs.getString(4) %>" style="font-size: 17px; width: 200px;" required >
               <div class="valid-feedback" style="font-size: 17px">
                 Looks good!
               </div>

@@ -40,7 +40,7 @@ if(!session.isNew())
 {
 	String error_msg=(String)session.getAttribute("error");
 	String success_msg=(String)session.getAttribute("success");
-
+	String delete_msg=(String)session.getAttribute("DeleteSuccess-msg");
 	if(error_msg=="true")
 	{
 		success_msg="false";
@@ -49,7 +49,7 @@ if(!session.isNew())
 	Swal.fire({
 		  icon: 'error',
 		  title: 'Oops...',
-		  text: 'Slot is already booked.....You cant edit it!',
+		  text: 'Slot is already registered!',
 		})
 	</script>
 	<%
@@ -69,9 +69,26 @@ if(!session.isNew())
 	</script>
 		<%
 	}
+	if(delete_msg=="true")
+	{
+		%>
+		<script type="text/javascript">
+		Swal.fire({
+			//  position: 'top-end',
+			icon : 'success',
+			title : 'slot Deleted Successfully',
+			showConfirmButton : false,
+			timer : 1500,
+		})
+	</script>
+		<%
+	}
+	
 }
 	session.removeAttribute("error");
 	session.removeAttribute("success");
+	session.removeAttribute("DeleteSuccess-msg");
+
 
 %>
 
@@ -126,8 +143,7 @@ if(!session.isNew())
                                            <a href="EditModals/EditSlotModal.jsp?slotDay=<%=rs.getString(1)%>"> <button type="button" class="btn btn-success " style="font-size: 15px"><i class="fa fa-edit">  </i> Edit</button>&nbsp &nbsp &nbsp</a>
 
                                             <!-- <li><a href="#" data-tip="edit"><i class="fa fa-edit"></i></a></li> -->
-<%--                                            <a href="DeleteSlotController?slotDay=<%=rs.getString(1)%>"> <button type="button" class="btn btn-danger "  style="font-size: 15px"><i class="fa fa-trash"> </i> Delete</button></a>
- --%>
+                                            <a href="DeleteSlotController?slotDay=<%=rs.getString(1)%>&slotfromtime=<%=rs.getString(2)%>&slottotime=<%=rs.getString(3)%>"> <button type="button" class="btn btn-danger "  style="font-size: 15px"><i class="fa fa-trash"> </i> Delete</button></a>
                                             <!-- <li><a href="#" data-tip="delete"><i class="fa fa-trash"></i></a></li> -->
                                         </ul>
                                     </td>

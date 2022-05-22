@@ -91,5 +91,23 @@ public class SlotDao {
 		}
 		return i;
 	}
-
+	
+	public int deleteSlot(String day,String fromTime,String toTIme)
+	{
+		con=DbConnection.getConnection();
+		try {
+			pstate=con.prepareStatement("delete from slot_master where day=? and fromtime=? and totime=?");
+			pstate.setString(1,day);
+			pstate.setString(2,fromTime);
+			pstate.setString(3, toTIme);
+			
+			i=pstate.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return i;
+		
+	}
 }

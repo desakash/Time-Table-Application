@@ -68,7 +68,7 @@ session.removeAttribute("update-msg");
 
 %>
 
-    <div class="container" style="margin-top: 150px;margin-left: 200px;">
+    <!-- <div class="container" style="margin-top: 150px;margin-left: 200px;">
         <div class="row">
             <div class="col-md-offset-1 col-md-10">
                 <div class="panel">
@@ -80,9 +80,9 @@ session.removeAttribute("update-msg");
                             <div class="col-md-6 col-xs-12 text-right">
                                 <div class="btn_group">
                                     <input type="text" id="search" class="form-control" placeholder="Search">
-                                    <!-- <button class="btn btn-search " title="Reload"><i class="fa fa-sync-alt"></i></button> -->
-                                     <!-- <button class="btn btn-default" title="Pdf"><i class="fa fa-file-pdf"></i></button>
-                                    <button class="btn btn-default" title="Excel"><i class="fas fa-file-excel"></i></button> -->
+                                    <button class="btn btn-search " title="Reload"><i class="fa fa-sync-alt"></i></button>
+                                     <button class="btn btn-default" title="Pdf"><i class="fa fa-file-pdf"></i></button>
+                                    <button class="btn btn-default" title="Excel"><i class="fas fa-file-excel"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -92,46 +92,103 @@ session.removeAttribute("update-msg");
                             <thead>
                                 
                                     <th>Sr.No</th>
-                                    <!-- <th>Id</th> -->
+                                    <th>Id</th>
                                     <th>Name</th>
                                     <th>Abbreviation</th>
                                     <th>Type</th>
                                     <th>Action</th>
                                     
-                            </thead>
-                            <ol id="list">
-                            <tbody>
+                            </thead> -->
+                        <div class="container" style="margin-top: 150px;margin-left: 200px;">
+                                                            <div class="row">
+                            
                             <%
                             try{
+                            	
                             FacultyDao fdao=new FacultyDao();
                             ResultSet rs=fdao.getFacultyDetails();
                             int cnt=1;
-                            while(rs.next())
+                            if(!rs.next())
                             {
-                            
+                            	%>
+                            	
+                            	<center><label style="color:black;font-size: 30px;">No Result Found...!!</label></center>
+                          		<center><object data="icons/noresult.jpg" width="400" height="400" " ></object></center>
+								<%
+                            }
+                            else
+                            {
+                                System.out.println("Inside while block");
+
                             %>
-                                <tr>
-                                    <td><%=cnt %></td>
-                                    <%-- <td><%=rs.getInt(1) %></td> --%>
-                                    <td><%=rs.getString(2) %></td>
-                                    <td><%=rs.getString(3) %></td>
-                                    <td><%=rs.getString(6) %></td>
-                                    
-                                    <td>
-                                        <ul class="action-list">
-                                           <a href="EditModals/EditFacultyModal.jsp?facultyId=<%=rs.getInt(1)%>"> <button type="button" class="btn btn-success " style="font-size: 15px"><i class="fa fa-edit">  </i> Edit</button>&nbsp</a> 
+                            	
+                                   
+                                    <div class="col-md-offset-1 col-md-10">
+                                        <div class="panel">
+                                            <div class="panel-heading">
+                                                <div class="row">
+                                                    <div class="col col-md-6 col-xs-12">
+                                                        <h4 class="title">Faculty Details </h4>
+                                                    </div>
+                                                    <div class="col-md-6 col-xs-12 text-right">
+                                                        <div class="btn_group">
+                                                            <input type="text" id="search" class="form-control" placeholder="Search">
+                                                            <!-- <button class="btn btn-search " title="Reload"><i class="fa fa-sync-alt"></i></button> -->
+                                                             <!-- <button class="btn btn-default" title="Pdf"><i class="fa fa-file-pdf"></i></button>
+                                                            <button class="btn btn-default" title="Excel"><i class="fas fa-file-excel"></i></button> -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel-body table-responsive">
+                                                <table class="table">
+                                                
+                                                    <thead>
+                                                        
+                                                            <th>Sr.No</th>
+                                                            <!-- <th>Id</th> -->
+                                                            <th>Name</th>
+                                                            <th>Abbreviation</th>
+                                                            <th>Type</th>
+                                                            <th>Action</th>
+                                                            
+                                                    </thead> 
+                                                    
+                                                    <ol id="list">
+                            <tbody>
+                                                    
+                            	<%
+                            	do{
+                            		
+                            	
+                                 
 
-                                            <!-- <li><a href="#" data-tip="edit"><i class="fa fa-edit"></i></a></li> -->
-                                         <a href="DeleteFacultyController?facultyId=<%=rs.getInt(1) %>">   <button type="button" class="btn btn-danger "  style="font-size: 15px"><i class="fa fa-trash"> </i> Delete</button>&nbsp</a>
-                                            <button type="button" class="btn btn-warning "  style="font-size: 15px"><i class="fa fa-eye"> </i> Courses</button>
+                                 %>
+                                     <tr>
+                                         <td><%=cnt %></td>
+                                         <%-- <td><%=rs.getInt(1) %></td> --%>
+                                         <td><%=rs.getString(2) %></td>
+                                         <td><%=rs.getString(3) %></td>
+                                         <td><%=rs.getString(6) %></td>
+                                         
+                                         <td>
+                                             <ul class="action-list">
+                                                <a href="EditModals/EditFacultyModal.jsp?facultyId=<%=rs.getInt(1)%>"> <button type="button" class="btn btn-success " style="font-size: 15px"><i class="fa fa-edit">  </i> Edit</button>&nbsp</a> 
 
-                                            <!-- <li><a href="#" data-tip="delete"><i class="fa fa-trash"></i></a></li> -->
-                                        </ul>
-                                    </td>
-                                </tr>
-                              <%
-                              		cnt++;
-                            	}
+                                                 <!-- <li><a href="#" data-tip="edit"><i class="fa fa-edit"></i></a></li> -->
+                                              <a href="DeleteFacultyController?facultyId=<%=rs.getInt(1) %>">   <button type="button" class="btn btn-danger "  style="font-size: 15px"><i class="fa fa-trash"> </i> Delete</button>&nbsp</a>
+                                                 <button type="button" class="btn btn-warning "  style="font-size: 15px"><i class="fa fa-eye"> </i> Courses</button>
+
+                                                 <!-- <li><a href="#" data-tip="delete"><i class="fa fa-trash"></i></a></li> -->
+                                             </ul>
+                                         </td>
+                                     </tr>
+                                   <%
+                                   		cnt++;
+                                 	}while(rs.next());
+                       
+                            }
+                           
                             }catch(Exception e){
                             	e.printStackTrace();
                             }
@@ -150,6 +207,7 @@ session.removeAttribute("update-msg");
             </div>
         </div>
     </div>
+   
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->

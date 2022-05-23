@@ -104,7 +104,7 @@ session.removeAttribute("delete-success");
 %>
 
 	<div class="container" style="margin-top: 150px; margin-left: 200px;">
-		<div class="row">
+		<!-- <div class="row">
 			<div class="col-md-offset-1 col-md-10">
 				<div class="panel">
 					<div class="panel-heading">
@@ -116,9 +116,9 @@ session.removeAttribute("delete-success");
 								<div class="btn_group">
 									<input type="text" id="search" class="form-control"
 										placeholder="Search">
-									<!-- <button class="btn btn-search " title="Reload"><i class="fa fa-sync-alt"></i></button> -->
-									<!-- <button class="btn btn-default" title="Pdf"><i class="fa fa-file-pdf"></i></button>
-                                    <button class="btn btn-default" title="Excel"><i class="fas fa-file-excel"></i></button> -->
+									<button class="btn btn-search " title="Reload"><i class="fa fa-sync-alt"></i></button>
+									<button class="btn btn-default" title="Pdf"><i class="fa fa-file-pdf"></i></button>
+                                    <button class="btn btn-default" title="Excel"><i class="fas fa-file-excel"></i></button>
 								</div>
 							</div>
 						</div>
@@ -128,7 +128,58 @@ session.removeAttribute("delete-success");
 							<thead>
 
 								<th>Sr.No</th>
-								<!--  <th>Building Id</th> -->
+								 <th>Building Id</th>
+								<th>Building Name</th>
+								<th>No. of Floors</th>
+								<th>Action</th>
+
+							</thead>
+							<ol id="list">
+								<tbody> -->
+
+							<% 
+                            try{
+                            BuildingDao bdao=new BuildingDao();
+                            ResultSet rs=bdao.getBuildingDetails();
+                            int cnt=1;
+                            if(!rs.next())
+                            {
+                            	%>
+                            	<center><label style="color:black;font-size: 30px;">No Result Found...!!</label></center>
+                          		<center><object data="icons/noresult.jpg" width="400" height="400" " ></object></center>
+								<%
+								System.out.println("Inside if block");
+                            	
+                            }
+                            else
+                            {
+                            	do{
+                                %>
+                                 <div class="row">
+			<div class="col-md-offset-1 col-md-10">
+				<div class="panel">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col col-md-6 col-xs-12">
+								<h4 class="title">Building Details</h4>
+							</div>
+							<div class="col-md-6 col-xs-12 text-right">
+								<div class="btn_group">
+									<input type="text" id="search" class="form-control"
+										placeholder="Search">
+									<button class="btn btn-search " title="Reload"><i class="fa fa-sync-alt"></i></button>
+									<button class="btn btn-default" title="Pdf"><i class="fa fa-file-pdf"></i></button>
+                                    <button class="btn btn-default" title="Excel"><i class="fas fa-file-excel"></i></button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="panel-body table-responsive">
+						<table class="table">
+							<thead>
+
+								<th>Sr.No</th>
+								 <th>Building Id</th>
 								<th>Building Name</th>
 								<th>No. of Floors</th>
 								<th>Action</th>
@@ -136,48 +187,41 @@ session.removeAttribute("delete-success");
 							</thead>
 							<ol id="list">
 								<tbody>
+    									<tr>
+    										<td><%=cnt%></td>
+    										<%-- <td><%=rs.getInt(1) %></td> --%>
+    										<td><%=rs.getString(2)%></td>
+    										<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<%=rs.getInt(3) %></td>
+    										<td>
+    											<ul class="action-list">
+    												<a
+    													href="EditModals/EditBuildingModal.jsp?buildingId=<%=rs.getInt(1) %> ">
+    													<button type="button" data-target="#exampleModal" data-toggle="modal" data-backdrop="static" data-keyboard="false" class="btn btn-success "
+    														style="font-size: 15px">
+    														<i class="fa fa-edit"> </i> Edit
+    													</button>
+    												</a>&nbsp &nbsp &nbsp
 
-									<% 
-                            try{
-                            BuildingDao bdao=new BuildingDao();
-                            ResultSet rs=bdao.getBuildingDetails();
-                            int cnt=1;
-                            while(rs.next())
-                            {
-                            
-                            %>
-									<tr>
-										<td><%=cnt%></td>
-										<%-- <td><%=rs.getInt(1) %></td> --%>
-										<td><%=rs.getString(2)%></td>
-										<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<%=rs.getInt(3) %></td>
-										<td>
-											<ul class="action-list">
-												<a
-													href="EditModals/EditBuildingModal.jsp?buildingId=<%=rs.getInt(1) %> ">
-													<button type="button" data-target="#exampleModal" data-toggle="modal" data-backdrop="static" data-keyboard="false" class="btn btn-success "
-														style="font-size: 15px">
-														<i class="fa fa-edit"> </i> Edit
-													</button>
-												</a>&nbsp &nbsp &nbsp
+    												<a href="DeleteBuilding?buildingId=<%=rs.getInt(1) %>"> <button type="button"  class="btn btn-danger "
+    													style="font-size: 15px">
+    													<i class="fa fa-trash"> </i> Delete
+    												</button></a>
+    												
+    												<!-- <button type="button" onclick="alert()"
+    													class="btn btn-danger " style="font-size: 15px">
+    													<i class="fa fa-trash"> </i> Delete
+    												</button> -->
 
-												<a href="DeleteBuilding?buildingId=<%=rs.getInt(1) %>"> <button type="button"  class="btn btn-danger "
-													style="font-size: 15px">
-													<i class="fa fa-trash"> </i> Delete
-												</button></a>
-												
-												<!-- <button type="button" onclick="alert()"
-													class="btn btn-danger " style="font-size: 15px">
-													<i class="fa fa-trash"> </i> Delete
-												</button> -->
-
-												<!-- <li><a href="#" data-tip="delete"><i class="fa fa-trash"></i></a></li> -->
-											</ul>
-										</td>
-									</tr>
-									<%
-                              		cnt++;
-                            	}
+    												<!-- <li><a href="#" data-tip="delete"><i class="fa fa-trash"></i></a></li> -->
+    											</ul>
+    										</td>
+    									</tr>
+    									<%
+                                  		cnt++;
+                                		}
+                            while(rs.next());
+                            }
+                        
                             }catch(Exception e){
                             	e.printStackTrace();
                             }

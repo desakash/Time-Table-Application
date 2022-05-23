@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Load Distribution | GPP</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/form.css">
@@ -291,6 +291,32 @@ input {
 			}
         
         session.removeAttribute("loadDistribute-success");
+        %>
+        
+        <%
+        	if(!session.isNew())
+			{   
+        		String loadDistribute_error=(String)session.getAttribute("loadDistribute-error");
+        		if(loadDistribute_error=="true")
+        		{
+        %>
+        			<script type="text/javascript">
+				
+    				Swal.fire({
+      				//  position: 'top-end',
+       						icon: 'error',
+       						title: 'Invalid Load Distribution.',
+       						showConfirmButton: false,
+       						timer: 1500,
+     					})
+ 
+  					</script>
+  		<% 
+        		}
+
+			}
+        
+        session.removeAttribute("loadDistribute-error");
         %>
         <h2 class="title" style="font-size: 30px">Load Distribution</h2>
         <form class="row g-3 needs-validation" action="LoadDistributionController" method="post" novalidate>

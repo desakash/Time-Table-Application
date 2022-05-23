@@ -38,5 +38,39 @@ public class DivisionCourseAllocationDao {
 		}
 		return i;
 	}
+	
+	public ResultSet getNoOfPractTuts(String divName)
+	{
+		con=DbConnection.getConnection();
+		try {
+			pstate=con.prepareStatement("select no_of_pract_batches, no_of_tut_batches from division_master where division_name=?");
+			pstate.setString(1, divName);
+			rs=pstate.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
+	
+	public int insertDivisionLoad(String division_name,String course_name,int theory,int practicals,int tutorials)
+	{
+		con=DbConnection.getConnection();
+		try {
+			pstate=con.prepareStatement("insert into division_total_load values(?,?,?,?,?)");
+			pstate.setString(1, division_name);
+			pstate.setString(2, course_name);
+			pstate.setInt(3, theory);
+			pstate.setInt(4, practicals);
+			pstate.setInt(5, tutorials);
+			i=pstate.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return i;
+		
+		
+	}
 
 }

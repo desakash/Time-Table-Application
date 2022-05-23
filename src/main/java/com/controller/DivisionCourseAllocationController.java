@@ -2,6 +2,7 @@ package com.controller;
 
 import java.io.IOException;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -68,6 +69,7 @@ public class DivisionCourseAllocationController extends HttpServlet {
 		DivisionCourseAllocation dca=new DivisionCourseAllocation(term, division, allotedCourseNameList, allotedCourseCodes);
 		
 		
+		
 
 		DivisionCourseAllocationDao dcad=new DivisionCourseAllocationDao();
 		int i=dcad.insertAllotedCourses(dca);
@@ -77,6 +79,39 @@ public class DivisionCourseAllocationController extends HttpServlet {
 			response.sendRedirect("DivisionCourseAllocation.jsp");
 		}
 
+		int no_of_practicals=0;
+		int no_of_tuts=0;
+		
+		
+		CourseDao cdao=new CourseDao();
+		ResultSet rs=dcad.getNoOfPractTuts(division);
+		try {
+			if(rs.next())
+			{
+				no_of_practicals=rs.getInt(1);
+				no_of_tuts=rs.getInt(2);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			for(i=0;i<allotedCourseCodes.size();i++)
+			{
+				ResultSet rs1=cdao.getCourseDetailsById(allotedCourseCodes.get(i));
+				if(rs1.next())
+				{
+					int k=dcad.insertDivisionLoad(division,rs1.getString(1),rs1.getInt(5),no_of_practicals*rs1.getInt(6),no_of_tuts*rs1.getInt(7));
+					if(k>0)
+					{
+						System.out.println("division load inserted succesfully");
+					}
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**

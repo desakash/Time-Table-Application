@@ -113,4 +113,85 @@ public class LoadDistributionDao {
 		
 		return i;
 	}
+	
+	public ResultSet getLoadDistribution()
+	{
+		con=DbConnection.getConnection();
+		try {
+			st=con.createStatement();
+			rs=st.executeQuery("select *from load_distribution");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
+	
+	public int getTotalRowsForFaculty(int FacId)
+	{
+		int count=0;
+		con=DbConnection.getConnection();
+		try {
+			pstate=con.prepareStatement("select count(*) from load_distribution where faculty_id=?");
+			pstate.setInt(1, FacId);
+			rs=pstate.executeQuery();
+			if(rs.next())
+			{
+				count=rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return count;
+	}
+	
+	public boolean checkLoad(String divisionName,String coursecode,int theory,int practical,int tutorial)
+	{
+		con=DbConnection.getConnection();
+		try {
+			pstate=con.prepareStatement("select *from division_total_load where division_name=? and course_code=?");
+			pstate.setString(1, divisionName);
+			pstate.setString(2, coursecode);
+			rs=pstate.executeQuery();
+			if(rs.next())
+			{
+				System.out.println(rs.getInt(3)+rs.getInt(4)+rs.getInt(5));
+				if(theory<=rs.getInt(3)&&practical<=rs.getInt(4)&&tutorial<=rs.getInt(5))
+				{
+					return true;
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catpractical=ch block
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	
+	public int updateDivTotalLoad(String divName,String courseCode,int theory,int practical,int tutorial)
+	{
+		con=DbConnection.getConnection();
+		try {
+			pstate=con.prepareStatement("update division_total_load set theory=?,practical=?,tutorial=? where division_name=? and course_code=?");
+			PreparedStatement ps=con.prepareStatement("select *from division_total_load where division_name=? and course_code=?");
+			ps.setString(1, divName);
+			ps.setString(2, courseCode);
+			rs=ps.executeQuery();
+			if(rs.next())
+			{
+				pstate.setInt(1, rs.getInt(3)-theory);
+				pstate.setInt(2, rs.getInt(4)-practical);
+				pstate.setInt(3, rs.getInt(5)-tutorial);
+				pstate.setString(4, divName);
+				pstate.setString(5, courseCode);
+				i=pstate.executeUpdate();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return i;
+	}
 }

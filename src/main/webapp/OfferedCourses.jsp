@@ -27,7 +27,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.8.1/js/bootstrap-select.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
       
-      
+       <script src="sweetalert2.all.min.js"></script>
+<script src="sweetalert2.min.js"></script>
+<link rel="stylesheet" href="sweetalert2.min.css">
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 
@@ -67,7 +70,7 @@
         
         
         <h5 class="title" style="font-size: 30px">Offered Courses Details</h5>
-        <form class="row g-3 needs-validation" novalidate>
+        <form class="row g-3 needs-validation" action="OfferedCourseController" novalidate>
            
             <div class="col-md-6">
               <label for="validationCustom04" class="form-label" style="font-size: 17px">Term</label>
@@ -137,7 +140,7 @@
 	        
 	        
             <div class="col-12">
-              <button class="btn btn-success" type="submit" style="font-size: 17px"; text-align:"center";> <i class="fas fa-plus"></i> Offer Course</button>
+              <button class="btn btn-success" type="submit" style="font-size: 17px"; text-align:"center";> <i class="fas fa-plus"></i>Search Course</button>
             </div>
           </form>
        

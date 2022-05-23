@@ -78,4 +78,20 @@ public class OfferedCourseDao {
 		}
 		return rs;
 	}
+	
+	public ResultSet getCourseDetailsByTermYear(String termYear)
+	{
+		con=DbConnection.getConnection();
+		try {
+			pstate=con.prepareStatement("select * from offered_courses where term=?");
+			pstate.setString(1, termYear);
+			
+			rs=pstate.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return rs;
+	}
 }

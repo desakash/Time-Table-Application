@@ -159,7 +159,7 @@ public class LoadDistributionController extends HttpServlet {
 			int i=lddao.DistributeLoad(ld);
 			if(i>0)
 			{
-				lddao.updateDivTotalLoad(divisionName,courseCode,th,practical*practicalCount,tutorial*tutorialCount)
+				lddao.updateDivTotalLoad(divisionName,courseCode,th,practical*practicalCount,tutorial*tutorialCount);
 				ResultSet rs2=lddao.checkFacultyInTotalLoad(facId);
 				try {
 					if(rs2.next())

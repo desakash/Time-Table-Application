@@ -44,6 +44,11 @@ input {
 
 <script type="text/javascript">
  			var xmlHttp;
+ 			
+ 			
+ 			
+
+
  			function showOfferedCourses(str)
  			{
  				console.log('hello in courses'+str);
@@ -64,11 +69,15 @@ input {
  				xmlHttp.onreadystatechange=stateChange;
  				xmlHttp.open("POST",url,true);
  				xmlHttp.send(null);
+ 				
+ 				
  			}
  			function stateChange()
  			{
+ 				console.log('hello in printcourses')
  				if(xmlHttp.readyState===4 ||xmlHttp.readyState==='complete')
  				{
+ 					console.log('hello in if of courses')
  					document.getElementById("offered_courses").innerHTML=xmlHttp.responseText;
  				}
  			}
@@ -101,10 +110,84 @@ input {
  				if(xmlHttp.readyState===4 ||xmlHttp.readyState==='complete')
  				{
  					document.getElementById("ThPractTut").innerHTML=xmlHttp.responseText;
+ 					var theoryHr=document.getElementById('thHr').value;
+ 		 			var practicalHr=document.getElementById('prHr').value;
+ 		 			var tutorialHr=document.getElementById('tutHr').value;
+ 		 			console.log('theory = '+theoryHr+' practHr = '+practicalHr+' tuthr = '+tutorialHr);
+ 		 			
+ 		 		 	var x=document.getElementById("practicalno");
+ 		 		 	var y=document.getElementById("tutorialno");
+ 		 		 	
+ 		 		 
+ 		 			var option;
+ 		 			var i=0;
+ 		 			var j=0
+ 		 			console.log(i);
+ 		 			
+ 		 		
+ 		 			while(practicalHr>=0){
+ 		 				option=document.createElement("option")
+ 		 				option.text=i;
+ 		 				x.add(option,x[i+1])
+ 		 				practicalHr--;
+ 		 				console.log(i);
+ 		 				console.log(theoryHr);
+ 		 				i++;
+ 		 				
+ 		 				
+ 		 				
+ 		 				
+ 		 			} 
+ 		 			
+ 		 			while(tutorialHr>=0){
+ 		 				option=document.createElement("option")
+ 		 				option.text=j;
+ 		 				y.add(option,y[i+1])
+ 		 				tutorialHr--;
+ 		 				console.log(j);
+ 		 				console.log(tutorialHr);
+ 		 				j++;
+ 		 		
+ 		 			} 
  				}
  			}
  			
- 		/* 	function practicalBatches(str)
+ 			function disablePracticalCheckbox(str){
+ 				
+		 		 	var pch1=document.getElementById("p1");
+		 		 	var pch2=document.getElementById("p2");
+		 		 	var pch3=document.getElementById("p3");
+ 				if(str==='0'){
+ 	
+ 		 				pch1.disabled=true;
+ 		 				pch2.disabled=true;
+ 		 				pch3.disabled=true;
+ 				}else{
+ 						pch1.disabled=false;
+ 		 				pch2.disabled=false;
+ 		 				pch3.disabled=false;
+ 					}
+ 			}
+ 			function disableTutorialCheckbox(str){
+ 					var tch1=document.getElementById("t1");
+		 		 	var tch2=document.getElementById("t2");
+		 		 	var tch3=document.getElementById("t3");
+		 		 	console.log(str);
+ 					if(str==='0'){
+ 	
+ 		 				tch1.disabled=true;
+ 		 				tch2.disabled=true;
+ 		 				tch3.disabled=true;
+ 					}
+ 					else{
+ 						tch1.disabled=false;
+ 		 				tch2.disabled=false;
+ 		 				tch3.disabled=false;
+ 					}
+ 					
+ 			}
+ 			
+ 		 /* 	function practicalBatches(str)
  			{
  				console.log('hello in practicalBatches'+str);
  				if(typeof XMLHttpRequest !=="undefined")
@@ -172,10 +255,12 @@ input {
  					console.log('inside if of print tutorial batches')
  					document.getElementById("TutorialBatches").innerHTML=xmlHttp.responseText;
  				}
- 			}
- 			 */
+ 			} */
+ 			 
 
  		</script>
+ 		
+ 		
 
   <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
         <div class="wrapper wrapper--w680">
@@ -213,7 +298,7 @@ input {
 
             <div class="col-md-6">
               <label for="validationCustom04" class="form-label" style="font-size: 17px">Faculty</label>
-              <select class="form-select" id="validationCustom04" name="faculty_name" style="font-size: 17px" required>
+              <select class="form-select" id="validationCustom04" name="faculty_id" style="font-size: 17px" required>
                 <option selected disabled value="" style="font-size: 17px">Faculty</option>
                 <%
                 	FacultyDao fdao=new FacultyDao();
@@ -221,7 +306,7 @@ input {
                 	while(rs.next())
                 	{
                 %>
-                	<option style="font-size: 17px"><%=rs.getString(2) %></option>
+                	<option style="font-size: 17px" value="<%=rs.getInt(1) %>" ><%=rs.getString(2) %></option>
                 <%
                 	}
                 %>
@@ -234,7 +319,7 @@ input {
             </div>
             <div class="col-md-6">
               <label for="validationCustom04" class="form-label" style="font-size: 17px">Division</label>
-              <select class="form-select" id="validationCustom04" name="division_name" onchange="showOfferedCourses(this.value)"  style="font-size: 17px" required>
+              <select class="form-select" id="divName" name="division_name" onchange="showOfferedCourses(this.value)"  style="font-size: 17px" required>
                 <option selected disabled value="" style="font-size: 17px">Division</option>
                 <%
                 	DivisionDao ddao=new DivisionDao();
@@ -248,6 +333,7 @@ input {
                 %>
                
               </select>
+              
               <div class="invalid-feedback" style="font-size: 17px">
                 Please select a Division.
               </div>
@@ -285,18 +371,22 @@ input {
               <div class="d-inline-block" style="font-size: 17px"><h4 style="font-size: 17px">Practical : </h4></div>
               <div class="d-inline-block" style="font-size: 17px"><h4 style="font-size: 17px">Tutorials: </h4></div> -->
             
-            </div>  
+            </div> 
+            
+            <script type="text/javascript">
+ 			
+ 		</script> 
             
          <br><br><br>  <br><br><br>  
             <div class="col-md-6">
               <label for="validationCustom04" class="form-label"  style="font-size: 17px">Practical</label>
-              <select class="form-select" id="validationCustom04" name="practical_hours"  style="font-size: 17px" required>
+              <select class="form-select" id="practicalno" name="practical_hours"  style="font-size: 17px" onchange="disablePracticalCheckbox(this.value)" required>
                 <option selected disabled value=""  style="font-size: 17px">Practicals</option>
-                <option  style="font-size: 17px">0</option>
+               <!--  <option  style="font-size: 17px">0</option>
                 <option  style="font-size: 17px">1</option>
                 <option  style="font-size: 17px">2</option>
                 <option  style="font-size: 17px">3</option>
-                <option  style="font-size: 17px">4</option>
+                <option  style="font-size: 17px">4</option> -->
               </select>
               <div class="invalid-feedback"  style="font-size: 17px">
                 Please select a Practical hours.
@@ -305,12 +395,12 @@ input {
             
              <div class="col-md-6">
               <label for="validationCustom04" class="form-label"  style="font-size: 17px">Tutorials</label>
-              <select class="form-select" id="validationCustom04" name="tutorial_hours"  style="font-size: 17px" required>
+              <select class="form-select" id="tutorialno" name="tutorial_hours"  style="font-size: 17px" onchange="disableTutorialCheckbox(this.value)" required>
                 <option selected disabled value=""  style="font-size: 17px">Tutotials</option>
-                <option  style="font-size: 17px">0</option>
+             <!--    <option  style="font-size: 17px">0</option>
                 <option  style="font-size: 17px">1</option>
                 <option  style="font-size: 17px">2</option>
-                
+                 -->
               </select>
               <div class="invalid-feedback"  style="font-size: 17px">
                 Please select a Tutorials hours.
@@ -324,13 +414,13 @@ input {
           
 			
  	<div>
-        <label style="font-size: 17px; font-weight: normal;"> <input type="checkbox" name="a" style="zoom:1.5;" />	A Batch</label><br><br>
+        <label style="font-size: 17px; font-weight: normal;"> <input type="checkbox" id="p1" name="a" style="zoom:1.5;" />	A Batch</label><br><br>
     </div>
      <div>
-        <label style="font-size: 17px; font-weight: normal;"><input type="checkbox" name="b"  style="zoom:1.5;"/> B Batch</label><br><br>
+        <label style="font-size: 17px; font-weight: normal;"><input type="checkbox" id="p2" name="b"  style="zoom:1.5;"/> B Batch</label><br><br>
     </div>
      <div>
-        <label style="font-size: 17px; font-weight: normal;"><input type="checkbox" name="c" style="zoom:1.5;" /> C Batch</label>
+        <label style="font-size: 17px; font-weight: normal;"><input type="checkbox"  id="p3" name="c" style="zoom:1.5;" /> C Batch</label>
     </div> 
   			</div>
             
@@ -340,13 +430,13 @@ input {
             <div class="col-md-6" id="TutorialBatches">
               <label for="validationCustom04" class="form-label"  style="font-size: 17px">Tutorials Batches</label><br><br>
               <div>
-        <label style="font-size: 17px; font-weight: normal;"> <input type="checkbox" name="t1" style="zoom:1.5;" /> T1 Batch</label><br><br>
+        <label style="font-size: 17px; font-weight: normal;"> <input type="checkbox" id="t1" name="t1" style="zoom:1.5;" /> T1 Batch</label><br><br>
     </div>
      <div>
-        <label style="font-size: 17px; font-weight: normal;"><input type="checkbox" name="t2" style="zoom:1.5;"/> T2 Batch</label><br><br>
+        <label style="font-size: 17px; font-weight: normal;"><input type="checkbox" id="t2" name="t2" style="zoom:1.5;"/> T2 Batch</label><br><br>
     </div>
      <div>
-        <label style="font-size: 17px; font-weight: normal;"><input type="checkbox" name="t3" style="zoom:1.5;" /> T3 Batch</label>
+        <label style="font-size: 17px; font-weight: normal;"><input type="checkbox" id="t3" name="t3" style="zoom:1.5;" /> T3 Batch</label>
     </div> 
   			</div>
             

@@ -41,7 +41,7 @@ public class LoadDistributionController extends HttpServlet {
 		StringBuilder sb=new StringBuilder();
 		StringBuilder sb2=new StringBuilder();
 		
-		String facultyName=request.getParameter("faculty_name");
+		int facId=Integer.parseInt(request.getParameter("faculty_id"));
 		
 		
 		String facultyDesignation=null;
@@ -49,31 +49,13 @@ public class LoadDistributionController extends HttpServlet {
 		
 		
 		FacultyDao fdao=new FacultyDao();
-		ResultSet rs1=null;
-		rs1=fdao.getFacultyDesigByName(facultyName);
-		try {
-			if(rs1.next())
-			{
-				facultyDesignation=rs1.getString(1);
-			}
-		} catch (SQLException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
+		facultyDesignation=fdao.getFacultyDesigByName(facId);
+		
 			
 		
 		
-		int faculty_id=0;
-		rs1=fdao.getFacultyIdByName(facultyName);
-		try {
-			if(rs1.next())
-			{
-				faculty_id=rs.getInt(1);
-			}
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		String facultyName=fdao.getFacultyNameById(facId);
+		//System.out.println(facultyDesignation+faculty_id);
 		
 		String divisionName=request.getParameter("division_name");
 		String courseCode=request.getParameter("offered_course").substring(0, 6);
@@ -163,12 +145,40 @@ public class LoadDistributionController extends HttpServlet {
 		
 		int load=(practical*practicalCount)+th+(tutorial*tutorialCount);
 		
-		LoadDistribution ld=new LoadDistribution(faculty_id,facultyName, facultyDesignation, divisionName, courseCode, courseAbbr, th, practical, practicalBatches, tutorial,tutorialBatches, load);
-		
 		LoadDistributionDao lddao=new LoadDistributionDao();
+
+		LoadDistribution ld=new LoadDistribution(facId,facultyName, facultyDesignation, divisionName, courseCode, courseAbbr, th, practical, practicalBatches, tutorial,tutorialBatches, load);
+		
+		
+		
 		int i=lddao.DistributeLoad(ld);
 		if(i>0)
 		{
+			ResultSet rs2=lddao.checkFacultyInTotalLoad(facId);
+			try {
+				if(rs2.next())
+				{
+					int totalLoad=lddao.getTotalLoad(facId);
+					int k=lddao.updateTotalLoad(facId, totalLoad);
+					if(k>0)
+					{
+						System.out.println("total load updated successsfully");
+					}
+				}
+				else
+				{
+					int totalLoad=lddao.getTotalLoad(facId);
+					int k=lddao.insertTotalLoad(facId, totalLoad);
+					if(k>0)
+					{
+						System.out.println("inserted total load in total_load_distribution");
+					}
+					
+				}
+			}catch(Exception e)
+			{
+				e.printStackTrace();
+			}
 			session.setAttribute("loadDistribute-success", "true");
 			response.sendRedirect("LoadDistribution.jsp");
 		}

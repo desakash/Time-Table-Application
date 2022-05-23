@@ -45,7 +45,7 @@ public class DisplayThPractTut extends HttpServlet {
 		 try {
 			if(rs.next())
 			 {
-					tag=tag+"<div class='d-inline-block' ><h4 style='font-size: 17px'>Theory Hours : "+rs.getInt(5)+"</h4></div><div class='d-inline-block' ><h4 style='font-size: 17px;  '>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Practical Hours : "+rs.getInt(6)+"</h4></div> <div class='d-inline-block' ><h4 style='font-size: 17px; '>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Tutorial Hours : "+rs.getInt(7)+"</h4></div>"; 
+					tag=tag+"<div class='d-inline-block' ><h4 style='font-size: 17px'>Theory Hours :<input type='hidden' id='thHr' value='"+rs.getInt(5)+"'> "+rs.getInt(5)+"</h4></div><div class='d-inline-block' ><h4 style='font-size: 17px;  '>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Practical Hours : <input type='hidden' id='prHr' value='"+rs.getInt(6)+"'>"+rs.getInt(6)+"</h4></div> <div class='d-inline-block' ><h4 style='font-size: 17px; '>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Tutorial Hours :<input type='hidden' id='tutHr' value='"+rs.getInt(7)+"'>"+rs.getInt(7)+"</h4></div>"; 
 			 }
 		} catch (SQLException e) {
 			e.printStackTrace();

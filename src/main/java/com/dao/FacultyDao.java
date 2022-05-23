@@ -110,42 +110,50 @@ public class FacultyDao {
 		return rs;
 	}
 	
-	public ResultSet getFacultyDesigByName(String facultyName)
+	public String getFacultyDesigByName(int id)
 	{
 		con=DbConnection.getConnection();
-		System.out.println("in getFacultyDesigByName"+facultyName);
+		ResultSet rs1=null;
+		String facultyDesig=null;
+		//System.out.println("in getFacultyDesigByName"+facultyName);
 		try {
-			pstate=con.prepareStatement("select faculty_designation from faculty_master where faculty_name=?");
-			pstate.setString(1, facultyName);
-			rs=pstate.executeQuery();
+			pstate=con.prepareStatement("select * from faculty_master where faculty_id=?");
+			pstate.setInt(1, id);
+			rs1=pstate.executeQuery();
+			if(rs1.next())
+			{
+				System.out.println("inside if od getFavultdesigByName");
+				facultyDesig=rs1.getString(5);
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if(rs==null)
-		{
-			System.out.println("rs in null in designation");
-		}
-		return rs;
+		
+		return facultyDesig;
 	}
 	
-	public ResultSet getFacultyIdByName(String facultyName)
+	public String getFacultyNameById(int id)
 	{
 		System.out.println("hello in getFcaultyIdBy Name");
 		con=DbConnection.getConnection();
+		String facultyName=null;
 		try {
-			pstate=con.prepareStatement("select faculty_id from faculty_master where faculty_name=?");
-			pstate.setString(1, facultyName);
+			pstate=con.prepareStatement("select * from faculty_master where faculty_id=?");
+			pstate.setInt(1, id);
 			rs=pstate.executeQuery();
+			if(rs.next())
+			{
+				System.out.println("inside if of getFavultIdByName");
+				facultyName=rs.getString(2);
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if(rs==null)
-		{
-			System.out.println("rs in null in id");
-		}
 		
-		return rs;
+		
+		return facultyName;
 	}
+	
 }

@@ -77,7 +77,7 @@ if(!session.isNew())
 
 %>
 	<div class="container" style="margin-top: 150px; margin-left: 200px;">
-		<div class="row">
+		<!-- <div class="row">
 			<div class="col-md-offset-1 col-md-10">
 				<div class="panel">
 					<div class="panel-heading">
@@ -89,9 +89,64 @@ if(!session.isNew())
 								<div class="btn_group">
 									<input type="text" id="search" class="form-control"
 										placeholder="Search">
-									<!-- <button class="btn btn-search " title="Reload"><i class="fa fa-sync-alt"></i></button> -->
-									<!-- <button class="btn btn-default" title="Pdf"><i class="fa fa-file-pdf"></i></button>
-                                    <button class="btn btn-default" title="Excel"><i class="fas fa-file-excel"></i></button> -->
+									<button class="btn btn-search " title="Reload"><i class="fa fa-sync-alt"></i></button>
+									<button class="btn btn-default" title="Pdf"><i class="fa fa-file-pdf"></i></button>
+                                    <button class="btn btn-default" title="Excel"><i class="fas fa-file-excel"></i></button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="panel-body table-responsive">
+						<table class="table">
+							<thead>
+
+								<th>Sr.No</th>
+								<th>Course Code</th>
+								<th>Name</th>
+								<th>Abbreviation</th>
+								<th>year</th>
+								<th>Theory</th>
+								<th>Practical</th>
+								<th>Tutorials</th>
+								<th>Action</th>
+
+							</thead>
+							<ol id="list">
+								<tbody> -->
+									<%
+									
+                            try{
+                            	 CourseDao crsdao=new CourseDao();
+                                 ResultSet rs=crsdao.getCourseDetails();
+                            int cnt=1;
+                            if(!rs.next())
+                            {
+                            	%>
+                            	<center><label style="color:black;font-size: 30px;">No Result Found...!!</label></center>
+                          		<center><object data="icons/noresult.jpg" width="400" height="400" " ></object></center>
+								<%
+								System.out.println("Inside if block");
+                            	
+                            }
+                            else
+                            {
+                            	do{
+                            	%>
+                            		<div class="row">
+			<div class="col-md-offset-1 col-md-10">
+				<div class="panel">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col col-md-6 col-xs-12">
+								<h4 class="title">Course Details</h4>
+							</div>
+							<div class="col-md-6 col-xs-12 text-right">
+								<div class="btn_group">
+									<input type="text" id="search" class="form-control"
+										placeholder="Search">
+									<button class="btn btn-search " title="Reload"><i class="fa fa-sync-alt"></i></button>
+									<button class="btn btn-default" title="Pdf"><i class="fa fa-file-pdf"></i></button>
+                                    <button class="btn btn-default" title="Excel"><i class="fas fa-file-excel"></i></button>
 								</div>
 							</div>
 						</div>
@@ -113,49 +168,46 @@ if(!session.isNew())
 							</thead>
 							<ol id="list">
 								<tbody>
-									<%
-                            try{
-                            	 CourseDao crsdao=new CourseDao();
-                                 ResultSet rs=crsdao.getCourseDetails();
-                            int cnt=1;
-                            while(rs.next())
-                            {
-                            
-                            %>
-									<tr>
-										<td><%=cnt %></td>
-										<td><%=rs.getString(1) %></td>
-										<td><%=rs.getString(2) %></td>
-										<td><%=rs.getString(3) %></td>
-										<td><%=rs.getInt(4) %></td>
-										<td><%=rs.getInt(5) %></td>
-										<td><%=rs.getInt(6) %></td>
-										<td><%=rs.getInt(7) %></td>
+                            		<tr>
+									<td><%=cnt %></td>
+									<td><%=rs.getString(1) %></td>
+									<td><%=rs.getString(2) %></td>
+									<td><%=rs.getString(3) %></td>
+									<td><%=rs.getInt(4) %></td>
+									<td><%=rs.getInt(5) %></td>
+									<td><%=rs.getInt(6) %></td>
+									<td><%=rs.getInt(7) %></td>
 
-										<td>
-											<ul class="action-list">
+									<td>
+										<ul class="action-list">
 
-											<a href="EditModals/EditCourseModal.jsp?courseId=<%=rs.getString(1)%>"><button type="button" class="btn btn-success "
+										<a href="EditModals/EditCourseModal.jsp?courseId=<%=rs.getString(1)%>"><button type="button" class="btn btn-success "
+												style="font-size: 15px">
+												<i class="fa fa-edit"></i>
+											</button></a>
+
+
+											<!-- <li><a href="#" data-tip="edit"><i class="fa fa-edit"></i></a></li> -->
+											<a href="DeleteCourseController?courseId=<%=rs.getString(1)%>">
+												<button type="button" class="btn btn-danger "
 													style="font-size: 15px">
-													<i class="fa fa-edit"></i>
-												</button></a>
+													<i class="fa fa-trash"> </i>
+												</button>
+											</a>
 
-
-												<!-- <li><a href="#" data-tip="edit"><i class="fa fa-edit"></i></a></li> -->
-												<a href="DeleteCourseController?courseId=<%=rs.getString(1)%>">
-													<button type="button" class="btn btn-danger "
-														style="font-size: 15px">
-														<i class="fa fa-trash"> </i>
-													</button>
-												</a>
-
-												<!-- <li><a href="#" data-tip="delete"><i class="fa fa-trash"></i></a></li> -->
-											</ul>
-										</td>
-									</tr>
-									<%
-                              		cnt++;
-                            	}
+											<!-- <li><a href="#" data-tip="delete"><i class="fa fa-trash"></i></a></li> -->
+										</ul>
+									</td>
+								</tr>
+								<%
+                          		cnt++;
+                            		
+                            	}while(rs.next());
+                            }
+                            
+                          
+									
+                            	
                             }catch(Exception e){
                             	e.printStackTrace();
                             }

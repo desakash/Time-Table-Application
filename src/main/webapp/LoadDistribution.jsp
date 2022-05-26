@@ -468,7 +468,7 @@ input {
             
 
             <div class="col-12">
-              <button class="btn btn-success" type="submit" style="font-size: 17px"; text-align:"center";> <i class="fas fa-plus"></i> Add Class</button>
+              <button class="btn btn-success" type="submit" style="font-size: 17px"; text-align:"center";> <i class="fas fa-plus"></i> Register Load</button>
             </div>
             
 

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.dao.CourseDao;
+import com.dao.DivisionDao;
 
 /**
  * Servlet implementation class DisplayThPractTut

@@ -1,3 +1,5 @@
+<%@page import="com.dao.DivisionDao"%>
+<%@page import="java.sql.ResultSet"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -20,6 +22,77 @@
 <body>
  		<%@ include file="html/sidenav.html" %>  
 
+	<script type="text/javascript">
+	
+	var xmlHttp;
+		
+		function showOfferedCourses(str)
+		{
+			console.log('hello in courses'+str);
+			if(typeof XMLHttpRequest !=="undefined")
+			{
+				xmlHttp=new XMLHttpRequest();
+			}
+			else if (window.ActiveXObject)
+			{
+			xmlHttp=new ActiveXOjbject("Microsoft.XMLHTTP");
+		}
+			if(xmlHttp===null)
+			{
+				alert("Browser does not support XMLHTTP Request.");
+				return;
+			}
+			var url="OfferedCoursesDropdown?division="+str;
+			xmlHttp.onreadystatechange=stateChange;
+			xmlHttp.open("POST",url,true);
+			xmlHttp.send(null);
+			
+			
+		}
+		function stateChange()
+		{
+			console.log('hello in printcourses')
+			if(xmlHttp.readyState===4 ||xmlHttp.readyState==='complete')
+			{
+				console.log('hello in if of courses')
+				document.getElementById("offered_courses").innerHTML=xmlHttp.responseText;
+			}
+		}
+		
+		function showOffereSlots(str)
+		{
+			console.log('hello in slots'+str);
+			if(typeof XMLHttpRequest !=="undefined")
+			{
+				xmlHttp=new XMLHttpRequest();
+			}
+			else if (window.ActiveXObject)
+			{
+			xmlHttp=new ActiveXOjbject("Microsoft.XMLHTTP");
+		}
+			if(xmlHttp===null)
+			{
+				alert("Browser does not support XMLHTTP Request.");
+				return;
+			}
+			var url="DisplaySlotDropDown?day="+str;
+			xmlHttp.onreadystatechange=stateChange;
+			xmlHttp.open("POST",url,true);
+			xmlHttp.send(null);
+			
+			
+		}
+		function stateChange()
+		{
+			console.log('hello in printcourses')
+			if(xmlHttp.readyState===4 ||xmlHttp.readyState==='complete')
+			{
+				console.log('hello in if of courses')
+				document.getElementById("offered_courses").innerHTML=xmlHttp.responseText;
+			}
+		}
+	</script>
+
       <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
         <div class="wrapper wrapper--w680">
         <div class="card card-4">
@@ -32,17 +105,20 @@
              
             <div class="col-md-6">
               <label for="validationCustom04" class="form-label">Division</label>
-              <select class="form-select" id="division" name="Division_name" required>
+              <select class="form-select" id="division" name="Division_name" onchange="showOfferedCourses(this.value)"required>
                 <option selected disabled value="">Division</option>
-                <option>G1</option>
-                <option>H1</option>
-                <option>N1</option>
-                <option>G2</option>
-                <option>H2</option>
-                <option>N2</option>
-                <option>G3</option>
-                <option>H3</option>
-                <option>N3</option>
+                 <%
+                 	ResultSet rs=null;
+                	DivisionDao ddao=new DivisionDao();
+                	rs=ddao.getDivisionDetails();
+                	while(rs.next())
+                	{
+                %>
+                	<option style="font-size: 17px"><%=rs.getString(2) %></option>
+                <%
+                	}
+                %>
+               
               </select>
               <div class="invalid-feedback">
                 Please select a Division.
@@ -51,10 +127,10 @@
            
             <div class="col-md-6">
               <label for="validationCustom04" class="form-label">Courses</label>
-              <select class="form-select" id="course" name="offered_courses" required>
+              <select class="form-select" id="offered_courses" name="offered_courses" required>
                 <option selected disabled value="">Courses</option>
-                <option>Python With Programming [CM5102]</option>
-                <option>Android Application Programming</option>
+                <!-- <option>Python With Programming [CM5102]</option>
+                <option>Android Application Programming</option> -->
               </select>
               <div class="invalid-feedback">
                 Please select a Course.
@@ -81,7 +157,7 @@
 
             <div class="col-md-6">
                 <label for="validationCustom04" class="form-label">Day</label>
-                <select class="form-select" id="validationCustom04" name="faculty_name" required>
+                <select class="form-select" id="validationCustom04" name="faculty_name" onchange="showOfferedSlots(this.value)" required>
                   <option selected disabled value="">Day</option>
                   <option>Monday</option>
                   <option>Tuesday</option>
@@ -98,11 +174,11 @@
               
               <div class="col-md-6">
                   <label for="validationCustom04" class="form-label">From Time:</label>
-                  <select class="form-select" id="fromtime"onchange="update()" name="faculty_name" required>
+                  <select class="form-select" id="offeredSlots"onchange="update()" name="offeredSlots" required>
                     <option selected disabled value="">From Time</option>
-                    <option>08 AM</option>
+                   <!--  <option>08 AM</option>
                     <option>09 AM</option>
-                    <option>10 AM</option>
+                    <option>10 AM</option> -->
                   </select>
                   <div class="invalid-feedback">
                     Please select a From time.
@@ -113,9 +189,9 @@
                   <label for="validationCustom04" class="form-label">To Time:</label>
                   <select class="form-select" id="totime" onchange="update()" name="faculty_name" required>
                     <option selected disabled value="">To Time</option>
-                    <option>08 AM</option>
+                   <!--  <option>08 AM</option>
                     <option>09 AM</option>
-                    <option>10 AM</option>
+                    <option>10 AM</option> -->
                   </select>
                   <div class="invalid-feedback">
                     Please select to Time.

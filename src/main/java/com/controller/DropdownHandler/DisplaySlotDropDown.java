@@ -1,4 +1,4 @@
-package com.controller.EditControllers;
+package com.controller.DropdownHandler;
 
 import java.io.IOException;
 import java.sql.ResultSet;
@@ -9,21 +9,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
+import com.dao.OfferedCourseDao;
 import com.dao.SlotDao;
 
 /**
- * Servlet implementation class EditSlotCOntroller
+ * Servlet implementation class DisplaySlotripDown
  */
-@WebServlet("/EditSlotControllers")
-public class EditSlotControllers extends HttpServlet {
+@WebServlet("/DisplaySlotDropDown")
+public class DisplaySlotDropDown extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EditSlotControllers() {
+    public DisplaySlotDropDown() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,52 +34,39 @@ public class EditSlotControllers extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
-		
-		int flag=0;
+		System.out.println("hello in Offered slot servlet");
+		ResultSet rs=null;
 		String day=request.getParameter("day");
-		String fromTime=request.getParameter("fromtime");
-		String toTime=request.getParameter("totime");
 		
-		String day1=request.getParameter("day1");
-		String oldfromtime=request.getParameter("oldslotfromtime");
-		String oldtotime=request.getParameter("oldslottotime");
-
-
-		
-		
-		
-		SlotDao sd=new SlotDao();
-		ResultSet rs=sd.checkSlot(day,fromTime,toTime);
-		try {
-			if(rs.next())
+		 String tag="<select  class='form1-select' style='font-size: 17px' id='validationCustom04' name='offered_slots' required> <option selected disabled value=''>Choose...</option>";
+		 
+		 System.out.println("day : "+day);
+		 
+//		 OfferedCourseDao ocdao=new OfferedCourseDao();
+//		 rs=ocdao.getOfferedCourseForDivision(division);
+		 
+		 SlotDao sd=new SlotDao();
+		rs=sd.getSlotDetailsById(day);
+		 
+		 
+		 
+		 
+		 try {
+			while(rs.next())
 			{
-					flag=1;
-					HttpSession session=request.getSession();
-					session.setAttribute("error", "true");
-					response.sendRedirect("SlotDetails.jsp");
-			}
-			else
-			{
-				int i=sd.update(day, fromTime, toTime, day1,oldfromtime,oldtotime);
-				
-				if(i>0)
-				{
-					
-					HttpSession session=request.getSession();
-					session.setAttribute("success", "true");
-					response.sendRedirect("SlotDetails.jsp");
-				}
-			}
+				System.out.println(rs.getString(2)+" - "+rs.getString(3));
+					tag=tag+"<option  style='font-size: 17px'>"+rs.getString(2)+" - "+rs.getString(3)+"</option>"; 
+			 }
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-		
-				
+		 
+		 tag=tag+"</select>";
+		 response.getWriter().println(tag);
 	}
+
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

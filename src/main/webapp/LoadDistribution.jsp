@@ -44,11 +44,7 @@ input {
 
 <script type="text/javascript">
  			var xmlHttp;
- 			
- 			
- 			
-
-
+ 		
  			function showOfferedCourses(str)
  			{
  				console.log('hello in courses'+str);

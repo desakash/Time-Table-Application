@@ -1,6 +1,6 @@
 package com.model;
 
-public class TimeTableGeneration {
+public class TimeTableGenerationn {
 	
 	private String division;
 	private String offered_courses;
@@ -10,7 +10,7 @@ public class TimeTableGeneration {
 	private String totime;
 	private String faculty;
 	private String classroom;
-	public TimeTableGeneration(String division, String offered_courses, String head, String day, String fromtime,
+	public TimeTableGenerationn(String division, String offered_courses, String head, String day, String fromtime,
 			String totime, String faculty, String classroom) {
 		super();
 		this.division = division;

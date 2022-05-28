@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.dao.TimeTableGenerationDao;
-import com.model.TimeTableGeneration;
+import com.model.TimeTableGenerationn;
 
 /**
  * Servlet implementation class TimeTableGenerationController
@@ -41,7 +41,7 @@ public class TimeTableGenerationController extends HttpServlet {
 		String faculty=request.getParameter("faculty");
 		String classroom=request.getParameter("classroom");
 		
-		TimeTableGeneration ttg=new TimeTableGeneration(division, offered_courses, head, day, fromtime, totime, faculty, classroom);
+		TimeTableGenerationn ttg=new TimeTableGenerationn(division, offered_courses, head, day, fromtime, totime, faculty, classroom);
 		TimeTableGenerationDao tgd=new TimeTableGenerationDao();
 		
 		boolean status=tgd.check(ttg);
@@ -51,9 +51,11 @@ public class TimeTableGenerationController extends HttpServlet {
 			int i=tgd.insert(ttg);
 			if(i>0)
 			{
+				i=tgd.update(day,fromtime,totime);
+				
 				session=request.getSession();
 				session.setAttribute("success_msg", "true");
-				response.sendRedirect("../TimeTableGeneration.jsp");
+				response.sendRedirect("TimeTableGeneration.jsp");
 			}
 			
 		}
@@ -61,7 +63,7 @@ public class TimeTableGenerationController extends HttpServlet {
 		{
 				session=request.getSession();
 				session.setAttribute("error_msg", "true");
-				response.sendRedirect("../TimeTableGeneration.jsp");
+				response.sendRedirect("TimeTableGeneration.jsp");
 
 		}
 

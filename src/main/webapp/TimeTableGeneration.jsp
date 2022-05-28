@@ -20,10 +20,57 @@
 <title>Insert title here</title>
 </head>
 <body>
- 		<%@ include file="html/sidenav.html" %>  
+<%@ include file="html/sidenav.html" %>  
+
+<%
+	if(!session.isNew())
+	{
+		String successMsg=(String)session.getAttribute("success_msg");
+		String errorMsg=(String)session.getAttribute("error_msg");
+		
+		if(successMsg=="true")
+		{
+			%>
+			
+			<script type="text/javascript">
+			
+			Swal.fire({
+				//  position: 'top-end',
+						icon: 'success',
+						title: 'Division Registered Successfully.',
+						showConfirmButton: false,
+						timer: 1500,
+					})
+
+				</script>
+				
+				<%
+		}
+		if(errorMsg=="true")
+		{
+			%>
+			<script type="text/javascript">
+			
+			Swal.fire({
+				//  position: 'top-end',
+						icon: 'error',
+						title: 'Failed ',
+						showConfirmButton: false,
+						timer: 1500,
+					})
+
+				</script>
+				<%
+		}
+	}
+session.removeAttribute("success_msg");
+session.removeAttribute("error_msg");
+
+%>
+
 
 	<script type="text/javascript">
-	
+	var day;
 	var xmlHttp;
 		
 		function showOfferedCourses(str)
@@ -59,8 +106,9 @@
 			}
 		}
 		
-		function showOffereSlots(str)
+		function showOfferedSlots(str)
 		{
+			day=str;
 			console.log('hello in slots'+str);
 			if(typeof XMLHttpRequest !=="undefined")
 			{
@@ -76,29 +124,72 @@
 				return;
 			}
 			var url="DisplaySlotDropDown?day="+str;
-			xmlHttp.onreadystatechange=stateChange;
+			xmlHttp.onreadystatechange=stateChange1;
+
+
 			xmlHttp.open("POST",url,true);
 			xmlHttp.send(null);
 			
 			
 		}
-		function stateChange()
+		 function stateChange1()
 		{
-			console.log('hello in printcourses')
+			console.log('hello in statechange1')
 			if(xmlHttp.readyState===4 ||xmlHttp.readyState==='complete')
 			{
-				console.log('hello in if of courses')
-				document.getElementById("offered_courses").innerHTML=xmlHttp.responseText;
+				console.log('inside fromtime tag')
+				document.getElementById("offeredSlots").innerHTML=xmlHttp.responseText;
+
+
+
 			}
+
 		}
+		 function showOfferedSlots2()
+		 {
+			 console.log('hello in slots'+day);
+				if(typeof XMLHttpRequest !=="undefined")
+				{
+					xmlHttp=new XMLHttpRequest();
+				}
+				else if (window.ActiveXObject)
+				{
+				xmlHttp=new ActiveXOjbject("Microsoft.XMLHTTP");
+			}
+				if(xmlHttp===null)
+				{
+					alert("Browser does not support XMLHTTP Request.");
+					return;
+				}
+				var url="DisplaySlotToTime?day="+day;
+				xmlHttp.onreadystatechange=stateChange2;
+
+
+				xmlHttp.open("POST",url,true);
+				xmlHttp.send(null);
+				
+ 
+		 }
+		 
+		 function stateChange2()
+			{
+				console.log('hello in stateChange2 ')
+				if(xmlHttp.readyState===4 ||xmlHttp.readyState==='complete')
+				{
+					console.log('inside totime tag')
+					document.getElementById("offeredSlots2").innerHTML=xmlHttp.responseText;
+				}
+			}
 	</script>
+
+
 
       <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
         <div class="wrapper wrapper--w680">
         <div class="card card-4">
         <div class="card-body">
         <h2 class="title">Generate Timetable</h2>
-        <form class="row g-3 needs-validation" novalidate>
+        <form class="row g-3 needs-validation" action="TimeTableGenerationController" method="post" novalidate>
            
 
            
@@ -141,7 +232,7 @@
             </script>
             <div class="col-md-6">
               <label for="validationCustom04" class="form-label">Head</label><br>
-              <select class="form-select" id="headval" name="offered_courses" required>
+              <select class="form-select" id="headval" name="head" required>
                 <option selected disabled value="">Head</option>
                 <option>Theory</option>
                 <option>Practical</option>
@@ -157,7 +248,7 @@
 
             <div class="col-md-6">
                 <label for="validationCustom04" class="form-label">Day</label>
-                <select class="form-select" id="validationCustom04" name="faculty_name" onchange="showOfferedSlots(this.value)" required>
+                <select class="form-select" id="validationCustom04" name="day" onchange="showOfferedSlots(this.value)" required>
                   <option selected disabled value="">Day</option>
                   <option>Monday</option>
                   <option>Tuesday</option>
@@ -174,7 +265,7 @@
               
               <div class="col-md-6">
                   <label for="validationCustom04" class="form-label">From Time:</label>
-                  <select class="form-select" id="offeredSlots"onchange="update()" name="offeredSlots" required>
+                  <select class="form-select" id="offeredSlots"onchange="showOfferedSlots2()" name="fromtime" required>
                     <option selected disabled value="">From Time</option>
                    <!--  <option>08 AM</option>
                     <option>09 AM</option>
@@ -187,7 +278,7 @@
              
                 <div class="col-md-6">
                   <label for="validationCustom04" class="form-label">To Time:</label>
-                  <select class="form-select" id="totime" onchange="update()" name="faculty_name" required>
+                  <select class="form-select" id="offeredSlots2" onchange="" name="totime" required>
                     <option selected disabled value="">To Time</option>
                    <!--  <option>08 AM</option>
                     <option>09 AM</option>
@@ -223,7 +314,7 @@
          <br><br><br>
             <div class="col-md-6">
               <label for="validationCustom04" class="form-label">Faculty</label>
-              <select class="form-select" id="validationCustom04" name="Practical_no" required>
+              <select class="form-select" id="validationCustom04" name="faculty" required>
                 <option selected disabled value="">Faculty</option>
                 <option>Gauri Garud</option>
                 <option>S.P.P Panchakshari</option>
@@ -236,7 +327,7 @@
 
             <div class="col-md-6">
               <label for="validationCustom04" class="form-label"></label>Classroom</label>
-              <select class="form-select" id="validationCustom04" name="tutorials" required>
+              <select class="form-select" id="validationCustom04" name="classroom" required>
                 <option selected disabled value="">Classroom</option>
                 <option>CR1</option>
                 <option>CR2</option>

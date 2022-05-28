@@ -36,10 +36,13 @@ public class SlotDao {
 	{
 		con=DbConnection.getConnection();
 		try {
-			pstate=con.prepareStatement("insert into slot_master values(?,?,?)");
+			pstate=con.prepareStatement("insert into slot_master values(?,?,?,?,?)");
 			pstate.setString(1,s.getDay());
 			pstate.setString(2, s.getFromtime());
-			pstate.setString(3, s.getTotime());
+			pstate.setInt(3, 0);
+			pstate.setString(4, s.getTotime());
+			pstate.setInt(5, 0);
+
 			i=pstate.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -65,7 +68,7 @@ public class SlotDao {
 	{
 		con=DbConnection.getConnection();
 		try {
-			pstate=con.prepareStatement("select *from slot_master where day=?");
+			pstate=con.prepareStatement("select *from slot_master where day=? and fromtime_status=0 and totime_status=0");
 			pstate.setString(1, day);
 			rs=pstate.executeQuery();
 		} catch (SQLException e) {

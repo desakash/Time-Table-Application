@@ -78,7 +78,7 @@ public class TimeTableGenerationDao {
 		System.out.println("inside update method");
 		con=DbConnection.getConnection();
 		try {
-			pstat=con.prepareStatement("update slot_master set FROMTIME_STATUS=1,TOTIME_STATUS=1 where day=? and FROMTIME=? and TOTIME=?");
+			pstat=con.prepareStatement("update slot_master set FROMTIME_STATUS=1,TOTIME_STATUS=1 where day=? and FROMTIME=? and TOTIME=? ");
 			pstat.setString(1,day);
 			pstat.setString(2,fromtime);
 			pstat.setString(3, totime);

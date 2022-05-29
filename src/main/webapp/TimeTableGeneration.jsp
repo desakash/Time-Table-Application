@@ -1,3 +1,4 @@
+<%@page import="com.dao.ClassDao"%>
 <%@page import="com.dao.DivisionDao"%>
 <%@page import="java.sql.ResultSet"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -329,10 +330,24 @@ session.removeAttribute("error_msg");
               <label for="validationCustom04" class="form-label"></label>Classroom</label>
               <select class="form-select" id="validationCustom04" name="classroom" required>
                 <option selected disabled value="">Classroom</option>
+                
+                <%
+                	ClassDao cd=new ClassDao();
+            		ResultSet rs1=cd.getClassDetails();
+            		
+            		while(rs1.next())
+            		{
+            			%>
+            			<option><%=rs1.getString(2) %></option>
+            			<% 
+            		}
+                %>
+                
+                <!-- 
                 <option>CR1</option>
                 <option>CR2</option>
                 <option>CR3</option>
-                
+                 -->
               </select>
               <div class="invalid-feedback">
                 Please select a Classroom.

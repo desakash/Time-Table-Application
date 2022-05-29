@@ -142,6 +142,13 @@
           </a>
           <span class="tooltip">Load Distribution</span>
         </li>
+        <li>
+        <a href="TimeTableGeneration.jsp">
+            <i class="fa-solid fa-chart-line"  aria-hidden="true"></i>
+            <span class="links_name">Load Distribution</span>
+          </a>
+          <span class="tooltip">Load Distribution</span>
+        </li>
     
           <!-- <li>
            <a href="#">

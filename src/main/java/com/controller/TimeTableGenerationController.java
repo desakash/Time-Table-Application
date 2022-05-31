@@ -51,7 +51,7 @@ public class TimeTableGenerationController extends HttpServlet {
 			int i=tgd.insert(ttg);
 			if(i>0)
 			{
-				i=tgd.update(day,fromtime,totime);
+//				i=tgd.update(day,fromtime,totime);
 				
 				session=request.getSession();
 				session.setAttribute("success_msg", "true");

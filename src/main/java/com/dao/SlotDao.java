@@ -36,12 +36,10 @@ public class SlotDao {
 	{
 		con=DbConnection.getConnection();
 		try {
-			pstate=con.prepareStatement("insert into slot_master values(?,?,?,?,?)");
+			pstate=con.prepareStatement("insert into slot_master values(?,?,?)");
 			pstate.setString(1,s.getDay());
 			pstate.setString(2, s.getFromtime());
-			pstate.setInt(3, 0);
-			pstate.setString(4, s.getTotime());
-			pstate.setInt(5, 0);
+			pstate.setString(3, s.getTotime());
 
 			i=pstate.executeUpdate();
 		} catch (SQLException e) {
@@ -68,7 +66,7 @@ public class SlotDao {
 	{
 		con=DbConnection.getConnection();
 		try {
-			pstate=con.prepareStatement("select *from slot_master where day=? and fromtime_status=0 and totime_status=0");
+			pstate=con.prepareStatement("select *from slot_master where day=?");
 			pstate.setString(1, day);
 			rs=pstate.executeQuery();
 		} catch (SQLException e) {
@@ -78,26 +76,26 @@ public class SlotDao {
 		return rs;
 	}
 	
-	public int update(String day,String fromTime,String toTime,String day1 ,String old_from_time,String old_to_time)
-	{
-		System.out.println(day1+"\t"+old_from_time+"\t"+toTime);
-		try {
-			pstate=con.prepareStatement("update slot_master set day=?,fromtime=?,totime=? where day=? and fromtime=? and totime=?");
-			pstate.setString(1,day);
-			pstate.setString(2,fromTime);
-			pstate.setString(3,toTime);
-			pstate.setString(4, day1);
-			pstate.setString(5, old_from_time);
-			pstate.setString(6, old_to_time);
-
-			
-			i=pstate.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return i;
-	}
+//	public int update(String day,String fromTime,String toTime,String day1 ,String old_from_time,String old_to_time)
+//	{
+//		System.out.println(day1+"\t"+old_from_time+"\t"+toTime);
+//		try {
+//			pstate=con.prepareStatement("update slot_master set day=?,fromtime=?,totime=? where day=? and fromtime=? and totime=?");
+//			pstate.setString(1,day);
+//			pstate.setString(2,fromTime);
+//			pstate.setString(3,toTime);
+//			pstate.setString(4, day1);
+//			pstate.setString(5, old_from_time);
+//			pstate.setString(6, old_to_time);
+//
+//			
+//			i=pstate.executeUpdate();
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return i;
+//	}
 	
 	public int deleteSlot(String day,String fromTime,String toTIme)
 	{

@@ -55,8 +55,8 @@ public class DisplaySlotToTime extends HttpServlet {
 		 try {
 			while(rs.next())
 			{
-				System.out.println(rs.getString(2)+" - "+rs.getString(4));
-					tag2=tag2+"<option  style='font-size: 17px'>"+rs.getString(4)+"</option>"; 
+				System.out.println(rs.getString(2)+" - "+rs.getString(3));
+					tag2=tag2+"<option  style='font-size: 17px'>"+rs.getString(3)+"</option>"; 
 
 			 }
 		} catch (SQLException e) {

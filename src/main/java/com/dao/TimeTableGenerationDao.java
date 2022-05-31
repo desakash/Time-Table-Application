@@ -73,23 +73,18 @@ public class TimeTableGenerationDao {
 		return true;
 	}
 	
-	public int update(String day,String fromtime,String totime)
-	{
-		System.out.println("inside update method");
-		con=DbConnection.getConnection();
-		try {
-			pstat=con.prepareStatement("update slot_master set FROMTIME_STATUS=1,TOTIME_STATUS=1 where day=? and FROMTIME=? and TOTIME=? ");
-			pstat.setString(1,day);
-			pstat.setString(2,fromtime);
-			pstat.setString(3, totime);
-			
-			i=pstat.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return i;
-		
-	}
+	/*
+	 * public int update(String day,String fromtime,String totime) {
+	 * System.out.println("inside update method"); con=DbConnection.getConnection();
+	 * try { pstat=con.
+	 * prepareStatement("update slot_master set FROMTIME_STATUS=1,TOTIME_STATUS=1 where day=? and FROMTIME=? and TOTIME=? "
+	 * ); pstat.setString(1,day); pstat.setString(2,fromtime); pstat.setString(3,
+	 * totime);
+	 * 
+	 * i=pstat.executeUpdate(); } catch (SQLException e) { // TODO Auto-generated
+	 * catch block e.printStackTrace(); } return i;
+	 * 
+	 * }
+	 */
 
 }

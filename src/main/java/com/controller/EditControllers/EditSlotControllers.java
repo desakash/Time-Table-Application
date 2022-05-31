@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.dao.SlotDao;
+import com.dao.TimeTableGenerationDao;
 
 /**
  * Servlet implementation class EditSlotCOntroller
@@ -60,8 +61,8 @@ public class EditSlotControllers extends HttpServlet {
 			}
 			else
 			{
-				int i=sd.update(day, fromTime, toTime, day1,oldfromtime,oldtotime);
 				
+				int i=sd.updateSlot(day, fromTime, toTime, day1,oldfromtime,oldtotime);
 				if(i>0)
 				{
 					

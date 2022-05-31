@@ -137,7 +137,7 @@ if(!session.isNew())
                                     <td><%=cnt %></td>
                                     <td><%=rs.getString(1) %></td>
                                     <td><%=rs.getString(2) %></td>
-                                    <td><%=rs.getString(4) %></td>
+                                    <td><%=rs.getString(3) %></td>
                                     <td>
                                         <ul class="action-list">
                                            <a href="EditModals/EditSlotModal.jsp?slotDay=<%=rs.getString(1)%>&slotfromtime=<%=rs.getString(2)%>&slottotime=<%=rs.getString(3)%>"> <button type="button" class="btn btn-success " style="font-size: 15px"><i class="fa fa-edit">  </i> Edit</button>&nbsp &nbsp &nbsp</a>

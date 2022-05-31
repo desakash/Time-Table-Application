@@ -196,9 +196,9 @@ session.removeAttribute("error_msg");
            
              
             <div class="col-md-6">
-              <label for="validationCustom04" class="form-label">Division</label>
-              <select class="form-select" id="division" name="Division_name" onchange="showOfferedCourses(this.value)"required>
-                <option selected disabled value="">Division</option>
+              <label for="validationCustom04" class="form-label" style="font-size: 17px">Division</label>
+              <select class="form-select" id="division" name="Division_name" onchange="showOfferedCourses(this.value)"required style="font-size: 17px">
+                <option selected disabled value="" style="font-size: 17px">Division</option>
                  <%
                  	ResultSet rs=null;
                 	DivisionDao ddao=new DivisionDao();
@@ -218,9 +218,9 @@ session.removeAttribute("error_msg");
             </div>
            
             <div class="col-md-6">
-              <label for="validationCustom04" class="form-label">Courses</label>
-              <select class="form-select" id="offered_courses" name="offered_courses" required>
-                <option selected disabled value="">Courses</option>
+              <label for="validationCustom04" class="form-label" style="font-size: 17px">Courses</label>
+              <select class="form-select" id="offered_courses" name="offered_courses" required style="font-size: 17px">
+                <option selected disabled value="" style="font-size: 17px">Courses</option>
                 <!-- <option>Python With Programming [CM5102]</option>
                 <option>Android Application Programming</option> -->
               </select>
@@ -232,13 +232,13 @@ session.removeAttribute("error_msg");
                 
             </script>
             <div class="col-md-6">
-              <label for="validationCustom04" class="form-label">Head</label><br>
-              <select class="form-select" id="headval" name="head" required>
-                <option selected disabled value="">Head</option>
-                <option>Theory</option>
-                <option>Practical</option>
-                <option>Tutorial</option>
-                <option >Break</option>
+              <label for="validationCustom04" class="form-label" style="font-size: 17px">Head</label><br>
+              <select class="form-select" id="headval" name="head" required style="font-size: 17px">
+                <option selected disabled value="" style="font-size: 17px">Head</option>
+                <option style="font-size: 17px">Theory</option>
+                <option style="font-size: 17px">Practical</option>
+                <option style="font-size: 17px">Tutorial</option>
+                <option style="font-size: 17px">Break</option>
               </select>
               <div class="invalid-feedback">
                 Please select The Option.
@@ -248,44 +248,44 @@ session.removeAttribute("error_msg");
           
 
             <div class="col-md-6">
-                <label for="validationCustom04" class="form-label">Day</label>
-                <select class="form-select" id="validationCustom04" name="day" onchange="showOfferedSlots(this.value)" required>
-                  <option selected disabled value="">Day</option>
-                  <option>Monday</option>
-                  <option>Tuesday</option>
-                  <option>Wednesday</option>
-                  <option>Thrusday</option>
-                  <option>Friday</option>
-                  <option>Saturday</option>
+                <label for="validationCustom04" class="form-label" style="font-size: 17px">Day</label>
+                <select class="form-select" id="validationCustom04" name="day" onchange="showOfferedSlots(this.value)" required style="font-size: 17px">
+                  <option selected disabled value="" style="font-size: 17px">Day</option>
+                  <option style="font-size: 17px">Monday</option>
+                  <option style="font-size: 17px">Tuesday</option>
+                  <option style="font-size: 17px">Wednesday</option>
+                  <option style="font-size: 17px">Thrusday</option>
+                  <option style="font-size: 17px">Friday</option>
+                  <option style="font-size: 17px">Saturday</option>
   
                 </select>
-                <div class="invalid-feedback">
+                <div class="invalid-feedback" style="font-size: 17px">
                   Please select a Day.
                 </div>
               </div>
               
               <div class="col-md-6">
-                  <label for="validationCustom04" class="form-label">From Time:</label>
-                  <select class="form-select" id="offeredSlots"onchange="showOfferedSlots2()" name="fromtime" required>
-                    <option selected disabled value="">From Time</option>
+                  <label for="validationCustom04" class="form-label" style="font-size: 17px">From Time:</label>
+                  <select class="form-select" id="offeredSlots"onchange="showOfferedSlots2()" name="fromtime" required style="font-size: 17px">
+                    <option selected disabled value="" style="font-size: 17px">From Time</option>
                    <!--  <option>08 AM</option>
                     <option>09 AM</option>
                     <option>10 AM</option> -->
                   </select>
-                  <div class="invalid-feedback">
+                  <div class="invalid-feedback" style="font-size: 17px">
                     Please select a From time.
                   </div>
                 </div>
              
                 <div class="col-md-6">
-                  <label for="validationCustom04" class="form-label">To Time:</label>
-                  <select class="form-select" id="offeredSlots2" onchange="" name="totime" required>
-                    <option selected disabled value="">To Time</option>
+                  <label for="validationCustom04" class="form-label" style="font-size: 17px">To Time:</label>
+                  <select class="form-select" id="offeredSlots2" onchange="" name="totime" required style="font-size: 17px">
+                    <option selected disabled value="" style="font-size: 17px">To Time</option>
                    <!--  <option>08 AM</option>
                     <option>09 AM</option>
                     <option>10 AM</option> -->
                   </select>
-                  <div class="invalid-feedback">
+                  <div class="invalid-feedback" style="font-size: 17px">
                     Please select to Time.
                   </div>
                 </div>
@@ -314,22 +314,22 @@ session.removeAttribute("error_msg");
             
          <br><br><br>
             <div class="col-md-6">
-              <label for="validationCustom04" class="form-label">Faculty</label>
-              <select class="form-select" id="validationCustom04" name="faculty" required>
-                <option selected disabled value="">Faculty</option>
-                <option>Gauri Garud</option>
-                <option>S.P.P Panchakshari</option>
+              <label for="validationCustom04" class="form-label" style="font-size: 17px">Faculty</label>
+              <select class="form-select" id="validationCustom04" name="faculty" required style="font-size: 17px">
+                <option selected disabled value="" style="font-size: 17px">Faculty</option>
+                <option style="font-size: 17px">Gauri Garud</option>
+                <option style="font-size: 17px">S.P.P Panchakshari</option>
            
               </select>
-              <div class="invalid-feedback">
+              <div class="invalid-feedback" style="font-size: 17px">
                 Please select a Faculty.
               </div>
             </div>  
 
             <div class="col-md-6">
-              <label for="validationCustom04" class="form-label"></label>Classroom</label>
-              <select class="form-select" id="validationCustom04" name="classroom" required>
-                <option selected disabled value="">Classroom</option>
+              <label for="validationCustom04" class="form-label" style="font-size: 17px">Classroom</label>
+              <select class="form-select" id="validationCustom04" name="classroom" required style="font-size: 17px">
+                <option selected disabled value="" style="font-size: 17px">Classroom</option>
                 
                 <%
                 	ClassDao cd=new ClassDao();
@@ -338,7 +338,7 @@ session.removeAttribute("error_msg");
             		while(rs1.next())
             		{
             			%>
-            			<option><%=rs1.getString(2) %></option>
+            			<option style="font-size: 17px"><%=rs1.getString(2) %></option>
             			<% 
             		}
                 %>
@@ -349,18 +349,18 @@ session.removeAttribute("error_msg");
                 <option>CR3</option>
                  -->
               </select>
-              <div class="invalid-feedback">
+              <div class="invalid-feedback" style="font-size: 17px">
                 Please select a Classroom.
               </div>
             </div>  
-            <div class="col-md-12" style="display: inline">
+           <!--  <div class="col-md-12" style="display: inline">
             
-                <div class="d-inline-block"><h4 id="start_dis">Start Time  :</h4></div>
-                <div class="d-inline-block" style="margin-left: 189px;"><h4 id="end_dis">End Time :</h4></div>
+                <div class="d-inline-block"><h4 id="start_dis" style="font-size: 17px">Start Time  :</h4></div>
+                <div class="d-inline-block" style="margin-left: 189px;"><h4 id="end_dis" style="font-size: 17px">End Time :</h4></div>
               
-              </div>  
+              </div>  --> 
             <div class="col-12">
-              <button class="btn btn-primary" type="submit">ADD</button>
+              <button class="btn btn-primary" type="submit" style="font-size: 17px">ADD</button>
             </div>
             
 

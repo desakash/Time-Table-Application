@@ -138,7 +138,7 @@ input {
  		 		 		var option;
 	 		 			var i=0;
 	 		 			var j=0
- 		 			while(practicalHr/2>0){
+ 		 			while(practicalHr>=0){
  		 				
  		 				option=document.createElement("option")
  		 				
@@ -364,7 +364,7 @@ input {
             </div>
             <div class="col-md-6">
               <label for="validationCustom04" class="form-label" style="font-size: 17px">Division</label>
-              <select class="form-select" id="divName" name="division_name" onchange="showOfferedCourses(this.value)"  style="font-size: 17px" required>
+              <select class="form-select" id="divName" name="division_name" onchange="showOfferedCourses(this.value)" style="font-size: 17px" required>
                 <option selected disabled value="" style="font-size: 17px">Division</option>
                 <%
                 	DivisionDao ddao=new DivisionDao();

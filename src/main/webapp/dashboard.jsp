@@ -45,7 +45,7 @@
      })
  
   </script>
-  <%
+  <% 
 		}
 	}
 	/* session.invalidate(); */

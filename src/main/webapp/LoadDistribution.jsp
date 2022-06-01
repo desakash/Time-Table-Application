@@ -337,6 +337,32 @@ input {
         
         session.removeAttribute("loadDistribute-error");
         %>
+          
+        <%
+        	if(!session.isNew())
+			{   
+        		String duplicateLoad_error=(String)session.getAttribute("duplicateLoad-error");
+        		if(duplicateLoad_error=="true")
+        		{
+        %>
+        			<script type="text/javascript">
+				
+    				Swal.fire({
+      				//  position: 'top-end',
+       						icon: 'error',
+       						title: 'Duplicate Load Distributed...Try Again',
+       						showConfirmButton: false,
+       						timer: 1500,
+     					})
+ 
+  					</script>
+  		<% 
+        		}
+
+			}
+        
+        session.removeAttribute("duplicateLoad-error");
+        %>
         <h2 class="title" style="font-size: 30px">Load Distribution</h2>
         <form class="row g-3 needs-validation" action="LoadDistributionController" method="post" novalidate>
            

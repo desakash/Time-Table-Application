@@ -8,6 +8,7 @@ import java.sql.Statement;
 
 import com.model.LoadDistribution;
 
+
 public class LoadDistributionDao {
 	
 	Connection con=null;
@@ -219,5 +220,29 @@ public class LoadDistributionDao {
 			e.printStackTrace();
 		}
 		return i;
+	}
+	
+	public boolean checkDuplicateLoad(LoadDistribution ld)
+	{
+		con=DbConnection.getConnection();
+		try {
+			pstate=con.prepareStatement("select *from load_distribution where division=? and course_code=? ");
+			pstate.setString(1, ld.getDivision());
+			pstate.setString(2, ld.getCourseCode());
+			rs=pstate.executeQuery();
+			while(rs.next())
+			{
+				System.out.println(rs.getString(9));
+				if(rs.getString(9).equals(ld.getPracticalBatch()) || rs.getString(11).equals(ld.getTutorialBatch()))
+				{
+					System.out.println("true");
+					return true;
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
 	}
 }

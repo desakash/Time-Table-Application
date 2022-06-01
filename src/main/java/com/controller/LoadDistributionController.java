@@ -151,61 +151,74 @@ public class LoadDistributionController extends HttpServlet {
 		{
 			
 			System.out.println("Inside true validate");
+			
 			int load=(practical*practicalCount)+th+(tutorial*tutorialCount);
 			
 	
 			LoadDistribution ld=new LoadDistribution(facId,facultyName, facultyDesignation, divisionName, courseCode, courseAbbr, th, practical, practicalBatches, tutorial,tutorialBatches, load);
-			
-			
-			
-			int i=lddao.DistributeLoad(ld);
-			if(i>0)
+			boolean isDuplicate= lddao.checkDuplicateLoad(ld);
+			if(isDuplicate)
 			{
-				System.out.println("Inside 1st if");
-				lddao.updateDivTotalLoad(divisionName,courseCode,th,practical*practicalCount,tutorial*tutorialCount);
-				ResultSet rs2=lddao.checkFacultyInTotalLoad(facId);
-				try {
-					if(rs2.next())
-					{
-						System.out.println("Inside 2nd if");
-						int totalLoad=lddao.getTotalLoad(facId);
-						int k=lddao.updateTotalLoad(facId, totalLoad);
-						if(k>0)
-						{
-							System.out.println("total load updated successsfully");
-						}
-					}
-					else
-					{
-						int totalLoad=lddao.getTotalLoad(facId);
-						int k=lddao.insertTotalLoad(facId, totalLoad);
-						if(k>0)
-						{
-							System.out.println("inserted total load in total_load_distribution");
-						}
-						
-					}
-				}catch(Exception e)
-				{
-					e.printStackTrace();
-				}
-				session.setAttribute("loadDistribute-success", "true");
+				session.setAttribute("duplicateLoad-error", "true");
 				response.sendRedirect("LoadDistribution.jsp");
 			}
+			else
+			{
+				int i=lddao.DistributeLoad(ld);
+				if(i>0)
+				{
+					System.out.println("Inside 1st if");
+					lddao.updateDivTotalLoad(divisionName,courseCode,th,practical*practicalCount,tutorial*tutorialCount);
+					ResultSet rs2=lddao.checkFacultyInTotalLoad(facId);
+					try {
+						if(rs2.next())
+						{
+							System.out.println("Inside 2nd if");
+							int totalLoad=lddao.getTotalLoad(facId);
+							int k=lddao.updateTotalLoad(facId, totalLoad);
+							if(k>0)
+							{
+								System.out.println("total load updated successsfully");
+							}
+						}
+						else
+						{
+							int totalLoad=lddao.getTotalLoad(facId);
+							int k=lddao.insertTotalLoad(facId, totalLoad);
+							if(k>0)
+							{
+								System.out.println("inserted total load in total_load_distribution");
+							}
+							
+						}
+					}catch(Exception e)
+					{
+						e.printStackTrace();
+					}
+					session.setAttribute("loadDistribute-success", "true");
+					response.sendRedirect("LoadDistribution.jsp");
+				}
+				
+			}
 			
-		}
+			
+			
+			
+			
+			}
 		else
 		{
 			session.setAttribute("loadDistribute-error", "true");
 			response.sendRedirect("LoadDistribution.jsp");
 		}
+				
+			}
+			
+			
+			
 		
 		
-		
-		
-		
-		
-	}
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

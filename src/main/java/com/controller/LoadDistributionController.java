@@ -146,9 +146,11 @@ public class LoadDistributionController extends HttpServlet {
 
 		
 		boolean isValid=lddao.checkLoad(divisionName, courseCode, th, practical*practicalCount, tutorial*tutorialCount);
+		System.out.println(isValid);
 		if(isValid)
 		{
 			
+			System.out.println("Inside true validate");
 			int load=(practical*practicalCount)+th+(tutorial*tutorialCount);
 			
 	
@@ -159,11 +161,13 @@ public class LoadDistributionController extends HttpServlet {
 			int i=lddao.DistributeLoad(ld);
 			if(i>0)
 			{
+				System.out.println("Inside 1st if");
 				lddao.updateDivTotalLoad(divisionName,courseCode,th,practical*practicalCount,tutorial*tutorialCount);
 				ResultSet rs2=lddao.checkFacultyInTotalLoad(facId);
 				try {
 					if(rs2.next())
 					{
+						System.out.println("Inside 2nd if");
 						int totalLoad=lddao.getTotalLoad(facId);
 						int k=lddao.updateTotalLoad(facId, totalLoad);
 						if(k>0)

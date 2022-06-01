@@ -40,6 +40,7 @@ public class SlotDao {
 			pstate.setString(1,s.getDay());
 			pstate.setString(2, s.getFromtime());
 			pstate.setString(3, s.getTotime());
+
 			i=pstate.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -75,14 +76,19 @@ public class SlotDao {
 		return rs;
 	}
 	
-	public int update(String day,String fromTime,String toTime,String day1)
+	public int updateSlot(String day,String fromTime,String toTime,String day1 ,String old_from_time,String old_to_time)
 	{
+		con=DbConnection.getConnection();
+		System.out.println(day1+"\t"+old_from_time+"\t"+toTime);
 		try {
-			pstate=con.prepareStatement("update slot_master set day=?,fromtime=?,totime=? where day=?");
+			pstate=con.prepareStatement("update slot_master set day=?,fromtime=?,totime=? where day=? and fromtime=? and totime=?");
 			pstate.setString(1,day);
 			pstate.setString(2,fromTime);
 			pstate.setString(3,toTime);
 			pstate.setString(4, day1);
+			pstate.setString(5, old_from_time);
+			pstate.setString(6, old_to_time);
+
 			
 			i=pstate.executeUpdate();
 		} catch (SQLException e) {

@@ -44,11 +44,7 @@ input {
 
 <script type="text/javascript">
  			var xmlHttp;
- 			
- 			
- 			
-
-
+ 		
  			function showOfferedCourses(str)
  			{
  				console.log('hello in courses'+str);
@@ -103,6 +99,10 @@ input {
  				xmlHttp.onreadystatechange=printThPractTut;
  				xmlHttp.open("POST",url,true);
  				xmlHttp.send(null);
+ 				
+		 		 	
+		 		
+ 				
  			}
  			function printThPractTut()
  			{
@@ -114,19 +114,34 @@ input {
  		 			var practicalHr=document.getElementById('prHr').value;
  		 			var tutorialHr=document.getElementById('tutHr').value;
  		 			console.log('theory = '+theoryHr+' practHr = '+practicalHr+' tuthr = '+tutorialHr);
+ 		 			var x=document.getElementById("practicalno");
+		 		 	var y=document.getElementById("tutorialno");
+		 		 	
+		 		 	
+		 		 	if(x.length>0 || y. length>0)
+	 				{
+		 		 		var i=x.length
+		 		 		while(i>=0){
+	 					x.remove(i)
+	 					i--;
+		 		 		}
+	 					var i=y.length
+		 		 		while(i>=0){
+	 					y.remove(i)
+	 					i--;
+	 					console.log("In if block of x")
+		 		 		}
+	 				}
+		 		 
  		 			
- 		 		 	var x=document.getElementById("practicalno");
- 		 		 	var y=document.getElementById("tutorialno");
- 		 		 	
- 		 		 
- 		 			var option;
- 		 			var i=0;
- 		 			var j=0
- 		 			console.log(i);
  		 			
- 		 		
+ 		 		 		var option;
+	 		 			var i=0;
+	 		 			var j=0
  		 			while(practicalHr>=0){
+ 		 				
  		 				option=document.createElement("option")
+ 		 				
  		 				option.text=i;
  		 				x.add(option,x[i+1])
  		 				practicalHr--;
@@ -140,7 +155,9 @@ input {
  		 			} 
  		 			
  		 			while(tutorialHr>=0){
+ 		 				
  		 				option=document.createElement("option")
+ 		 				
  		 				option.text=j;
  		 				y.add(option,y[i+1])
  		 				tutorialHr--;
@@ -149,7 +166,9 @@ input {
  		 				j++;
  		 		
  		 			} 
- 				}
+ 				
+ 			
+ 			}
  			}
  			
  			function disablePracticalCheckbox(str){
@@ -345,7 +364,7 @@ input {
             </div>
             <div class="col-md-6">
               <label for="validationCustom04" class="form-label" style="font-size: 17px">Division</label>
-              <select class="form-select" id="divName" name="division_name" onchange="showOfferedCourses(this.value)"  style="font-size: 17px" required>
+              <select class="form-select" id="divName" name="division_name" onchange="showOfferedCourses(this.value)" style="font-size: 17px" required>
                 <option selected disabled value="" style="font-size: 17px">Division</option>
                 <%
                 	DivisionDao ddao=new DivisionDao();

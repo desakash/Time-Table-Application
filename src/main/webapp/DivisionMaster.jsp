@@ -201,6 +201,7 @@ function manage(pwd) {
 <!--               <input type="text" class="form-control textfield" name="no_of_tuts" id="validationCustom01" style="font-size: 17px" value="" id="onlyNumbers" name="onlyNumbers" onkeypress="return isNumber(event)" onpaste="return false;" required>
  -->               <select class="form-select" style="font-size: 17px" id="validationCustom04" name="tutbatches" required>
                 <option selected disabled value="">Choose...</option>
+                                <option style="font-size: 17px">0</option>
                 <option style="font-size: 17px">1</option>
                 <option style="font-size: 17px">2</option>
                 <option style="font-size: 17px">3</option>

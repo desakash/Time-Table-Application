@@ -140,7 +140,7 @@ if(!session.isNew())
                                     <td><%=rs.getString(3) %></td>
                                     <td>
                                         <ul class="action-list">
-                                           <a href="EditModals/EditSlotModal.jsp?slotDay=<%=rs.getString(1)%>"> <button type="button" class="btn btn-success " style="font-size: 15px"><i class="fa fa-edit">  </i> Edit</button>&nbsp &nbsp &nbsp</a>
+                                           <a href="EditModals/EditSlotModal.jsp?slotDay=<%=rs.getString(1)%>&slotfromtime=<%=rs.getString(2)%>&slottotime=<%=rs.getString(3)%>"> <button type="button" class="btn btn-success " style="font-size: 15px"><i class="fa fa-edit">  </i> Edit</button>&nbsp &nbsp &nbsp</a>
 
                                             <!-- <li><a href="#" data-tip="edit"><i class="fa fa-edit"></i></a></li> -->
                                             <a href="DeleteSlotController?slotDay=<%=rs.getString(1)%>&slotfromtime=<%=rs.getString(2)%>&slottotime=<%=rs.getString(3)%>"> <button type="button" class="btn btn-danger "  style="font-size: 15px"><i class="fa fa-trash"> </i> Delete</button></a>

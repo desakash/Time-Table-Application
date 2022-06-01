@@ -46,7 +46,7 @@ public class OfferedCoursesDropdown extends HttpServlet {
 		 
 		 try {
 			while(rs.next())
-			 {
+			{
 				System.out.println(rs.getString(3)+" - "+rs.getString(4));
 					tag=tag+"<option  style='font-size: 17px'>"+rs.getString(3)+" - "+rs.getString(4)+"</option>"; 
 			 }

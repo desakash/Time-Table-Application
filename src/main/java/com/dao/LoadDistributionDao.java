@@ -19,23 +19,48 @@ public class LoadDistributionDao {
 	
 	public int DistributeLoad(LoadDistribution ld)
 	{
+		System.out.println("Inside DistributeLoad method");
 		con=DbConnection.getConnection();
 		try {
 			pstate=con.prepareStatement("insert into load_distribution values (?,?,?,?,?,?,?,?,?,?,?,?)");
 			pstate.setInt(1, ld.getFacultyId());
-			pstate.setString(2, ld.getFacultyName());
-			pstate.setString(3, ld.getDesignation());
-			pstate.setString(4, ld.getDivision());
-			pstate.setString(5, ld.getCourseCode());
-			pstate.setString(6, ld.getCourseAbbr());
-			pstate.setInt(7, ld.getTheory());
-			pstate.setInt(8, ld.getPractical());
-			pstate.setString(9, ld.getPracticalBatch());
-			pstate.setInt(10, ld.getTutorial());
-			pstate.setString(11, ld.getTutorialBatch());
-			pstate.setInt(12, ld.getLoad());
+			System.out.println(ld.getFacultyId());
 			
+			pstate.setString(2, ld.getFacultyName());
+			System.out.println(ld.getFacultyName());
+
+			pstate.setString(3, ld.getDesignation());
+			System.out.println(ld.getDesignation());
+
+			pstate.setString(4, ld.getDivision());
+			System.out.println(ld.getDivision());
+
+			pstate.setString(5, ld.getCourseCode());
+			System.out.println(ld.getCourseCode());
+
+			pstate.setString(6, ld.getCourseAbbr());
+			System.out.println(ld.getCourseAbbr());
+
+			pstate.setInt(7, ld.getTheory());
+			System.out.println(ld.getTheory());
+
+			pstate.setInt(8, ld.getPractical());
+			System.out.println(ld.getPractical());
+
+			pstate.setString(9, ld.getPracticalBatch());
+			System.out.println(ld.getPracticalBatch());
+
+			pstate.setInt(10, ld.getTutorial());
+			System.out.println(ld.getTutorial());
+
+			pstate.setString(11, ld.getTutorialBatch());
+			System.out.println(ld.getTutorialBatch());
+
+			pstate.setInt(12, ld.getLoad());
+			System.out.println(ld.getLoad());
+
 			i=pstate.executeUpdate();
+			System.out.println(i);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -148,6 +173,7 @@ public class LoadDistributionDao {
 	
 	public boolean checkLoad(String divisionName,String coursecode,int theory,int practical,int tutorial)
 	{
+		System.out.println("Inside check Method");
 		con=DbConnection.getConnection();
 		try {
 			pstate=con.prepareStatement("select *from division_total_load where division_name=? and course_code=?");

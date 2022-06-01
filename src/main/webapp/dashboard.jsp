@@ -136,11 +136,18 @@
           <span class="tooltip">Slot Master</span>
         </li>
         <li>
-          <a href="LoadDistribution.jsp">
+          <a href="../LoadDistribution.jsp">
             <i class="fa-solid fa-chart-line"  aria-hidden="true"></i>
             <span class="links_name">Load Distribution</span>
           </a>
           <span class="tooltip">Load Distribution</span>
+        </li>
+        <li>
+        <a href="TimeTableGeneration.jsp">
+            <i class="fa-solid fa-chart-line"  aria-hidden="true"></i>
+            <span class="links_name">TimeTableGeneration</span>
+          </a>
+          <span class="tooltip">TimeTableGeneration</span>
         </li>
     
           <!-- <li>
@@ -274,7 +281,7 @@
           <h5 class="card-title" style="text-align: center;">Load DIstribution</h5>
               <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
           <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-          <a href="#" class="btn btn-light" style="margin-right: 10px;"><i class="fas fa-plus"></i> Add</a>
+          <a href="LoadDistribution.jsp" class="btn btn-light" style="margin-right: 10px;"><i class="fas fa-plus"></i> Add</a>
           <a href="#" class="btn btn-light "><i class="fa fa-eye"></i> View</a>
         </div>
         </div>

@@ -36,6 +36,10 @@ $(document).ready(function(){
 <%@ include file="../SlotDetails.jsp" %> 
 	<%
 		String day=request.getParameter("slotDay");
+		String fromtime=request.getParameter("slotfromtime");
+		String totime=request.getParameter("slottotime");
+
+		
 		%>
 		
 			
@@ -68,6 +72,9 @@ $(document).ready(function(){
             </div>
             
             <input type="hidden" id="appt" name="day1" value="<%=day %>" style="font-size: 17px">
+                        <input type="hidden" id="appt" name="oldslotfromtime" value="<%=fromtime %>" style="font-size: 17px">
+                        <input type="hidden" id="appt" name="oldslottotime" value="<%=totime %>" style="font-size: 17px">
+            
            
             <div class="col-md-6">
                 <label for="validationCustom04" class="form-label" style="font-size: 17px">Select time [From]</label>

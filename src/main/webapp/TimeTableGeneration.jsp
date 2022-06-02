@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="sweetalert2.min.css">
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<title>Insert title here</title>
+<title>Time Table Generation|GPP</title>
 </head>
 <body>
 <%@ include file="html/sidenav.html" %>  
@@ -181,6 +181,54 @@ session.removeAttribute("error_msg");
 					document.getElementById("offeredSlots2").innerHTML=xmlHttp.responseText;
 				}
 			}
+		 
+		 function showFaculty(str)
+			{
+				
+			 	var division=document.getElementById("division").value
+			 	var course=document.getElementById("offered_courses").value
+/* 			 	var head=document.getElementById("headval").value
+ */			 	
+			 	var slicedCourse=course.slice(0,6)
+			 	
+			 	console.log(division+slicedCourse+str)
+			 
+				 if(typeof XMLHttpRequest !=="undefined")
+				{
+					xmlHttp=new XMLHttpRequest();
+				}
+				else if (window.ActiveXObject)
+				{
+				xmlHttp=new ActiveXOjbject("Microsoft.XMLHTTP");
+			}
+				if(xmlHttp===null)
+				{
+					alert("Browser does not support XMLHTTP Request.");
+					return;
+				}
+				var url="DisplayFacultyDropDown?division="+division+"&course="+slicedCourse+"&head="+str
+				xmlHttp.onreadystatechange=stateChange1;
+
+
+				xmlHttp.open("POST",url,true);
+				xmlHttp.send(null);
+ 	
+				
+			}
+			 function stateChange1()
+			{
+				console.log('hello in statechange1')
+				if(xmlHttp.readyState===4 ||xmlHttp.readyState==='complete')
+				{
+					console.log('inside fromtime tag')
+					document.getElementById("faculty").innerHTML=xmlHttp.responseText;
+
+
+
+				}
+
+			}
+		 
 	</script>
 
 
@@ -233,7 +281,7 @@ session.removeAttribute("error_msg");
             </script>
             <div class="col-md-6">
               <label for="validationCustom04" class="form-label" style="font-size: 17px">Head</label><br>
-              <select class="form-select" id="headval" name="head" required style="font-size: 17px">
+              <select class="form-select" id="headval" name="head" onchange="showFaculty(this.value)" required style="font-size: 17px">
                 <option selected disabled value="" style="font-size: 17px">Head</option>
                 <option style="font-size: 17px">Theory</option>
                 <option style="font-size: 17px">Practical</option>
@@ -315,10 +363,9 @@ session.removeAttribute("error_msg");
          <br><br><br>
             <div class="col-md-6">
               <label for="validationCustom04" class="form-label" style="font-size: 17px">Faculty</label>
-              <select class="form-select" id="validationCustom04" name="faculty" required style="font-size: 17px">
+              <select class="form-select" id="faculty" name="faculty" required style="font-size: 17px">
                 <option selected disabled value="" style="font-size: 17px">Faculty</option>
-                <option style="font-size: 17px">Gauri Garud</option>
-                <option style="font-size: 17px">S.P.P Panchakshari</option>
+               
            
               </select>
               <div class="invalid-feedback" style="font-size: 17px">

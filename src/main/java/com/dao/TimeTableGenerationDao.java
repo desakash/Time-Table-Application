@@ -73,6 +73,26 @@ public class TimeTableGenerationDao {
 		return true;
 	}
 	
+	
+	public ResultSet displayFaculty(String division,String course,String head)
+	{
+		con=DbConnection.getConnection();
+		
+		try {
+			System.out.println("select * from load_distribution where division=? and course_code=? and"+head+">0");
+			pstat=con.prepareStatement("select * from load_distribution where division=? and course_code=? and "+head+">0");
+			pstat.setString(1,division);
+			pstat.setString(2,course);
+			
+			rs=pstat.executeQuery();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return rs;
+	}
 	/*
 	 * public int update(String day,String fromtime,String totime) {
 	 * System.out.println("inside update method"); con=DbConnection.getConnection();

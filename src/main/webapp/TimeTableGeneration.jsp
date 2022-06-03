@@ -207,7 +207,7 @@ session.removeAttribute("error_msg");
 					return;
 				}
 				var url="DisplayFacultyDropDown?division="+division+"&course="+slicedCourse+"&head="+str
-				xmlHttp.onreadystatechange=stateChange1;
+				xmlHttp.onreadystatechange=stateChange3;
 
 
 				xmlHttp.open("POST",url,true);
@@ -215,7 +215,7 @@ session.removeAttribute("error_msg");
  	
 				
 			}
-			 function stateChange1()
+			 function stateChange3()
 			{
 				console.log('hello in statechange1')
 				if(xmlHttp.readyState===4 ||xmlHttp.readyState==='complete')

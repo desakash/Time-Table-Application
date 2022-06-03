@@ -130,7 +130,7 @@ if(!session.isNew())
                             }
                             else
                             {
-                            	do{
+                            	
                             	%>
                             		<div class="row">
 			<div class="col-md-offset-1 col-md-10">
@@ -144,9 +144,7 @@ if(!session.isNew())
 								<div class="btn_group">
 									<input type="text" id="search" class="form-control"
 										placeholder="Search">
-									<button class="btn btn-search " title="Reload"><i class="fa fa-sync-alt"></i></button>
-									<button class="btn btn-default" title="Pdf"><i class="fa fa-file-pdf"></i></button>
-                                    <button class="btn btn-default" title="Excel"><i class="fas fa-file-excel"></i></button>
+									
 								</div>
 							</div>
 						</div>
@@ -166,6 +164,7 @@ if(!session.isNew())
 								<th>Action</th>
 
 							</thead>
+							<%do{ %>
 							<ol id="list">
 								<tbody>
                             		<tr>

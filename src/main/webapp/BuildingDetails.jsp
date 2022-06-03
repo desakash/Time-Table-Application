@@ -153,7 +153,7 @@ session.removeAttribute("delete-success");
                             }
                             else
                             {
-                            	do{
+                            	
                                 %>
                                  <div class="row">
 			<div class="col-md-offset-1 col-md-10">
@@ -179,12 +179,13 @@ session.removeAttribute("delete-success");
 							<thead>
 
 								<th>Sr.No</th>
-								 <th>Building Id</th>
+								
 								<th>Building Name</th>
 								<th>No. of Floors</th>
 								<th>Action</th>
 
 							</thead>
+							<%do{ %>
 							<ol id="list">
 								<tbody>
     									<tr>

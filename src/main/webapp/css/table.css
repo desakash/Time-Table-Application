@@ -69,7 +69,7 @@
     font-weight: 1000;
   text-transform: uppercase	; 
     padding: 15px 20px;
-    border: none;
+    border: 2px solid white;
     
 }
 
@@ -79,7 +79,7 @@
     font-size: 16px;
     padding: 10px 17px;
     vertical-align: middle;
-    border: none;
+    border: 2px solid white;
 }
 .panel .panel-body .table tbody tr:nth-child(even){ background-color: rgba(255,255,255,0.05); }
 .panel .panel-body .table tbody .action-list{

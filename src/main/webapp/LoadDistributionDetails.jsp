@@ -1,3 +1,5 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
 <%@page import="com.dao.LoadDistributionDao"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="com.dao.BuildingDao"%>
@@ -107,46 +109,76 @@
                             try{
                             LoadDistributionDao lddao=new LoadDistributionDao();
                             ResultSet rs=lddao.getLoadDistribution();
-                            int flag=1;
+                            int flag=0;
                             int cnt=1;
                             int srNo=1;
+                           	ArrayList<Integer> facultyId=new ArrayList<Integer>();
+                           	
+                           
+                        		
                             while(rs.next())
                             {
+                            	if(facultyId.contains(rs.getInt(1)))
+                            	{
+                            		System.out.println(facultyId);
+                            		System.out.println("inside break");
+                            		continue;
+                            	}
+                            	
                             	int count=lddao.getTotalRowsForFaculty(rs.getInt(1));
+                            	ResultSet rs1=lddao.getFacultyById(rs.getInt(1));
+                            	while(rs1.next())
+                            	{
+                            		facultyId.add(rs1.getInt(1));
                             	if(cnt==count)
                             	{
-                            		flag=0;
+                            		flag=1;
                             	}
                             	
                             %>
 									<tr>
 									<%
-										if(flag==1)
+										if(flag==1 && cnt<=1)
+										{
+									%>
+										<td><%=srNo%></td>
+										<td><%=rs1.getString(2)%></td>
+										<td><%=rs1.getString(3) %></td> 
+									<% 
+										}
+										if(flag==0 && cnt<=1)
 										{
 											
 									%>
 										<td rowspan='<%=count %>'><%=srNo%></td>
-										<td rowspan='<%=count %>'><%=rs.getString(2)%></td>
-										<td rowspan='<%=count %>'><%=rs.getString(3) %></td> 
+										<td rowspan='<%=count %>'><%=rs1.getString(2)%></td>
+										<td rowspan='<%=count %>'><%=rs1.getString(3) %></td> 
 									<% 
 										}
+										
 									%>
 										<%-- <td rowspan='<%=count %>'><%=cnt%></td>
 										<td rowspan='<%=count %>'><%=rs.getString(2)%></td>
 										<td rowspan='<%=count %>'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<%=rs.getString(3) %></td> --%>
-										<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<%=rs.getString(4) %></td>
-										<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<%=rs.getString(5) %></td>
-										<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<%=rs.getString(6) %></td>
-										<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<%=rs.getInt(7) %></td>
-										<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<%=rs.getInt(8) %></td>
-										<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<%=rs.getString(9)%></td>
-										<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<%=rs.getInt(10) %></td>
-										<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<%=rs.getString(11) %></td>
-										<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<%=rs.getInt(12)%></td>
+										<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<%=rs1.getString(4) %></td>
+										<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<%=rs1.getString(5) %></td>
+										<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<%=rs1.getString(6) %></td>
+										<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<%=rs1.getInt(7) %></td>
+										<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<%=rs1.getInt(8) %></td>
+										<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<%=rs1.getString(9)%></td>
+										<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<%=rs1.getInt(10) %></td>
+										<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<%=rs1.getString(11) %></td>
+										<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<%=rs1.getInt(12)%></td>
 										
 										
 										<%
-											if(flag==1)
+											if(flag==1 && cnt<=1)
+											{
+										%>
+											<td ><button type="button" class="btn btn-warning "  style="font-size: 15px"><i class="fa fa-eye"> </i> Total Load</button></td>
+										<% 
+											}
+											if(flag==0 &&cnt<=1)
 											{
 										%>		
 											 <td rowspan='<%=count %>'><button type="button" class="btn btn-warning "  style="font-size: 15px"><i class="fa fa-eye"> </i> Total Load</button></td>
@@ -157,14 +189,23 @@
 										
 									</tr>
 									<%
-									if(cnt!=count)
+									if(cnt==count)
 									{
 										srNo++;
+										flag=0;
+										cnt=1;
 									}
-                              		cnt++;
-									flag++;
+									else
+									{
+										cnt++;
+									}
 									
                             	}
+                            	
+                            	
+									
+                            	}
+                        	
                             }catch(Exception e){
                             	e.printStackTrace();
                             }

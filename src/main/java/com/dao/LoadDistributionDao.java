@@ -245,4 +245,20 @@ public class LoadDistributionDao {
 		}
 		return false;
 	}
+	
+	public ResultSet getFacultyById(int id)
+	{
+		con=DbConnection.getConnection();
+		try {
+			pstate=con.prepareStatement("select *from load_distribution where faculty_id=?");
+			pstate.setInt(1, id);
+			
+			rs=pstate.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return rs;
+	}
 }

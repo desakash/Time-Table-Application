@@ -84,7 +84,34 @@ public class ClassMasterController extends HttpServlet {
 		}
 		
 		HttpSession session=request.getSession();
+		int flag=0;
+		ClassDao cdao=new ClassDao();
+
 		String className=request.getParameter("class_name");
+
+		ResultSet rs1=cdao.getClassDetails();
+		try {
+			while(rs1.next())
+			{
+				if(className.equals(rs1.getString(2)))
+				{
+					flag=1;
+					session.setAttribute("Duplicate_class", "true");
+					response.sendRedirect("ClassMaster.jsp");
+				}
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		if(flag==0)
+		{
+			
+		
 		String typeOfClass=request.getParameter("type");
 		String buildingName=request.getParameter("buildingName");
 		
@@ -104,13 +131,13 @@ public class ClassMasterController extends HttpServlet {
 		}
 		
 		Class c=new Class(classId,className, typeOfClass, buildingId, floor);
-		ClassDao cdao=new ClassDao();
 		int k=cdao.create_Class(c);
 		if(k>0)
 		{
 			session.setAttribute("class-success", "true");
 			response.sendRedirect("ClassMaster.jsp");
 		}
+	  }
 	}
 
 	/**

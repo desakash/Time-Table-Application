@@ -1,6 +1,8 @@
 package com.controller;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -36,9 +38,35 @@ public class BuildingMasterController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
+		BuildingDao bdao=new BuildingDao();
+		int flag=0;
 		HttpSession session=request.getSession();
 		
+		
 		String building_name=request.getParameter("building_name");
+		ResultSet rs=bdao.getBuildingDetails();
+		try {
+			while(rs.next())
+			{
+				if(building_name.equals(rs.getString(2)))
+				{
+					flag=1;
+					session.setAttribute("Duplicate_Building", "true");
+					response.sendRedirect("BuildingMaster.jsp");
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		if(flag==0)
+		{
+			
+		
 		int no_of_floors=Integer.parseInt(request.getParameter("no_of_floors"));
 		
 		int building_id=0;
@@ -55,8 +83,8 @@ public class BuildingMasterController extends HttpServlet {
 		}
 		
 		Building bd=new Building(building_id, building_name, no_of_floors);
-		BuildingDao bdao=new BuildingDao();
-		int j=bdao.create_Building(bd);
+		BuildingDao budao=new BuildingDao();
+		int j=budao.create_Building(bd);
 		if(j>0)
 		{
 			String msg="Building Registered Successfully...!";
@@ -64,7 +92,7 @@ public class BuildingMasterController extends HttpServlet {
 			session.setAttribute("success_msg", msg);
 			response.sendRedirect("BuildingMaster.jsp");
 		}
-	
+		}
 	}
 
 	/**

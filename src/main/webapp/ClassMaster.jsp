@@ -206,7 +206,23 @@ function manage(pwd) {
        						icon: 'success',
        						title: 'Class Registered Successfully.',
        						showConfirmButton: false,
-       						timer: 1500,
+       						 timer: 1500, 
+       						
+       							/* title: '<strong>HTML <u>example</u></strong>',
+       						  icon: 'info',
+       						  html:
+       						    'You can use <b>bold text</b>, ' +
+       						    '<a href="//sweetalert2.github.io">links</a> ' +
+       						    'and other HTML tags',
+       						  showCloseButton: true,
+       						  showCancelButton: true,
+       						  focusConfirm: false,
+       						  confirmButtonText:
+       						    '<i class="fa fa-thumbs-up"></i> Great!',
+       						  confirmButtonAriaLabel: 'Thumbs up, great!',
+       						  cancelButtonText:
+       						    '<i class="fa fa-thumbs-down"></i>',
+       						  cancelButtonAriaLabel: 'Thumbs down' */
      					})
  
   					</script>
@@ -215,7 +231,34 @@ function manage(pwd) {
 	        	}
 				
 			}
-        session.invalidate();
+        session.removeAttribute("class-success");
+        
+        %>
+        <%
+			if(!session.isNew())
+			{
+				session=request.getSession();
+				String error=(String)session.getAttribute("Duplicate_class");
+				if(error=="true")
+	        	{
+		%>
+					<script type="text/javascript">
+				
+    				Swal.fire({
+      				//  position: 'top-end',
+       						icon: 'error',
+       						title: 'Class Name Already Registered, Try with Another Class Name.',
+       						showConfirmButton: false,
+       						timer: 2000,
+     					})
+ 
+  					</script>
+  					
+  			<% 
+	        	}
+				
+			}
+        session.removeAttribute("Duplicate_class");
         
         %>
         

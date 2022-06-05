@@ -179,6 +179,32 @@ function manage(pwd) {
 /* 	session.invalidate();
  */	session.removeAttribute("building-success");
   %>
+   <%
+    	
+    	if(!session.isNew())
+    	{
+    		session=request.getSession();
+        	String  error=(String)session.getAttribute("Duplicate_Building");
+        	if(error=="true")
+        	{
+     %>
+    				<script type="text/javascript">
+				
+    				Swal.fire({
+      				//  position: 'top-end',
+       						icon: 'error',
+       						title: 'Building Name Already Registered, Try again with Another Name.',
+       						showConfirmButton: false,
+       						timer: 2000,
+     					})
+ 
+  					</script>
+  <%
+		}
+	}
+/* 	session.invalidate();
+ */	session.removeAttribute("Duplicate_Building");
+  %>
         
         <h2 class="title" style="font-size: 30px">Building Details</h2>
         <form action="BuildingMasterController" method="post" class="row g-3 needs-validation" novalidate>

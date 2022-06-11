@@ -407,7 +407,7 @@ session.removeAttribute("error_msg");
               
               </div>  --> 
             <div class="col-12">
-              <button class="btn btn-primary" type="submit" style="font-size: 17px">ADD</button>
+              <button class="btn btn-primary" type="submit" style="font-size: 17px">Add Record</button>
             </div>
             
 

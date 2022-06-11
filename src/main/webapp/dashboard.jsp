@@ -13,6 +13,7 @@
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="css/dashboard.css">
 
+
     <script src="sweetalert2.all.min.js"></script>
 <script src="sweetalert2.min.js"></script>
 <link rel="stylesheet" href="sweetalert2.min.css">
@@ -282,7 +283,7 @@
               <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
           <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
           <a href="LoadDistribution.jsp" class="btn btn-light" style="margin-right: 10px;"><i class="fas fa-plus"></i> Add</a>
-          <a href="#" class="btn btn-light "><i class="fa fa-eye"></i> View</a>
+          <a href="LoadDistributionDetails.jsp" class="btn btn-light "><i class="fa fa-eye"></i> View</a>
         </div>
         </div>
         </div>

@@ -17,7 +17,7 @@ public class TimeTableGenerationDao {
 	{
 		con=DbConnection.getConnection();
 		try {
-			pstat=con.prepareStatement("insert into timetableGeneration values(?,?,?,?,?,?,?,?)");
+			pstat=con.prepareStatement("insert into timetable_generation values(?,?,?,?,?,?,?,?,?)");
 			pstat.setString(1,ttg.getDivision());
 			pstat.setString(2,ttg.getOffered_courses());
 			pstat.setString(3,ttg.getHead());
@@ -25,7 +25,8 @@ public class TimeTableGenerationDao {
 			pstat.setString(5,ttg.getFromtime());
 			pstat.setString(6,ttg.getTotime());
 			pstat.setString(7,ttg.getFaculty());
-			pstat.setString(8,ttg.getClassroom());
+			pstat.setString(8,ttg.getBatch());
+			pstat.setString(9,ttg.getClassroom());
 			
 			i=pstat.executeUpdate();
 		} catch (SQLException e) {
@@ -39,11 +40,12 @@ public class TimeTableGenerationDao {
 	{	
 		try {
 			con=DbConnection.getConnection();
-		pstat=con.prepareStatement("select * from timetableGeneration where DAY=? and FROMTIME=? and TOTIME=?");
+		pstat=con.prepareStatement("select * from timetable_generation where DAY=? and FROMTIME=? and TOTIME=? and division=?");
 	
 			pstat.setString(1,ttg.getDay());
 			pstat.setString(2,ttg.getFromtime());
 			pstat.setString(3,ttg.getTotime());
+			pstat.setString(4,ttg.getDivision());
 			
 			rs=pstat.executeQuery();
 			if(rs.next())
@@ -53,8 +55,9 @@ public class TimeTableGenerationDao {
 				String classroom=rs.getString(8);
 				String fromtime=rs.getString(5);
 				String totime=rs.getString(6);
+				String division=rs.getString(1);
 				
-				if(faculty.equals(ttg.getFaculty()) || classroom.equals(ttg.getClassroom()) || (fromtime.equals(ttg.getFromtime()) && totime.equals(ttg.getTotime())))
+				if(faculty.equals(ttg.getFaculty()) || classroom.equals(ttg.getClassroom()) || division.equals(ttg.getDivision())&&(fromtime.equals(ttg.getFromtime()) || totime.equals(ttg.getTotime())))
 						
 				
 				{
@@ -88,10 +91,38 @@ public class TimeTableGenerationDao {
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e);
 		}
 		
 		return rs;
+	}
+	
+	public ResultSet displayBatches(String division,String course,String faculty)
+	{
+	
+		con=DbConnection.getConnection();
+		System.out.println("Inside displaybatch dao");
+		System.out.println(division+"\t"+course+"\t"+faculty);
+
+		try {
+			pstat=con.prepareStatement("select * from load_distribution where division=? and course_code=? and faculty_name=?");
+			pstat.setString(1,division);
+			pstat.setString(2,course);
+			pstat.setString(3,faculty);
+			
+			rs=pstat.executeQuery();
+//			if(rs.next())
+//			{
+//				System.out.println(rs.getString(9));
+//	
+//			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+		}
+		
+		return rs;
+		
 	}
 	/*
 	 * public int update(String day,String fromtime,String totime) {

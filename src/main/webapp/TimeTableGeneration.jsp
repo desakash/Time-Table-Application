@@ -217,7 +217,7 @@ session.removeAttribute("error_msg");
 			}
 			 function stateChange3()
 			{
-				console.log('hello in statechange1')
+				console.log('hello in statechange3')
 				if(xmlHttp.readyState===4 ||xmlHttp.readyState==='complete')
 				{
 					console.log('inside fromtime tag')
@@ -228,6 +228,54 @@ session.removeAttribute("error_msg");
 				}
 
 			}
+			 
+			 
+			 function showBatches(str)
+				{
+					
+				 	var division=document.getElementById("division").value
+				 	var course=document.getElementById("offered_courses").value
+	/* 			 	var head=document.getElementById("headval").value
+	 */			 	
+				 	var slicedCourse=course.slice(0,6)
+				 	
+				 	console.log(division+slicedCourse+str)
+				 
+					 if(typeof XMLHttpRequest !=="undefined")
+					{
+						xmlHttp=new XMLHttpRequest();
+					}
+					else if (window.ActiveXObject)
+					{
+					xmlHttp=new ActiveXOjbject("Microsoft.XMLHTTP");
+				}
+					if(xmlHttp===null)
+					{
+						alert("Browser does not support XMLHTTP Request.");
+						return;
+					}
+					var url="DisplayBatchesDropdown?division="+division+"&course="+slicedCourse+"&faculty="+str
+					xmlHttp.onreadystatechange=stateChange4;
+
+
+					xmlHttp.open("POST",url,true);
+ 					xmlHttp.send(null);
+ 	 	
+					
+				}
+				 function stateChange4()
+				{
+					console.log('hello in statechange4')
+					if(xmlHttp.readyState===4 ||xmlHttp.readyState==='complete')
+					{
+						console.log('inside statechanged4 tag')
+						document.getElementById("batch").innerHTML=xmlHttp.responseText;
+
+
+
+					}
+
+				}
 		 
 	</script>
 
@@ -363,7 +411,7 @@ session.removeAttribute("error_msg");
          <br><br><br>
             <div class="col-md-6">
               <label for="validationCustom04" class="form-label" style="font-size: 17px">Faculty</label>
-              <select class="form-select" id="faculty" name="faculty" required style="font-size: 17px">
+              <select class="form-select" id="faculty" name="faculty" onchange="showBatches(this.value)" required style="font-size: 17px">
                 <option selected disabled value="" style="font-size: 17px">Faculty</option>
                
            
@@ -371,7 +419,19 @@ session.removeAttribute("error_msg");
               <div class="invalid-feedback" style="font-size: 17px">
                 Please select a Faculty.
               </div>
-            </div>  
+            </div> 
+            
+            
+             <div class="col-md-6">
+              <label for="validationCustom04" class="form-label" style="font-size: 17px">Practical Batch</label><br>
+              <select class="form-select" id="batch" name="batch" required style="font-size: 17px">
+                <option selected disabled value="" style="font-size: 17px">Practical Batches</option>
+               
+              </select>
+              <div class="invalid-feedback">
+                Please select The Option.
+              </div>
+            </div> 
 
             <div class="col-md-6">
               <label for="validationCustom04" class="form-label" style="font-size: 17px">Classroom</label>

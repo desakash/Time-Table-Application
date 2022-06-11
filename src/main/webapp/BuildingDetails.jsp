@@ -103,6 +103,33 @@ session.removeAttribute("delete-success");
 
 %>
 
+<%
+    	
+    	if(!session.isNew())
+    	{
+    		session=request.getSession();
+        	String  error=(String)session.getAttribute("Duplicate_Building");
+        	if(error=="true")
+        	{
+     %>
+    				<script type="text/javascript">
+				
+    				Swal.fire({
+      				//  position: 'top-end',
+       						icon: 'error',
+       						title: 'Building Name Already Registered, Try again with Another Name.',
+       						showConfirmButton: false,
+       						timer: 2000,
+     					})
+ 
+  					</script>
+  <%
+		}
+	}
+/* 	session.invalidate();
+ */	session.removeAttribute("Duplicate_Building");
+  %>
+
 	<div class="container" style="margin-top: 150px; margin-left: 200px;">
 		<!-- <div class="row">
 			<div class="col-md-offset-1 col-md-10">

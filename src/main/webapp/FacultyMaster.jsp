@@ -188,6 +188,33 @@ function manage(pwd) {
 	/* session.invalidate(); */
 	session.removeAttribute("faculty-success");
   %>
+       
+        <%
+    	
+    	if(!session.isNew())
+    	{
+    		session=request.getSession();
+        	String  error=(String)session.getAttribute("duplicate_faculty");
+        	if(error=="true")
+        	{
+     %>
+    				<script type="text/javascript">
+				
+    				Swal.fire({
+      				//  position: 'top-end',
+       						icon: 'error',
+       						title: 'Faculty is Already Registered with this Name..!',
+       						showConfirmButton: false,
+       						timer: 2200,
+     					})
+ 
+  					</script>
+  <%
+		}
+	}
+	/* session.invalidate(); */
+	session.removeAttribute("duplicate_faculty");
+  %>
         
         <h2 class="title" style="font-size: 30px">Faculty Details</h2>
         <form action="FacultyMasterController" method="post" class="row g-3 needs-validation" novalidate>

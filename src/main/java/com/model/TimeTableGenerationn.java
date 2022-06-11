@@ -9,9 +9,10 @@ public class TimeTableGenerationn {
 	private String fromtime;
 	private String totime;
 	private String faculty;
+	private String batch;
 	private String classroom;
 	public TimeTableGenerationn(String division, String offered_courses, String head, String day, String fromtime,
-			String totime, String faculty, String classroom) {
+			String totime, String faculty, String batch, String classroom) {
 		super();
 		this.division = division;
 		this.offered_courses = offered_courses;
@@ -20,6 +21,7 @@ public class TimeTableGenerationn {
 		this.fromtime = fromtime;
 		this.totime = totime;
 		this.faculty = faculty;
+		this.batch = batch;
 		this.classroom = classroom;
 	}
 	public String getDivision() {
@@ -64,6 +66,12 @@ public class TimeTableGenerationn {
 	public void setFaculty(String faculty) {
 		this.faculty = faculty;
 	}
+	public String getBatch() {
+		return batch;
+	}
+	public void setBatch(String batch) {
+		this.batch = batch;
+	}
 	public String getClassroom() {
 		return classroom;
 	}
@@ -72,5 +80,4 @@ public class TimeTableGenerationn {
 	}
 	
 	
-
 }

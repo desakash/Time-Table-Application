@@ -67,6 +67,33 @@
 	/* session.invalidate(); */
 	session.removeAttribute("offeredCourseSuccess");
   %>
+  
+  <%
+    	
+    	if(!session.isNew())
+    	{
+    		session=request.getSession();
+        	String  error=(String)session.getAttribute("Duplicate_course");
+        	if(error=="true")
+        	{
+     %>
+    				<script type="text/javascript">
+				
+    				Swal.fire({
+      				//  position: 'top-end',
+       						icon: 'error',
+       						title: 'Courses is Already Registered for this term.',
+       						showConfirmButton: false,
+       						timer: 1900,
+     					})
+ 
+  					</script>
+  <%
+		}
+	}
+	/* session.invalidate(); */
+	session.removeAttribute("Duplicate_course");
+  %>
         
         
         <h5 class="title" style="font-size: 30px">Offered Courses Details</h5>

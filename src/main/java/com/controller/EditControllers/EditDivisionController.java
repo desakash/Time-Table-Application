@@ -1,6 +1,9 @@
 package com.controller.EditControllers;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,9 +34,34 @@ public class EditDivisionController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
+		HttpSession session=request.getSession();
+		DivisionDao dd=new DivisionDao();
+		int flag=0;
 		
 		int divisiodId=Integer.parseInt(request.getParameter("division_id"));
 		String divisionName=request.getParameter("division_name");
+		ResultSet rs=dd.getDivisionDetails();
+		try {
+			while(rs.next())
+			{
+				if(divisionName.equals(rs.getString(2)))
+				{
+					flag=1;
+					session.setAttribute("Duplicate_division", "true");
+					response.sendRedirect("DivisionDetails.jsp");
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		if(flag==0)
+		{
 		int pracbatches=Integer.parseInt(request.getParameter("pracbatches"));
 		int tutbatches=Integer.parseInt(request.getParameter("tutbatches"));
 		
@@ -54,18 +82,17 @@ public class EditDivisionController extends HttpServlet {
 
 		
 		
-		DivisionDao dd=new DivisionDao();
 		int i=dd.updateDivision(divisionName,yearInt,pracbatches,tutbatches,divisiodId);
 		
 		if(i>0)
 		{
-			HttpSession session=request.getSession();
+		
 			
 			session.setAttribute("update-msg", "true");
 			
 			response.sendRedirect("DivisionDetails.jsp");
 		}
-		
+		}
 	}
 
 	/**

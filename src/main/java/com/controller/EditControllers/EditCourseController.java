@@ -1,6 +1,9 @@
 package com.controller.EditControllers;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,10 +33,47 @@ public class EditCourseController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		HttpSession session=request.getSession();
+		int flag=0;
+		CourseDao cd=new CourseDao();
+
+		
 			
 		String courseId=request.getParameter("courseId");
 		String courseCode=request.getParameter("course_code");
 		String courseName=request.getParameter("course_name");
+		
+		ResultSet rs=cd.getCourseDetails();
+		try {
+			while(rs.next())
+			{
+				if(courseCode.equals(rs.getString(1)))
+				{
+					flag=1;
+					session.setAttribute("Duplicate_courseCode", "true");
+					response.sendRedirect("CourseDetails.jsp");
+				}
+				if(courseName.equals(rs.getString(2)))
+				{
+					flag=1;
+					session.setAttribute("Duplicate_CourseName", "true");
+					response.sendRedirect("CourseDetails.jsp");
+				}
+
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if(flag==0)
+		{
+			
+		
 		String courseAbbr=request.getParameter("course_abbr");
 		String year=request.getParameter("year");
 		
@@ -55,13 +95,11 @@ public class EditCourseController extends HttpServlet {
 		int noOfPractical=Integer.parseInt(request.getParameter("no_of_pract"));
 		int noOfTutorials=Integer.parseInt(request.getParameter("no_of_tuts").trim());
 
-		CourseDao cd=new CourseDao();
 		int i=cd.updateCourse(courseCode,courseName,courseAbbr,yearInt,noOfTheory,noOfPractical,noOfTutorials,courseId);
 		
 		if(i>0)
 		{
 			
-			HttpSession session=request.getSession();
 			
 			session.setAttribute("update-msg", "true");
 			
@@ -70,7 +108,7 @@ public class EditCourseController extends HttpServlet {
 		
 
 
-		
+		}	
 		
 	}
 

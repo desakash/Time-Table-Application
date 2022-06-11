@@ -72,5 +72,17 @@ public class DivisionCourseAllocationDao {
 		
 		
 	}
+	public ResultSet getDivisionCourseAllocationDetails()
+	{
+		con=DbConnection.getConnection();
+		try {
+			st=con.createStatement();
+			rs=st.executeQuery("select *from division_course_allocation");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
 
 }

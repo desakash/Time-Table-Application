@@ -94,4 +94,16 @@ public class OfferedCourseDao {
 		
 		return rs;
 	}
+	public ResultSet getOfferedCoursesDetails()
+	{
+		con=DbConnection.getConnection();
+		try {
+			st=con.createStatement();
+			rs=st.executeQuery("select *from offered_courses");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
 }

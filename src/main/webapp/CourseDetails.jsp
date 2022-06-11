@@ -76,6 +76,60 @@ if(!session.isNew())
 	session.removeAttribute("update-msg");
 
 %>
+
+<%
+    	
+    	if(!session.isNew())
+    	{
+    		session=request.getSession();
+        	String  error=(String)session.getAttribute("Duplicate_courseCode");
+        	if(error=="true")
+        	{
+     %>
+    				<script type="text/javascript">
+				
+    				Swal.fire({
+      				//  position: 'top-end',
+       						icon: 'error',
+       						title: 'Course Code Already Used, Please Enter another CourseCode',
+       						showConfirmButton: false,
+       						timer: 1500,
+     					})
+ 
+  					</script>
+  <%
+		}
+	}
+	/* session.invalidate(); */
+	session.removeAttribute("Duplicate_courseCode");
+  %>
+  
+  <%
+    	
+    	if(!session.isNew())
+    	{
+    		session=request.getSession();
+        	String  error=(String)session.getAttribute("Duplicate_CourseName");
+        	if(error=="true")
+        	{
+     %>
+    				<script type="text/javascript">
+				
+    				Swal.fire({
+      				//  position: 'top-end',
+       						icon: 'error',
+       						title: 'Course Name is Already Registered..!',
+       						showConfirmButton: false,
+       						timer: 1500,
+     					})
+ 
+  					</script>
+  <%
+		}
+	}
+	/* session.invalidate(); */
+	session.removeAttribute("Duplicate_CourseName");
+  %>
 	<div class="container" style="margin-top: 150px; margin-left: 200px;">
 		<!-- <div class="row">
 			<div class="col-md-offset-1 col-md-10">

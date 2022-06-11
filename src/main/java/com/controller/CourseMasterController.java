@@ -1,6 +1,9 @@
 package com.controller;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,10 +33,44 @@ public class CourseMasterController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int flag=0;
+		CourseDao cdao=new CourseDao();
 		HttpSession session=request.getSession();
 		
 		String course_code=request.getParameter("course_code");
 		String course_name=request.getParameter("course_name");
+		
+		ResultSet rs=cdao.getCourseDetails();
+		try {
+			while(rs.next())
+			{
+				if(course_code.equals(rs.getString(1)))
+				{
+					flag=1;
+					session.setAttribute("Duplicate_courseCode", "true");
+					response.sendRedirect("CourseMaster.jsp");
+				}
+				if(course_name.equals(rs.getString(2)))
+				{
+					flag=1;
+					session.setAttribute("Duplicate_CourseName", "true");
+					response.sendRedirect("CourseMaster.jsp");
+				}
+
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if(flag==0)
+		{
+			
+		
 		String course_abbr=request.getParameter("course_abbr");
 		String year=request.getParameter("year");
 		int yearInt=0;
@@ -54,7 +91,6 @@ public class CourseMasterController extends HttpServlet {
 		int no_of_tuts=Integer.parseInt(request.getParameter("no_of_tuts"));
 		
 		Course cou=new Course(course_code, course_name, course_abbr, yearInt, no_of_theory, no_of_prac, no_of_tuts);
-		CourseDao cdao=new CourseDao();
 		int j=cdao.createCourse(cou);
 		if(j>0)
 		{
@@ -62,7 +98,7 @@ public class CourseMasterController extends HttpServlet {
 			response.sendRedirect("CourseMaster.jsp");
 		}
 		
-		
+		}	
 	}
 
 	/**

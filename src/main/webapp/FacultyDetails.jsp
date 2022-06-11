@@ -68,6 +68,33 @@ session.removeAttribute("update-msg");
 
 %>
 
+<%
+    	
+    	if(!session.isNew())
+    	{
+    		session=request.getSession();
+        	String  error=(String)session.getAttribute("duplicate_faculty");
+        	if(error=="true")
+        	{
+     %>
+    				<script type="text/javascript">
+				
+    				Swal.fire({
+      				//  position: 'top-end',
+       						icon: 'error',
+       						title: 'Faculty is Already Registered with this Name..!',
+       						showConfirmButton: false,
+       						timer: 2200,
+     					})
+ 
+  					</script>
+  <%
+		}
+	}
+	/* session.invalidate(); */
+	session.removeAttribute("duplicate_faculty");
+  %>
+
     <!-- <div class="container" style="margin-top: 150px;margin-left: 200px;">
         <div class="row">
             <div class="col-md-offset-1 col-md-10">

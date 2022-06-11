@@ -39,6 +39,10 @@ public class DivisionCourseAllocationController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		DivisionCourseAllocationDao dcad=new DivisionCourseAllocationDao();
+
+		int flag=0;
+		
 		String t = request.getParameter("term");
 		String year = request.getParameter("year");
 
@@ -46,7 +50,38 @@ public class DivisionCourseAllocationController extends HttpServlet {
 		 String division=request.getParameter("division");
 
 		String[] allotedCourseNames=request.getParameterValues("course");
+		
+		ResultSet rs2=dcad.getDivisionCourseAllocationDetails();
+		try {
+			while(rs2.next())
+			{
+				for(int i=0;i<allotedCourseNames.length;i++)
+				{
+				
+				if(term.equals(rs2.getString(1))&&division.equals(rs2.getString(2))&&allotedCourseNames[i].equals(rs2.getString(4)))
+				{
+					flag=1;
+					session.setAttribute("Duplicate_courseAllocation", "true");
+					response.sendRedirect("DivisionCourseAllocation.jsp");
+				
+				}
+				}
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		if(flag==0)
+		{
+			
+		
 		ArrayList<String> allotedCourseCodes=new ArrayList<String>();
+		
+		
 		OfferedCourseDao ocdao=new OfferedCourseDao();
 		System.out.println(allotedCourseNames.length);
 		try { 
@@ -71,7 +106,6 @@ public class DivisionCourseAllocationController extends HttpServlet {
 		
 		
 
-		DivisionCourseAllocationDao dcad=new DivisionCourseAllocationDao();
 		int i=dcad.insertAllotedCourses(dca);
 		if(i>0)
 		{
@@ -111,6 +145,7 @@ public class DivisionCourseAllocationController extends HttpServlet {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
 		}
 	}
 

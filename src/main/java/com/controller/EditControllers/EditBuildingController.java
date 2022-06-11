@@ -1,6 +1,9 @@
 package com.controller.EditControllers;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,12 +36,37 @@ public class EditBuildingController extends HttpServlet {
 		// TODO Auto-generated method stub
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
 		HttpSession session=request.getSession();
+		BuildingDao bd=new BuildingDao();
+		int flag=0;
+		
 		System.out.println("edit building controller");
 		String buildingName=request.getParameter("building_name");
+		ResultSet rs=bd.getBuildingDetails();
+		try {
+			while(rs.next())
+			{
+				if(buildingName.equals(rs.getString(2)))
+				{
+					flag=1;
+					session.setAttribute("Duplicate_Building", "true");
+					response.sendRedirect("BuildingDetails.jsp");
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
+		
+		if(flag==0)
+		{
 		int buildingFloor=Integer.parseInt(request.getParameter("no_of_floors"));
 		int buildingid=Integer.parseInt(request.getParameter("building_id"));
 		
-		BuildingDao bd=new BuildingDao();
 		int i=bd.buldingUpdate(buildingName,buildingFloor,buildingid);
 		
 		if(i>0)
@@ -48,6 +76,7 @@ public class EditBuildingController extends HttpServlet {
 			
 		}
 		
+		}
 	}
 
 	/**

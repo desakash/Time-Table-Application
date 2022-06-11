@@ -40,45 +40,64 @@ public class DisplayBatchesDropdown extends HttpServlet {
 		String division=request.getParameter("division");
 		String course=request.getParameter("course");
 		String faculty=request.getParameter("faculty");
+		String head=request.getParameter("head");
+		
+		String tag1,tag2;	
+
 		
 		System.out.println(division+"\t"+course+"\t"+faculty);
-		
-		TimeTableGenerationDao ttg=new TimeTableGenerationDao();
-		ResultSet rs=ttg.displayBatches(division, course, faculty);
-		
-		String tag1,tag2;
-		
-		try {
-			while(rs.next())
-			{
-				/*
-				 * String batches=rs.getString(9); String batch1=batches.substring(0,7); String
-				 * batch2=batch1.substring(7,10);
-				 */
-				String batches=rs.getString(9);
-				if(batches.equals("A Batch, B Batch")||(batches.equals("A Batch, B Batch, C Batch")))
+
+		if(head.equals("Practical"))
+		{
+			TimeTableGenerationDao ttg=new TimeTableGenerationDao();
+			ResultSet rs=ttg.displayBatches(division, course, faculty);
+			
+			
+			try {
+				while(rs.next())
 				{
 					/*
-					 * String A="A Batch"; String B="B Batch";
+					 * String batches=rs.getString(9); String batch1=batches.substring(0,7); String
+					 * batch2=batch1.substring(7,10);
 					 */
-					 tag1="<option style='font-size: 17px'>A Batch</option>";
-					 tag2="<option style='font-size: 17px'>B Batch</option>";
-					 tag=tag1+tag2;
+					String batches=rs.getString(9);
+					if(batches.equals("A Batch, B Batch")||(batches.equals("A Batch, B Batch, C Batch")))
+					{
+						/*
+						 * String A="A Batch"; String B="B Batch";
+						 */
+						 tag1="<option style='font-size: 17px'>A Batch</option>";
+						 tag2="<option style='font-size: 17px'>B Batch</option>";
+						 tag=tag1+tag2;
 
-				}
-				else
-				{
-					tag=tag+"<option style='font-size: 17px'>"+rs.getString(9)+"</option>";
+					}
+					else
+					{
+						tag=tag+"<option style='font-size: 17px'>"+rs.getString(9)+"</option>";
 
+					}
+					 
 				}
-				 
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			tag=tag+"</select>";
+			response.getWriter().println(tag);
+
 		}
-		tag=tag+"</select>";
-		response.getWriter().println(tag);
+		else
+		{
+
+			
+			 tag=tag+"<option selected disabled value= '' style='font-size: 17px'>Practical Batches</option>";
+;
+			  
+			 tag=tag+"</select>";
+			 response.getWriter().println(tag);
+			 
+
+		}
 		
 	}
 

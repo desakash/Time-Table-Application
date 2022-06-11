@@ -235,11 +235,11 @@ session.removeAttribute("error_msg");
 					
 				 	var division=document.getElementById("division").value
 				 	var course=document.getElementById("offered_courses").value
-	/* 			 	var head=document.getElementById("headval").value
-	 */			 	
+	 			 	var head=document.getElementById("headval").value
+	 		 	
 				 	var slicedCourse=course.slice(0,6)
 				 	
-				 	console.log(division+slicedCourse+str)
+				 	console.log(division+slicedCourse+str+head)
 				 
 					 if(typeof XMLHttpRequest !=="undefined")
 					{
@@ -254,7 +254,7 @@ session.removeAttribute("error_msg");
 						alert("Browser does not support XMLHTTP Request.");
 						return;
 					}
-					var url="DisplayBatchesDropdown?division="+division+"&course="+slicedCourse+"&faculty="+str
+					var url="DisplayBatchesDropdown?division="+division+"&course="+slicedCourse+"&faculty="+str+"&head="+head
 					xmlHttp.onreadystatechange=stateChange4;
 
 

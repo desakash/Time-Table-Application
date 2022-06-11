@@ -123,7 +123,6 @@
                             <thead>
                                 
                                     <th>Sr.No</th>
-                                    <!-- <th>Id</th> -->
                                     <th>Name</th>
                                     <th>Type</th>
                                     <th>Building Name</th>

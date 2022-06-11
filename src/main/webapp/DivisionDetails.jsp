@@ -55,7 +55,7 @@ $(document).ready(function(){
 			icon : 'success',
 			title : 'Division Deleted Successfully',
 			showConfirmButton : false,
-			timer : 1500,
+			timer : 2000,
 		})
 	</script>
 	<%
@@ -70,7 +70,7 @@ $(document).ready(function(){
 				icon : 'success',
 				title : 'Division Updated Successfully',
 				showConfirmButton : false,
-				timer : 1500,
+				timer : 2000,
 			})
 		</script>
 		<%
@@ -78,11 +78,34 @@ $(document).ready(function(){
 	}
 session.removeAttribute("success-msg");
 session.removeAttribute("update-msg");
-
-
-
-
 %>
+
+ <%
+    	
+    	if(!session.isNew())
+    	{
+        	String  error=(String)session.getAttribute("Duplicate_division");
+        	if(error=="true")
+        	{
+     %>
+    				<script type="text/javascript">
+				
+    				Swal.fire({
+      				//  position: 'top-end',
+       						icon: 'error',
+       						title: 'Division Name is already Registered..!',
+       						showConfirmButton: false,
+       						timer: 2000,
+     					})
+ 
+  					</script>
+  <%
+		}
+	}
+	/* session.invalidate(); */
+	session.removeAttribute("Duplicate_division");
+  %>
+  
 
     <div class="container" style="margin-top: 150px;margin-left: 200px;">
         <div class="row">

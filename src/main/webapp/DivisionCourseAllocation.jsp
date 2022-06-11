@@ -56,7 +56,7 @@
        						icon: 'success',
        						title: 'Courses Alloted to Division Successfully.',
        						showConfirmButton: false,
-       						timer: 1500,
+       						timer: 2000,
      					})
  
   					</script>
@@ -65,6 +65,33 @@
 	}
 	/* session.invalidate(); */
 	session.removeAttribute("allotedCourse-Success");
+  %>
+  
+   <%
+    	
+    	if(!session.isNew())
+    	{
+    		//session=request.getSession();
+        	String error=(String)session.getAttribute("Duplicate_courseAllocation");
+        	if(error=="true")
+        	{
+     %>
+    				<script type="text/javascript">
+				
+    				Swal.fire({
+      				//  position: 'top-end',
+       						icon: 'error',
+       						title: 'Course is already Allocated to this Division, Please chek Once and Try Again.!',
+       						showConfirmButton: false,
+       						timer: 2000,
+     					})
+ 
+  					</script>
+  <%
+		}
+	}
+	/* session.invalidate(); */
+	session.removeAttribute("Duplicate_courseAllocation");
   %>
         
         

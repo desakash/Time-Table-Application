@@ -2,6 +2,7 @@ package com.controller;
 
 import java.io.IOException;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -36,7 +37,32 @@ public class FacultyMasterController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session=request.getSession();
+		FacultyDao fdao=new FacultyDao();
+		int flag=0;
+		
 		String facultyName=request.getParameter("faculty_name");
+		
+		ResultSet rs1=fdao.getFacultyDetails();
+		try {
+			while(rs1.next())
+			{
+				if(facultyName.equals(rs1.getString(2)))
+				{
+					flag=1;
+					session.setAttribute("duplicate_faculty", "true");
+					response.sendRedirect("FacultyMaster.jsp");
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if(flag==0) {
+		
 		String facultyAbbr=request.getParameter("faculty_abbr");
 		String facultyEmail=request.getParameter("faculty_email");
 		String facultyDesignation=request.getParameter("faculty_designation");
@@ -68,7 +94,6 @@ public class FacultyMasterController extends HttpServlet {
 		
 //		Faculty fc=new Faculty(facultyId, facultyName, facultyAbbr, facultyCourseCodes);
 		Faculty fc=new Faculty(facultyId, facultyName, facultyAbbr, facultyEmail, facultyDesignation, facultyType);
-		FacultyDao fdao=new FacultyDao();
 		int j=fdao.createFaculty(fc);
 		if(j>0)
 		{
@@ -76,7 +101,8 @@ public class FacultyMasterController extends HttpServlet {
 			response.sendRedirect("FacultyMaster.jsp");
 		}
 		
-
+		
+		}
 	}
 
 	/**

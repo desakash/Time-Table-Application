@@ -169,7 +169,7 @@ function manage(pwd) {
        						icon: 'success',
        						title: 'Course Registered Successfully.',
        						showConfirmButton: false,
-       						timer: 1500,
+       						timer: 2000,
      					})
  
   					</script>
@@ -178,6 +178,60 @@ function manage(pwd) {
 	}
 	/* session.invalidate(); */
 	session.removeAttribute("course-success");
+  %>
+  
+  <%
+    	
+    	if(!session.isNew())
+    	{
+    		session=request.getSession();
+        	String  error=(String)session.getAttribute("Duplicate_courseCode");
+        	if(error=="true")
+        	{
+     %>
+    				<script type="text/javascript">
+				
+    				Swal.fire({
+      				//  position: 'top-end',
+       						icon: 'error',
+       						title: 'Course Code Already Used, Please Enter another CourseCode',
+       						showConfirmButton: false,
+       						timer: 2000,
+     					})
+ 
+  					</script>
+  <%
+		}
+	}
+	/* session.invalidate(); */
+	session.removeAttribute("Duplicate_courseCode");
+  %>
+  
+  <%
+    	
+    	if(!session.isNew())
+    	{
+    		session=request.getSession();
+        	String  error=(String)session.getAttribute("Duplicate_CourseName");
+        	if(error=="true")
+        	{
+     %>
+    				<script type="text/javascript">
+				
+    				Swal.fire({
+      				//  position: 'top-end',
+       						icon: 'error',
+       						title: 'Course Name is Already Registered..!',
+       						showConfirmButton: false,
+       						timer: 2000,
+     					})
+ 
+  					</script>
+  <%
+		}
+	}
+	/* session.invalidate(); */
+	session.removeAttribute("Duplicate_CourseName");
   %>
         
         <h2 class="title" style="font-size: 30px">Course Details</h2>

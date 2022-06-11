@@ -44,7 +44,7 @@
 			icon : 'success',
 			title : 'Class Deleted Successfully',
 			showConfirmButton : false,
-			timer : 1500,
+			timer : 2000,
 		})
 	</script>	
 	<% 
@@ -58,7 +58,7 @@
  						icon : 'success',
  						title : 'Class updated Successfully',
  						showConfirmButton : false,
- 						timer : 1500,
+ 						timer : 2000,
  					})
  				</script>	
  				<%
@@ -69,6 +69,34 @@
 
 
  		%>
+ 		
+ 		<%
+			if(!session.isNew())
+			{
+				session=request.getSession();
+				String error=(String)session.getAttribute("Duplicate_class");
+				if(error=="true")
+	        	{
+		%>
+					<script type="text/javascript">
+				
+    				Swal.fire({
+      				//  position: 'top-end',
+       						icon: 'error',
+       						title: 'Class Name Already Registered, Try with Another Class Name.',
+       						showConfirmButton: false,
+       						timer: 2000,
+     					})
+ 
+  					</script>
+  					
+  			<% 
+	        	}
+				
+			}
+        session.removeAttribute("Duplicate_class");
+        
+        %>
  		
 
     <div class="container" style="margin-top: 150px;margin-left: 200px;">

@@ -2,6 +2,7 @@ package com.controller;
 
 import java.io.IOException;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -39,6 +40,9 @@ public class OfferedCourseController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		int flag=0;
+		OfferedCourseDao ocdao=new OfferedCourseDao();
+		
 		String t = request.getParameter("term");
 		String year = request.getParameter("year");
 
@@ -46,8 +50,35 @@ public class OfferedCourseController extends HttpServlet {
 
 
 		String[] courseName=request.getParameterValues("course");
-		ArrayList<String> offeredCourseCodes=new ArrayList<String>();
+		ResultSet rs1=ocdao.getOfferedCoursesDetails();
+		try {
+			while(rs1.next())
+			{
+				for(int i=0;i<courseName.length;i++)
+				{
+				
+					if(term.equals(rs1.getString(1))&&courseName[i].equals(rs1.getString(3)))
+					{
+						flag=1;
+						session.setAttribute("Duplicate_course", "true");
+						response.sendRedirect("OfferedCourses.jsp");
+					}
+				
+				}
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
+		if(flag==0)
+		{
+			
+		
+		ArrayList<String> offeredCourseCodes=new ArrayList<String>();
 		ResultSet rs=null; 
 		CourseDao cdao=new CourseDao();
 		try { 
@@ -67,7 +98,6 @@ public class OfferedCourseController extends HttpServlet {
 		
 		List<String> courseNameList=Arrays.asList(courseName);
 		OfferedCourses ocs=new OfferedCourses(term, offeredCourseCodes,courseNameList);
-		OfferedCourseDao ocdao=new OfferedCourseDao();
 		int j=ocdao.insertOfferedCourses(ocs);
 		if(j>0)
 		{
@@ -75,7 +105,7 @@ public class OfferedCourseController extends HttpServlet {
 			response.sendRedirect("OfferedCourses.jsp");
 		}
 		
-
+		}
 	}
 
 	/**

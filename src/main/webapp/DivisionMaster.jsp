@@ -144,7 +144,7 @@ function manage(pwd) {
        						icon: 'success',
        						title: 'Division Registered Successfully.',
        						showConfirmButton: false,
-       						timer: 1500,
+       						timer: 2000,
      					})
  
   					</script>
@@ -153,6 +153,32 @@ function manage(pwd) {
 	}
 	/* session.invalidate(); */
 	session.removeAttribute("division-success");
+  %>
+  
+   <%
+    	
+    	if(!session.isNew())
+    	{
+        	String  error=(String)session.getAttribute("Duplicate_division");
+        	if(error=="true")
+        	{
+     %>
+    				<script type="text/javascript">
+				
+    				Swal.fire({
+      				//  position: 'top-end',
+       						icon: 'error',
+       						title: 'Division Name is already Registered..!',
+       						showConfirmButton: false,
+       						timer: 2000,
+     					})
+ 
+  					</script>
+  <%
+		}
+	}
+	/* session.invalidate(); */
+	session.removeAttribute("Duplicate_division");
   %>
   
         <h2 class="title" style="font-size: 30px">Division Details</h2>

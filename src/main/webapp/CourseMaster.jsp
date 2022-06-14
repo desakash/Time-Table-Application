@@ -180,6 +180,8 @@ function manage(pwd) {
 	session.removeAttribute("course-success");
   %>
   
+  
+  
   <%
     	
     	if(!session.isNew())
@@ -232,6 +234,33 @@ function manage(pwd) {
 	}
 	/* session.invalidate(); */
 	session.removeAttribute("Duplicate_CourseName");
+  %>
+  
+   <%
+    	
+    	if(!session.isNew())
+    	{
+    		session=request.getSession();
+        	String  error=(String)session.getAttribute("CourseCodeMisMatch");
+        	if(error=="true")
+        	{
+     %>
+    				<script type="text/javascript">
+				
+    				Swal.fire({
+      				//  position: 'top-end',
+       						icon: 'error',
+       						title: 'Invalid Course Code..!',
+       						showConfirmButton: false,
+       						timer: 2000,
+     					})
+ 
+  					</script>
+  <%
+		}
+	}
+	/* session.invalidate(); */
+	session.removeAttribute("CourseCodeMisMatch");
   %>
         
         <h2 class="title" style="font-size: 30px">Course Details</h2>

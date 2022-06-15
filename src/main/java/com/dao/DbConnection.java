@@ -11,8 +11,6 @@ public class DbConnection {
 		try {
 			// load drivers
 			Class.forName("oracle.jdbc.OracleDriver");
-			//connection to data Base
-			con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","system","system");
 			// connection to data Base
 			con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "system", "system");
 		} catch (ClassNotFoundException e) {

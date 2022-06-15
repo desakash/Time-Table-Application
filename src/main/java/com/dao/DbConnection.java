@@ -5,15 +5,16 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DbConnection {
-	
-	
+
 	public static Connection getConnection() {
-		Connection con=null;
+		Connection con = null;
 		try {
-			//load drivers
+			// load drivers
 			Class.forName("oracle.jdbc.OracleDriver");
 			//connection to data Base
 			con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","system","system");
+			// connection to data Base
+			con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "system", "system");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

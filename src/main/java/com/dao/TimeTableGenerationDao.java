@@ -124,6 +124,35 @@ public class TimeTableGenerationDao {
 		return rs;
 		
 	}
+	
+	
+	public ResultSet displayTutorialBatches(String division,String course,String faculty)
+	{
+	
+		con=DbConnection.getConnection();
+		System.out.println("Inside displaybatch dao");
+		System.out.println(division+"\t"+course+"\t"+faculty);
+
+		try {
+			pstat=con.prepareStatement("select * from load_distribution where division=? and course_code=? and faculty_name=?");
+			pstat.setString(1,division);
+			pstat.setString(2,course);
+			pstat.setString(3,faculty);
+			
+			rs=pstat.executeQuery();
+//			if(rs.next())
+//			{
+//				System.out.println(rs.getString(9));
+//	
+//			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+		}
+		
+		return rs;
+		
+	}
 	/*
 	 * public int update(String day,String fromtime,String totime) {
 	 * System.out.println("inside update method"); con=DbConnection.getConnection();

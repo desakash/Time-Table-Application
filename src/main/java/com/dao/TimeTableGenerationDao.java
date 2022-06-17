@@ -41,19 +41,21 @@ public class TimeTableGenerationDao {
 	{	
 		try {
 			con=DbConnection.getConnection();
-		pstat=con.prepareStatement("select * from timetable_generation where DAY=? and FROMTIME=? and TOTIME=? and division=?");
+		pstat=con.prepareStatement("select * from timetable_generation where DAY=? and FROMTIME=? and TOTIME=? and division=? and classroom=?");
 	
 			pstat.setString(1,ttg.getDay());
 			pstat.setString(2,ttg.getFromtime());
 			pstat.setString(3,ttg.getTotime());
 			pstat.setString(4,ttg.getDivision());
+			pstat.setString(5,ttg.getClassroom());
+
 			
 			rs=pstat.executeQuery();
 			if(rs.next())
 			{
 				String day=rs.getString(4);
 				String faculty=rs.getString(7);
-				String classroom=rs.getString(8);
+				String classroom=rs.getString(10);
 				String fromtime=rs.getString(5);
 				String totime=rs.getString(6);
 				String division=rs.getString(1);

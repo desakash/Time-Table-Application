@@ -46,7 +46,7 @@
 			Swal.fire({
 				//  position: 'top-end',
 						icon: 'success',
-						title: 'Division Registered Successfully.',
+						title: 'Data inserted Successfully.',
 						showConfirmButton: false,
 						timer: 1500,
 					})
@@ -176,6 +176,7 @@ session.removeAttribute("error_msg");
 		 function showOfferedSlots2()
 		 {
 			 console.log('hello in slots'+day);
+			 var fromtime=document.getElementById('offeredSlots').value;
 				if(typeof XMLHttpRequest !=="undefined")
 				{
 					xmlHttp=new XMLHttpRequest();
@@ -189,7 +190,7 @@ session.removeAttribute("error_msg");
 					alert("Browser does not support XMLHTTP Request.");
 					return;
 				}
-				var url="DisplaySlotToTime?day="+day;
+				var url="DisplaySlotToTime?day="+day+"&fromtime="+fromtime;
 				xmlHttp.onreadystatechange=stateChange2;
 
 

@@ -62,8 +62,8 @@ public class DisplayTutorialBatches extends HttpServlet {
 
 					String tutorial_batches = rs.getString(11);
 					
-					if (tutorial_batches.equals("T1 Batch, T2 Batch")
-							|| (tutorial_batches.equals("T1 Batch, T2 Batch, T3 Batch"))) {
+					if (tutorial_batches.equals("T1 Batch T2 Batch")
+							|| (tutorial_batches.equals("T1 Batch T2 Batch T3 Batch"))) {
 
 						/*
 						 * String T1 = "T1 Batch"; String T2 = "T2 Batch";

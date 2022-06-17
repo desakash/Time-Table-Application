@@ -9,10 +9,11 @@ public class TimeTableGenerationn {
 	private String fromtime;
 	private String totime;
 	private String faculty;
-	private String batch;
+	private String practical_batch;
+	private String tutorial_batch;
 	private String classroom;
 	public TimeTableGenerationn(String division, String offered_courses, String head, String day, String fromtime,
-			String totime, String faculty, String batch, String classroom) {
+			String totime, String faculty, String practical_batch, String tutorial_batch, String classroom) {
 		super();
 		this.division = division;
 		this.offered_courses = offered_courses;
@@ -21,7 +22,8 @@ public class TimeTableGenerationn {
 		this.fromtime = fromtime;
 		this.totime = totime;
 		this.faculty = faculty;
-		this.batch = batch;
+		this.practical_batch = practical_batch;
+		this.tutorial_batch = tutorial_batch;
 		this.classroom = classroom;
 	}
 	public String getDivision() {
@@ -66,11 +68,17 @@ public class TimeTableGenerationn {
 	public void setFaculty(String faculty) {
 		this.faculty = faculty;
 	}
-	public String getBatch() {
-		return batch;
+	public String getPractical_batch() {
+		return practical_batch;
 	}
-	public void setBatch(String batch) {
-		this.batch = batch;
+	public void setPractical_batch(String practical_batch) {
+		this.practical_batch = practical_batch;
+	}
+	public String getTutorial_batch() {
+		return tutorial_batch;
+	}
+	public void setTutorial_batch(String tutorial_batch) {
+		this.tutorial_batch = tutorial_batch;
 	}
 	public String getClassroom() {
 		return classroom;
@@ -78,6 +86,7 @@ public class TimeTableGenerationn {
 	public void setClassroom(String classroom) {
 		this.classroom = classroom;
 	}
+	
 	
 	
 }

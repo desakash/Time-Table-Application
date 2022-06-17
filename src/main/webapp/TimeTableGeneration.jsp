@@ -81,7 +81,26 @@ session.removeAttribute("error_msg");
 	<script type="text/javascript">
 	var day;
 	var xmlHttp;
-		
+	
+		function show(str)
+		{
+			var batch_type=document.getElementById('headval').value;
+			console.log('hello in Show Function'+str);
+			console.log('Batch Type'+batch_type);
+			
+			if(batch_type==='Practical')
+			{
+				showPractialBatches(str);
+			}
+			else if(batch_type==='Tutorial')
+			{
+				showTutorialBatches(str);
+			}
+			
+
+
+		}
+	
 		function showOfferedCourses(str)
 		{
 			console.log('hello in courses'+str);
@@ -241,6 +260,7 @@ session.removeAttribute("error_msg");
 			 function showPractialBatches(str)
 				{
 					
+					console.log('hello in showPractialBatches'+str);
 				 	var division=document.getElementById("division").value
 				 	var course=document.getElementById("offered_courses").value
 	 			 	var head=document.getElementById("headval").value
@@ -282,13 +302,14 @@ session.removeAttribute("error_msg");
 
 
 					}
-
+					
 				}
 	
 				 
 				 function showTutorialBatches(str)
 					{
 						
+						console.log('hello in showTutorialBatches'+str);
 					 	var division=document.getElementById("division").value
 					 	var course=document.getElementById("offered_courses").value
 		 			 	var head=document.getElementById("headval").value
@@ -310,7 +331,7 @@ session.removeAttribute("error_msg");
 							alert("Browser does not support XMLHTTP Request.");
 							return;
 						}
-						var url="DisplayBatchesDropdown?division="+division+"&course="+slicedCourse+"&faculty="+str+"&head="+head
+						var url="DisplayTutorialBatches?division="+division+"&course="+slicedCourse+"&faculty="+str+"&head="+head
 						xmlHttp.onreadystatechange=stateChange5;
 
 
@@ -325,7 +346,7 @@ session.removeAttribute("error_msg");
 						if(xmlHttp.readyState===4 ||xmlHttp.readyState==='complete')
 						{
 							console.log('inside statechanged4 tag')
-							document.getElementById("batch").innerHTML=xmlHttp.responseText;
+							document.getElementById("tutbatch").innerHTML=xmlHttp.responseText;
 
 
 
@@ -482,7 +503,7 @@ session.removeAttribute("error_msg");
 							<label for="validationCustom04" class="form-label"
 								style="font-size: 17px">Faculty</label> <select
 								class="form-select" id="faculty" name="faculty"
-								onchange="showPractialBatches(this.value)" required
+								onchange="show(this.value)" 
 								style="font-size: 17px">
 								<option selected disabled value="" style="font-size: 17px">Faculty</option>
 
@@ -496,7 +517,7 @@ session.removeAttribute("error_msg");
 						<div class="col-md-6">
 							<label for="validationCustom04" class="form-label"
 								style="font-size: 17px">Practical Batch</label><br> <select
-								class="form-select" id="batch" name="batch" required
+								class="form-select" id="batch" name="practical_batch" 
 								style="font-size: 17px">
 								<option selected disabled value="" style="font-size: 17px">Practical
 									Batches</option>
@@ -508,7 +529,7 @@ session.removeAttribute("error_msg");
 						<div class="col-md-6">
 							<label for="validationCustom04" class="form-label"
 								style="font-size: 17px">Tutorial Batch</label><br> <select
-								class="form-select" id="batch" name="batch" required
+								class="form-select" id="tutbatch" name="tutorial_batch" 
 								style="font-size: 17px">
 								<option selected disabled value="" style="font-size: 17px">Tutorial
 									Batches</option>
@@ -521,7 +542,7 @@ session.removeAttribute("error_msg");
 							<label for="validationCustom04" class="form-label"
 								style="font-size: 17px">Classroom</label> <select
 								class="form-select" id="validationCustom04" name="classroom"
-								required style="font-size: 17px">
+								 style="font-size: 17px">
 								<option selected disabled value="" style="font-size: 17px">Classroom</option>
 
 								<%

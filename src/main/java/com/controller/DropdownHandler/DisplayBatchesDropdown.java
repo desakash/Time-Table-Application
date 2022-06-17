@@ -45,9 +45,9 @@ public class DisplayBatchesDropdown extends HttpServlet {
 		String tag1, tag2;
 
 		System.out.println(division + "\t" + course + "\t" + faculty);
+		String tag = "<select class='form-select' id='batch' name='batch' required style='font-size: 17px'> <option selected disabled value=''>Choose...</option>";
 
 		if (head.equals("Practical")) {
-			String tag = "<select class='form-select' id='validationCustom04' name='batch' required style='font-size: 17px'> <option selected disabled value=''>Choose...</option>";
 
 			TimeTableGenerationDao ttg = new TimeTableGenerationDao();
 			ResultSet rs = ttg.displayBatches(division, course, faculty);
@@ -58,32 +58,52 @@ public class DisplayBatchesDropdown extends HttpServlet {
 					 * String batches=rs.getString(9); String batch1=batches.substring(0,7); String
 					 * batch2=batch1.substring(7,10);
 					 */
+
+					
+					String practical_batches = rs.getString(9);
+					System.out.println(practical_batches);
+					if (practical_batches.equals("A Batch, B Batch")|| (practical_batches.equals("A Batch, B Batch, C Batch"))) {
+
 					String batches = rs.getString(9);
-					if (batches.equals("A Batch, B Batch") || (batches.equals("A Batch, B Batch, C Batch"))) {
+					if (batches.equals("A Batch B Batch") || (batches.equals("A Batch B Batch C Batch"))) {
+
 						/*
 						 * String A="A Batch"; String B="B Batch";
 						 */
+						System.out.println("Inside Practical Batches condition");
 						tag1 = "<option style='font-size: 17px'>A Batch</option>";
 						tag2 = "<option style='font-size: 17px'>B Batch</option>";
 						tag = tag1 + tag2;
 
 					} else {
+						System.out.println("Inside else block for practicals");
 						tag = tag + "<option style='font-size: 17px'>" + rs.getString(9) + "</option>";
-
+						
 					}
+					tag = tag + "</select>";
+					response.getWriter().println(tag);
+					
 
+				}
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			tag = tag + "</select>";
-			response.getWriter().println(tag);
+			
 
-		} else {
-			String tag = "<select class='form-select' id='validationCustom04' name='batch' required style='font-size: 17px'> <option selected disabled value=''>Choose...</option>";
+		}
+			
+		else
+		{
+			/*
+			 * String tag =
+			 * "<select class='form-select' id='batch' name='batch' required style='font-size: 17px'> <option selected disabled value=''>Choose...</option>"
+			 * ;
+			 */			String tag3="<option selected disabled value= '' style='font-size: 17px'>practical Batches</option>";
 
-			tag = tag + "<option selected disabled value= '' style='font-size: 17px'>Practical Batches</option>";
+			tag = tag +tag3 ;
+			
 			;
 
 			tag = tag + "</select>";
@@ -91,52 +111,7 @@ public class DisplayBatchesDropdown extends HttpServlet {
 
 		}
 
-		/*
-		 * if(head.equals("Tutorial")) { String
-		 * tag="<select class='form-select' id='validationCustom04' name='batch' required style='font-size: 17px'> <option selected disabled value=''>Choose...</option>"
-		 * ;
-		 * 
-		 * TimeTableGenerationDao ttg=new TimeTableGenerationDao(); ResultSet
-		 * rs=ttg.displayTutorialBatches(division, course, faculty);
-		 * 
-		 * 
-		 * try { while(rs.next()) {
-		 * 
-		 * String batches=rs.getString(9); String batch1=batches.substring(0,7); String
-		 * batch2=batch1.substring(7,10);
-		 * 
-		 * String batches=rs.getString(11);
-		 * if(batches.equals("A Batch, B Batch")||(batches.
-		 * equals("A Batch, B Batch, C Batch"))) {
-		 * 
-		 * String A="A Batch"; String B="B Batch";
-		 * 
-		 * tag1="<option style='font-size: 17px'>A Batch</option>";
-		 * tag2="<option style='font-size: 17px'>B Batch</option>"; tag=tag1+tag2;
-		 * 
-		 * } else {
-		 * tag=tag+"<option style='font-size: 17px'>"+rs.getString(11)+"</option>";
-		 * 
-		 * }
-		 * 
-		 * } } catch (SQLException e) { // TODO Auto-generated catch block
-		 * e.printStackTrace(); } tag=tag+"</select>";
-		 * response.getWriter().println(tag);
-		 * 
-		 * } else { String
-		 * tag="<select class='form-select' id='validationCustom04' name='batch' required style='font-size: 17px'> <option selected disabled value=''>Choose...</option>"
-		 * ;
-		 * 
-		 * 
-		 * tag=
-		 * tag+"<option selected disabled value= '' style='font-size: 17px'>Practical Batches</option>"
-		 * ; ;
-		 * 
-		 * tag=tag+"</select>"; response.getWriter().println(tag);
-		 * 
-		 * 
-		 * }
-		 */
+	
 
 	}
 

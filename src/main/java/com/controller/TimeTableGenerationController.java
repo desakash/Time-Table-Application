@@ -39,10 +39,11 @@ public class TimeTableGenerationController extends HttpServlet {
 		String fromtime=request.getParameter("fromtime");
 		String totime=request.getParameter("totime");
 		String faculty=request.getParameter("faculty"); 
-		String batch=request.getParameter("batch"); 
+		String practical_batch=request.getParameter("practical_batch"); 
+		String tutorial_batch=request.getParameter("tutorial_batch"); 
 		String classroom=request.getParameter("classroom");
 		
-		TimeTableGenerationn ttg=new TimeTableGenerationn(division, offered_courses, head, day, fromtime, totime, faculty,batch,classroom);
+		TimeTableGenerationn ttg=new TimeTableGenerationn(division, offered_courses, head, day, fromtime, totime, faculty,practical_batch,tutorial_batch,classroom);
 		TimeTableGenerationDao tgd=new TimeTableGenerationDao();
 		
 		boolean status=tgd.check(ttg);

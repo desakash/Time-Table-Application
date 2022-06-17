@@ -81,7 +81,7 @@
                 </script>
              </div>
       <div class="col-12">
-              <button class="btn btn-success" type="submit" style="font-size: 17px"; text-align:"center";> <i class="fas fa-plus"></i> Offer Course</button>
+              <button class="btn btn-success" type="submit" style="font-size: 17px"; text-align:"center";> <i class="fas fa-plus"></i> View Offered Courses</button>
             </div>
           </form>
        
@@ -141,7 +141,7 @@ if(!session.isNew())
             	                        <table class="table " id="mytable">
             	                            <thead>
             	                                
-            	                                    <th>Sr.No</th>
+            	                                    <th>Sr. No</th>
             	                                    <th>Term</th>
             	                                    <th>Course Code</th>
             	                                    <th>CourseName</th>

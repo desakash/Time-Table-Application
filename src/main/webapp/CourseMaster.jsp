@@ -250,7 +250,7 @@ function manage(pwd) {
     				Swal.fire({
       				//  position: 'top-end',
        						icon: 'error',
-       						title: 'Invalid Course Code..!',
+       						title: 'Course Code does not match requested pattern..!',
        						showConfirmButton: false,
        						timer: 2000,
      					})

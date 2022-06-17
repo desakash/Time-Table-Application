@@ -232,13 +232,17 @@ public class LoadDistributionDao {
 			rs=pstate.executeQuery();
 			while(rs.next())
 			{
-				System.out.println(rs.getString(9));
-				if(rs.getString(9).equals(ld.getPracticalBatch()) || rs.getString(11).equals(ld.getTutorialBatch()))
+				System.out.println(rs.getString(9)+" "+ld.getPracticalBatch());
+				if(!rs.getString(9).equals("-") && !rs.getString(11).equals("-"))
 				{
-					System.out.println("true");
-					return true;
+					if(rs.getString(9).equals(ld.getPracticalBatch()) || rs.getString(11).equals(ld.getTutorialBatch()))
+					{
+						System.out.println("true");
+						return true;
+					}
 				}
-			}
+				
+			} 	
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

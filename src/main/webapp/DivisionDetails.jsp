@@ -80,7 +80,7 @@ session.removeAttribute("success-msg");
 session.removeAttribute("update-msg");
 %>
 
- <%
+ <%-- <%
     	
     	if(!session.isNew())
     	{
@@ -104,7 +104,7 @@ session.removeAttribute("update-msg");
 	}
 	/* session.invalidate(); */
 	session.removeAttribute("Duplicate_division");
-  %>
+  %> --%>
   
 
     <div class="container" style="margin-top: 150px;margin-left: 200px;">

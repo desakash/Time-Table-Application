@@ -40,24 +40,14 @@ public class EditDivisionController extends HttpServlet {
 		
 		int divisiodId=Integer.parseInt(request.getParameter("division_id"));
 		String divisionName=request.getParameter("division_name");
-		ResultSet rs=dd.getDivisionDetails();
-		try {
-			while(rs.next())
-			{
-				if(divisionName.equals(rs.getString(2)))
-				{
-					flag=1;
-					session.setAttribute("Duplicate_division", "true");
-					response.sendRedirect("DivisionDetails.jsp");
-				}
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		/*
+		 * ResultSet rs=dd.getDivisionDetails(); try { while(rs.next()) {
+		 * if(divisionName.equals(rs.getString(2))) { flag=1;
+		 * session.setAttribute("Duplicate_division", "true");
+		 * response.sendRedirect("DivisionDetails.jsp"); } } } catch (SQLException e) {
+		 * // TODO Auto-generated catch block e.printStackTrace(); } catch (IOException
+		 * e) { // TODO Auto-generated catch block e.printStackTrace(); }
+		 */
 		
 		
 		if(flag==0)

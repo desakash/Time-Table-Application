@@ -41,6 +41,7 @@ public class EditBuildingController extends HttpServlet {
 		
 		System.out.println("edit building controller");
 		String buildingName=request.getParameter("building_name");
+
 		ResultSet rs=bd.getBuildingDetails();
 		try {
 			while(rs.next())
@@ -64,8 +65,8 @@ public class EditBuildingController extends HttpServlet {
 		
 		if(flag==0)
 		{
-		int buildingFloor=Integer.parseInt(request.getParameter("no_of_floors"));
-		int buildingid=Integer.parseInt(request.getParameter("building_id"));
+			int buildingFloor=Integer.parseInt(request.getParameter("no_of_floors"));
+			int buildingid=Integer.parseInt(request.getParameter("building_id"));
 		
 		int i=bd.buldingUpdate(buildingName,buildingFloor,buildingid);
 		

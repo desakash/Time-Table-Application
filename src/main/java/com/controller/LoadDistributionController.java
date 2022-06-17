@@ -105,12 +105,12 @@ public class LoadDistributionController extends HttpServlet {
 		}
 		if(B_Batch!=null && B_Batch.equals("on"))
 		{
-			sb.append(", B Batch");
+			sb.append(" B Batch");
 			practicalCount++;
 		}
 		if(C_Batch!=null && C_Batch.equals("on"))
 		{
-			sb.append(", C Batch");
+			sb.append(" C Batch");
 			practicalCount++;
 		}
 		System.out.println(practicalCount);
@@ -128,12 +128,12 @@ public class LoadDistributionController extends HttpServlet {
 		}
 		if(t2!=null && t2.equals("on"))
 		{
-			sb2.append(", T2 Batch");
+			sb2.append(" T2 Batch");
 			tutorialCount++;
 		}
 		if(t3!=null && t3.equals("on"))
 		{
-			sb.append(", T3 Batch");
+			sb.append(" T3 Batch");
 			tutorialCount++;
 		}
 		System.out.println(tutorialCount);

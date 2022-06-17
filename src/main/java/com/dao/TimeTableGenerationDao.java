@@ -17,7 +17,7 @@ public class TimeTableGenerationDao {
 	{
 		con=DbConnection.getConnection();
 		try {
-			pstat=con.prepareStatement("insert into timetable_generation values(?,?,?,?,?,?,?,?,?)");
+			pstat=con.prepareStatement("insert into timetable_generation values(?,?,?,?,?,?,?,?,?,?)");
 			pstat.setString(1,ttg.getDivision());
 			pstat.setString(2,ttg.getOffered_courses());
 			pstat.setString(3,ttg.getHead());
@@ -25,8 +25,9 @@ public class TimeTableGenerationDao {
 			pstat.setString(5,ttg.getFromtime());
 			pstat.setString(6,ttg.getTotime());
 			pstat.setString(7,ttg.getFaculty());
-			pstat.setString(8,ttg.getBatch());
-			pstat.setString(9,ttg.getClassroom());
+			pstat.setString(8,ttg.getPractical_batch());
+			pstat.setString(9,ttg.getTutorial_batch());
+			pstat.setString(10,ttg.getClassroom());
 			
 			i=pstat.executeUpdate();
 		} catch (SQLException e) {

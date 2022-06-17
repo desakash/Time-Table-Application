@@ -41,14 +41,12 @@ public class TimeTableGenerationDao {
 	{	
 		try {
 			con=DbConnection.getConnection();
-		pstat=con.prepareStatement("select * from timetable_generation where DAY=? and FROMTIME=? and TOTIME=? and division=? and classroom=?");
+		pstat=con.prepareStatement("select * from timetable_generation where DAY=? and FROMTIME=? and TOTIME=? and division=?");
 	
 			pstat.setString(1,ttg.getDay());
 			pstat.setString(2,ttg.getFromtime());
 			pstat.setString(3,ttg.getTotime());
 			pstat.setString(4,ttg.getDivision());
-			pstat.setString(5,ttg.getClassroom());
-
 			
 			rs=pstat.executeQuery();
 			if(rs.next())

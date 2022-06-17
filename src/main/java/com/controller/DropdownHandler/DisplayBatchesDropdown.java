@@ -59,7 +59,7 @@ public class DisplayBatchesDropdown extends HttpServlet {
 					 * batch2=batch1.substring(7,10);
 					 */
 					String batches = rs.getString(9);
-					if (batches.equals("A Batch, B Batch") || (batches.equals("A Batch, B Batch, C Batch"))) {
+					if (batches.equals("A Batch B Batch") || (batches.equals("A Batch B Batch C Batch"))) {
 						/*
 						 * String A="A Batch"; String B="B Batch";
 						 */

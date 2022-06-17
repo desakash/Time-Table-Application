@@ -105,12 +105,12 @@ public class LoadDistributionController extends HttpServlet {
 		}
 		if(B_Batch!=null && B_Batch.equals("on"))
 		{
-			sb.append(", B Batch");
+			sb.append(" B Batch");
 			practicalCount++;
 		}
 		if(C_Batch!=null && C_Batch.equals("on"))
 		{
-			sb.append(", C Batch");
+			sb.append(" C Batch");
 			practicalCount++;
 		}
 		System.out.println(practicalCount);

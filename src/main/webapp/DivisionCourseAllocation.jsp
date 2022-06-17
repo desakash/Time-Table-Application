@@ -16,12 +16,13 @@
          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
    
   <script src="https://kit.fontawesome.com/a4f00a5269.js" crossorigin="anonymous"></script>
-   
+ 
+  
    
    <!-- multiselect dropdown links -->   
-   <script>
+<!--    <script>
    $('select').selectpicker();
-    </script>
+    </script> -->
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.8.1/css/bootstrap-select.css">
@@ -34,6 +35,7 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>   
 </head>
 <body>
+
 
 	<%@ include file="html/sidenav.html" %>
 	<div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
@@ -93,14 +95,66 @@
 	/* session.invalidate(); */
 	session.removeAttribute("Duplicate_courseAllocation");
   %>
-        
+        <script type="text/javascript">
+  			var year,term;
+  			var mainTerm;
+  			var xmlHttp;
+  			function getYear(str)
+  			{
+  				year= str;
+  				console.log(year)
+  			}
+            function getTerm(str)
+            {
+            	term=str;
+            	console.log(term)
+            }
+            
+            function getMainTerm()
+            {
+            	
+            	mainTerm=term+year;
+            	console.log(mainTerm)
+            	
+            	if(typeof XMLHttpRequest !=="undefined")
+    			{
+    				xmlHttp=new XMLHttpRequest();
+    			}
+    			else if (window.ActiveXObject)
+    			{
+    			xmlHttp=new ActiveXOjbject("Microsoft.XMLHTTP");
+    			}
+    			if(xmlHttp===null)
+    			{
+    				alert("Browser does not support XMLHTTP Request.");
+    				return;
+    			}
+    			var url="GetCourse?term="+mainTerm;
+    			xmlHttp.onreadystatechange=stateChange;
+    			xmlHttp.open("POST",url,true);
+    			xmlHttp.send(null);
+            	
+            }
+            function stateChange()
+    		{
+    			console.log('hello in printcourses')
+    			if(xmlHttp.readyState===4 ||xmlHttp.readyState==='complete')
+    			{
+    				console.log('hello in if of courses')
+    				console.log(xmlHttp.responseText)
+    				document.getElementById("courseOption").innerHTML=xmlHttp.responseText;
+    			}
+    		}
+            
+           
+            </script> 
         
         <h5 class="title" style="font-size: 30px"> Division Course Allocation</h5>
         <form class="row g-3 needs-validation" action="DivisionCourseAllocationController" method="post" novalidate>
            
             <div class="col-md-6">
               <label for="validationCustom04" class="form-label" style="font-size: 17px">Term</label>
-              <select class="form-select" id="validationCustom04" style="font-size: 17px" name="term" required>
+              <select class="form-select" id="term" style="font-size: 17px" name="term" onChange="getTerm(this.value)" required>
                 <option selected disabled value="">Choose..</option>
                 <option style="font-size: 17px">EVEN</option>
                 <option style="font-size: 17px">ODD</option>
@@ -116,7 +170,7 @@
                 <label for="validationCustom04" class="form-label" style="font-size: 17px">Year</label>
                 <!-- <input class="date-own form-control" style="width: 300px;" type="text"> -->
                
-                <input type="text" class="form-control" autocomplete="off" name="year" id="datepicker" id="validationCustom04" />
+                <input type="text" class="form-control" autocomplete="off" name="year" id="datepicker" onChange="getYear(this.value)" />
 
                 <script>
                 $(document).ready(function(){
@@ -132,10 +186,11 @@
                 </script>
              </div>
 
+            
 
            <div class="col-md-6">
               <label for="validationCustom04" class="form-label" style="font-size: 17px" >Division</label>
-              <select class="form-select" style="font-size: 17px" id="validationCustom04" name="division" required>
+              <select class="form-select" style="font-size: 17px" id="validationCustom04" name="division" onChange="getMainTerm()" required>
                 <option selected disabled value="">Choose...</option>
                  <%
                 try{
@@ -158,27 +213,15 @@
             </div>
            
             
-            
-            
-            <div class="col-md-6">
+          
+            <div class="col-md-6 ">
                <label for="validationCustom04" class="form-label" style="font-size: 17px" >Course Name</label><br>
            	
- 					<select class="selectpicker form-label" style="font-size: 17px;" id="validationCustom04" name="course" multiple data-live-search="true">
- 					 <%
-                try{
-               	OfferedCourseDao ocd=new OfferedCourseDao();
-               	ResultSet rs=ocd.getOfferedCoursesName();
-          		while(rs.next())
-          		{
-                %>
-                <option style="font-size: 17px" value="<%=rs.getString(2) %>"><%=rs.getString(1)%>&nbsp&nbsp&nbsp<%=rs.getString(2) %></option>
-                <%
-          		}
-                }catch(Exception e){
-                	e.printStackTrace();
-                }
-                %>
-	              </select>
+ 					<select class=" form-label" style="font-size: 17px;" id="courseOption" name="course" multiple data-live-search="true">
+ 							
+	              </select>  
+	              
+	              
 	              <div class="valid-feedback" style="font-size: 17px">
                 Looks good!
               </div>

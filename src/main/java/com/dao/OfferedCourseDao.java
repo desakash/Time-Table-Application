@@ -50,12 +50,14 @@ public class OfferedCourseDao {
 		return rs;
 	}
 	
-	public ResultSet getOfferedCoursesName()
+	public ResultSet getOfferedCoursesName(String term)
 	{
+		System.out.println("term="+term);
 		con=DbConnection.getConnection();
 		try {
-			st=con.createStatement();
-			rs=st.executeQuery("select course_code,course_name from offered_courses");
+			pstate=con.prepareStatement("select course_code,course_name from offered_courses where term=?");
+			pstate.setString(1, term);
+			rs=pstate.executeQuery();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

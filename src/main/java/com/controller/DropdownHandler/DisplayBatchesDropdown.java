@@ -58,10 +58,15 @@ public class DisplayBatchesDropdown extends HttpServlet {
 					 * String batches=rs.getString(9); String batch1=batches.substring(0,7); String
 					 * batch2=batch1.substring(7,10);
 					 */
+
 					
 					String practical_batches = rs.getString(9);
 					System.out.println(practical_batches);
 					if (practical_batches.equals("A Batch, B Batch")|| (practical_batches.equals("A Batch, B Batch, C Batch"))) {
+
+					String batches = rs.getString(9);
+					if (batches.equals("A Batch B Batch") || (batches.equals("A Batch B Batch C Batch"))) {
+
 						/*
 						 * String A="A Batch"; String B="B Batch";
 						 */
@@ -80,13 +85,15 @@ public class DisplayBatchesDropdown extends HttpServlet {
 					
 
 				}
+				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
 
-		} 
+		}
+			
 		else
 		{
 			/*

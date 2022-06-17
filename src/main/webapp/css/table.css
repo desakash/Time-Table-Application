@@ -69,17 +69,17 @@
     font-weight: 1000;
   text-transform: uppercase	; 
     padding: 15px 20px;
-    border: 2px solid white;
+    border: 2px solid black;
     
 }
 
 .panel .panel-body .table tbody tr td{
-    color: #fff;
-     background-color: #42498F;
+    color: black;
+     /* background-color: #42498F; */
     font-size: 16px;
     padding: 10px 17px;
     vertical-align: middle;
-    border: 2px solid white;
+    border: 2px solid black;
 }
 .panel .panel-body .table tbody tr:nth-child(even){ background-color: rgba(255,255,255,0.05); }
 .panel .panel-body .table tbody .action-list{

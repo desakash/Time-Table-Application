@@ -35,7 +35,7 @@ public class OfferedCoursesDropdown extends HttpServlet {
 		ResultSet rs=null;
 		String division=request.getParameter("division");
 		
-		 String tag="<select  class='form1-select' style='font-size: 17px' id='validationCustom04' name='offered_courses' required> <option selected disabled value=''>Choose...</option>";
+		 String tag="<select  class='form1-select' style='font-size: 17px' id='validationCustom04' name='offered_courses' required> <option selected disabled value=''>Choose...</option><option style='font-size:17px;'>None</option>";
 		 
 		 System.out.println("division : "+division);
 		 

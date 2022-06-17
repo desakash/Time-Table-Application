@@ -32,6 +32,7 @@ public class TimeTableGenerationController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
+		HttpSession session=null;
 		String division=request.getParameter("Division_name");
 		String offered_courses=request.getParameter("offered_courses");
 		String head=request.getParameter("head");
@@ -45,10 +46,7 @@ public class TimeTableGenerationController extends HttpServlet {
 		
 		TimeTableGenerationn ttg=new TimeTableGenerationn(division, offered_courses, head, day, fromtime, totime, faculty,practical_batch,tutorial_batch,classroom);
 		TimeTableGenerationDao tgd=new TimeTableGenerationDao();
-		
-		boolean status=tgd.check(ttg);
-		HttpSession session=null;
-		if(status)
+		if(head.equals("Break")) 
 		{
 			int i=tgd.insert(ttg);
 			if(i>0)
@@ -59,16 +57,47 @@ public class TimeTableGenerationController extends HttpServlet {
 				session.setAttribute("success_msg", "true");
 				response.sendRedirect("TimeTableGeneration.jsp");
 			}
-			
 		}
 		else
 		{
+			if(tgd.checkLoadTimetable(ttg))
+			{
+				
+				boolean status=tgd.check(ttg);
+				//boolean status=true;
+				if(status)
+				{
+					int i=tgd.insert(ttg);
+					if(i>0)
+					{
+//						i=tgd.update(day,fromtime,totime);
+						
+						session=request.getSession();
+						session.setAttribute("success_msg", "true");
+						response.sendRedirect("TimeTableGeneration.jsp");
+					}
+					
+				}
+				else
+				{
+						session=request.getSession();
+						session.setAttribute("error_msg", "true");
+						response.sendRedirect("TimeTableGeneration.jsp");
+
+				}
+
+			}
+			else
+			{
 				session=request.getSession();
 				session.setAttribute("error_msg", "true");
 				response.sendRedirect("TimeTableGeneration.jsp");
-
+			}
+			
+			
 		}
-
+		
+		
 		}
 		
 	/**

@@ -496,7 +496,7 @@ session.removeAttribute("error_msg");
 						<div class="col-md-6">
 							<label for="validationCustom04" class="form-label"
 								style="font-size: 17px">Practical Batch</label><br> <select
-								class="form-select" id="batch" name="batch" required
+								class="form-select" id="batch" name="practical_batch" required
 								style="font-size: 17px">
 								<option selected disabled value="" style="font-size: 17px">Practical
 									Batches</option>
@@ -508,7 +508,7 @@ session.removeAttribute("error_msg");
 						<div class="col-md-6">
 							<label for="validationCustom04" class="form-label"
 								style="font-size: 17px">Tutorial Batch</label><br> <select
-								class="form-select" id="batch" name="batch" required
+								class="form-select" id="batch" name="tutorial_batch" required
 								style="font-size: 17px">
 								<option selected disabled value="" style="font-size: 17px">Tutorial
 									Batches</option>

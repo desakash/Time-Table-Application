@@ -37,27 +37,34 @@ public class DisplaySlotToTime extends HttpServlet {
 		System.out.println("hello in Offered slot servlet");
 		ResultSet rs=null;
 		String day=request.getParameter("day");
+		String fromtime=request.getParameter("fromtime");
 		
 		 String tag2="<select  class='form1-select' style='font-size: 17px' id='totime' name='offered_slots2' required> <option selected disabled value=''>Choose...</option>";
 
 		 
 		 System.out.println("day : "+day);
+		 System.out.println("fromtime : "+fromtime);
+
 		 
 //		 OfferedCourseDao ocdao=new OfferedCourseDao();
 //		 rs=ocdao.getOfferedCourseForDivision(division);
 		 
 		 SlotDao sd=new SlotDao();
-		rs=sd.getSlotDetailsById(day);
-		 
-		 
-		 
-		 
+			
+			  rs=sd.getSlotDetailsById(day);
+			 	
+				/*
+				 * rs=sd.getSlotDetailsByTotime(day,fromtime);
+				 */		 
+		
 		 try {
 			while(rs.next())
 			{
-				System.out.println(rs.getString(2)+" - "+rs.getString(3));
+				/*
+				 * System.out.println(rs.getString(2)+" - "+rs.getString(3));
+				 */				System.out.println(rs.getString(3));
 					tag2=tag2+"<option  style='font-size: 17px'>"+rs.getString(3)+"</option>"; 
-
+					
 			 }
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

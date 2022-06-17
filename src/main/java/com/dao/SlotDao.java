@@ -76,6 +76,22 @@ public class SlotDao {
 		return rs;
 	}
 	
+	
+	/*
+	 * public ResultSet getSlotDetailsByTotime(String day,String fromtime) {
+	 * con=DbConnection.getConnection(); System.out.println(fromtime); System.out.
+	 * println("select TOTIME from slot_master where day=? and TOTIME>+fromtime");
+	 * try { pstate=con.
+	 * prepareStatement("select TOTIME from slot_master where DAY=? and TOTIME> "
+	 * +fromtime); pstate.setString(1,day); rs=pstate.executeQuery();
+	 * 
+	 * } catch (SQLException e) { // TODO Auto-generated catch block
+	 * e.printStackTrace(); }
+	 * 
+	 * return rs; }
+	 */
+	 
+	
 	public int updateSlot(String day,String fromTime,String toTime,String day1 ,String old_from_time,String old_to_time)
 	{
 		con=DbConnection.getConnection();

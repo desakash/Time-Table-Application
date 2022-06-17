@@ -33,7 +33,7 @@ public class GetCourse extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String term=request.getParameter("term");
 		System.out.println("term in servlet="+term);
-		//String tag="<select class='selectpicker form-label' style='font-size: 17px;' id='course' name='course' multiple data-live-search='true'>";
+	//	String tag=" <label for='validationCustom04' class='form-label' style='font-size: 17px' >Course Name</label><br><select class='selectpicker form-label' style='font-size: 17px;' id='course' name='course' multiple data-live-search='true'>";
 		String tag="";
 		OfferedCourseDao ocd=new OfferedCourseDao();
        	ResultSet rs=ocd.getOfferedCoursesName(term);
@@ -48,7 +48,7 @@ public class GetCourse extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		/* tag=tag+"</select>"; */
+		// tag=tag+"</select>"; 
     	System.out.println(tag);
 		response.getWriter().println(tag);
 	}

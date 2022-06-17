@@ -214,15 +214,14 @@
            
             
           
-            <div class="col-md-6">
+            <div class="col-md-6 ">
                <label for="validationCustom04" class="form-label" style="font-size: 17px" >Course Name</label><br>
            	
- 					<!-- <select class="selectpicker form-label" style="font-size: 17px;" id="courseOption" name="course" multiple data-live-search="true">
+ 					<select class=" form-label" style="font-size: 17px;" id="courseOption" name="course" multiple data-live-search="true">
  							
-	              </select>  -->
+	              </select>  
 	              
-	              <select class="selectpicker form-label" style="font-size: 17px;" id="courseOption" name="course" multiple="" data-live-search="true" tabindex="-98"><option style="font-size: 17px" value="Android Application Programming">CM5103Android Application Programming</option><option style="font-size: 17px" value="Programming With Python">CM5104Programming With Python</option><option style="font-size: 17px" value="Data Mining">CM5108Data Mining</option><option style="font-size: 17px" value="Java Programming-2">CM5107Java Programming-2</option><option style="font-size: 17px" value="Computer Security">CM2109Computer Security</option>
-</select>
+	              
 	              <div class="valid-feedback" style="font-size: 17px">
                 Looks good!
               </div>

@@ -520,4 +520,10 @@
       padding: 50px 40px;
     }
   }
+  .scroller {
+  width: 300px;
+  height: 100px;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+}
   

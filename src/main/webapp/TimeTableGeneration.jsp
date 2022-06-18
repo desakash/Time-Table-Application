@@ -435,7 +435,7 @@ session.removeAttribute("error_msg");
 								<option style="font-size: 17px">Monday</option>
 								<option style="font-size: 17px">Tuesday</option>
 								<option style="font-size: 17px">Wednesday</option>
-								<option style="font-size: 17px">Thrusday</option>
+								<option style="font-size: 17px">Thursday</option>
 								<option style="font-size: 17px">Friday</option>
 								<option style="font-size: 17px">Saturday</option>
 

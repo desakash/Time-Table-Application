@@ -40,42 +40,440 @@ public class TimeTableGenerationDao {
 	
 	public boolean check(TimeTableGenerationn ttg)
 	{	
+		con=DbConnection.getConnection();
 		try {
-			con=DbConnection.getConnection();
-		pstat=con.prepareStatement("select * from timetable_generation where DAY=? and FROMTIME=? and TOTIME=? and division=?");
-	
-			pstat.setString(1,ttg.getDay());
-			pstat.setString(2,ttg.getFromtime());
-			pstat.setString(3,ttg.getTotime());
-			pstat.setString(4,ttg.getDivision());
-			
+			pstat=con.prepareStatement("select *from timetable_generation where day=? and fromtime=? and totime=?");
+			pstat.setString(1, ttg.getDay());
+			pstat.setString(2, ttg.getFromtime());
+			pstat.setString(3, ttg.getTotime());
 			rs=pstat.executeQuery();
-			if(rs.next())
+			while(rs.next())
 			{
-				String day=rs.getString(4);
-				String faculty=rs.getString(7);
-				String classroom=rs.getString(10);
-				String fromtime=rs.getString(5);
-				String totime=rs.getString(6);
-				String division=rs.getString(1);
-				
-				if(faculty.equals(ttg.getFaculty()) || classroom.equals(ttg.getClassroom()) || division.equals(ttg.getDivision())&&(fromtime.equals(ttg.getFromtime()) || totime.equals(ttg.getTotime())))
-						
-				
+				if(ttg.getClassroom().equals(rs.getString(10))||ttg.getFaculty().equals(rs.getString(7)))
 				{
+					return false;	
+				}
+				if(ttg.getHead().equals("Theory"))
+				{
+					if(ttg.getDivision().equals(rs.getString(1)))
+					{
+						return false;
+					}
+				}
+				if(ttg.getHead().equals("Practical"))
+				{
+					if(ttg.getDivision().equals(rs.getString(1)))
+					{
+						if(ttg.getPractical_batch().equals(rs.getString(8))||ttg.getTutorial_batch()!=null)
+						{
+							return false;
+						}
+					}
+				}
+				if(ttg.getHead().equals("Tutorial"))
+				{
+					if(ttg.getDivision().equals(rs.getString(1)))
+					{
+						if(ttg.getTutorial_batch().equals(rs.getString(9))||ttg.getPractical_batch()!=null)
+						{
+							return false;
+						}
+					}
 					
-					return false;
+				}
+				if(ttg.getHead().equals("Break"))
+				{
+					if(ttg.getDivision().equals(rs.getString(1))||ttg.getPractical_batch()!=null||ttg.getTutorial_batch()!=null)
+					{
+						return false;
+					}
 				}
 			}
 			
+			if((Integer.parseInt(ttg.getTotime().substring(0, 2)))-(Integer.parseInt(ttg.getFromtime().substring(0,2)))>1)
+			{
+				//-1 time check
+				
+				int newFromTime=Integer.parseInt(ttg.getFromtime().substring(0,2))-1;
+				int newToTime=Integer.parseInt(ttg.getTotime().substring(0,2))-1;
+				
+				System.out.println("new from time with minus 1 :"+newFromTime);
+				System.out.println("new to time with minus 1 :"+newToTime);
+
+				
+				pstat=con.prepareStatement("select *from timetable_generation where day=? and fromtime=? and totime=?");
+				pstat.setString(1, ttg.getDay());
+				pstat.setString(2,Integer.toString(newFromTime)+":00" );
+				pstat.setString(3, Integer.toString(newToTime)+":00");
+				rs=pstat.executeQuery();
+				while(rs.next())
+				{
+					if(ttg.getClassroom().equals(rs.getString(10))||ttg.getFaculty().equals(rs.getString(7)))
+					{
+						return false;
+					}
+					if(ttg.getHead().equals("Theory"))
+					{
+						if(ttg.getDivision().equals(rs.getString(1)))
+						{
+							return false;
+						}
+					}
+					if(ttg.getHead().equals("Practical"))
+					{
+						if(ttg.getDivision().equals(rs.getString(1)))
+						{
+							if(ttg.getPractical_batch().equals(rs.getString(8))||ttg.getTutorial_batch()!=null)
+							{
+								return false;
+							}
+						}
+						
+					}
+					if(ttg.getHead().equals("Tutorial"))
+					{
+						if(ttg.getDivision().equals(rs.getString(1)) )
+						{
+							if(ttg.getTutorial_batch().equals(rs.getString(9))||ttg.getPractical_batch()!=null)
+							{
+								return false;
+							}
+						}
+						
+					}
+					if(ttg.getHead().equals("Break"))
+					{
+						if(ttg.getDivision().equals(rs.getString(1))||ttg.getPractical_batch()!=null||ttg.getTutorial_batch()!=null)
+						{
+							return false;
+						}
+					}
+				}
+				
+				
+				//+1 time check
+				
+						newFromTime=Integer.parseInt(ttg.getFromtime().substring(0,2))+1;
+						newToTime=Integer.parseInt(ttg.getTotime().substring(0,2))+1;
+						
+						System.out.println("new from time with PLUS 1 :"+newFromTime);
+						System.out.println("new to time with PLUS 1 :"+newToTime);
+						
+						pstat=con.prepareStatement("select *from timetable_generation where day=? and fromtime=? and totime=?");
+						pstat.setString(1, ttg.getDay());
+						pstat.setString(2,Integer.toString(newFromTime)+":00" );
+						pstat.setString(3, Integer.toString(newToTime)+":00");
+						rs=pstat.executeQuery();
+						while(rs.next())
+						{
+							if(ttg.getClassroom().equals(rs.getString(10))||ttg.getFaculty().equals(rs.getString(7)))
+							{
+								return false;
+							}
+							if(ttg.getHead().equals("Theory"))
+							{
+								if(ttg.getDivision().equals(rs.getString(1)))
+								{
+									return false;
+								}
+							}
+							if(ttg.getHead().equals("Practical"))
+							{
+								if(ttg.getDivision().equals(rs.getString(1)) )
+								{
+									if(ttg.getPractical_batch().equals(rs.getString(8))||ttg.getTutorial_batch()!=null)
+									{
+										return false;
+									}
+								}
+								
+							}
+							if(ttg.getHead().equals("Tutorial"))
+							{
+								if(ttg.getDivision().equals(rs.getString(1)) )
+								{
+									if(ttg.getTutorial_batch().equals(rs.getString(9))||ttg.getPractical_batch()!=null)
+									{
+										return false;
+									}
+								}
+								
+							}
+							if(ttg.getHead().equals("Break"))
+							{
+								if(ttg.getDivision().equals(rs.getString(1))||ttg.getPractical_batch()!=null||ttg.getTutorial_batch()!=null)
+								{
+									return false;
+								}
+							}
+						}
+						
+						//from time same to time +1
+						newFromTime=Integer.parseInt(ttg.getFromtime().substring(0,2));
+						newToTime=Integer.parseInt(ttg.getTotime().substring(0,2))+1;
+						
+						System.out.println("new from time with PLUS 1 :"+newFromTime);
+						System.out.println("new to time with PLUS 1 :"+newToTime);
+						
+						pstat=con.prepareStatement("select *from timetable_generation where day=? and fromtime=? and totime=?");
+						pstat.setString(1, ttg.getDay());
+						pstat.setString(2,Integer.toString(newFromTime)+":00" );
+						pstat.setString(3, Integer.toString(newToTime)+":00");
+						rs=pstat.executeQuery();
+						while(rs.next())
+						{
+							if(ttg.getClassroom().equals(rs.getString(10))||ttg.getFaculty().equals(rs.getString(7)))
+							{
+								return false;
+							}
+							if(ttg.getHead().equals("Theory"))
+							{
+								if(ttg.getDivision().equals(rs.getString(1)))
+								{
+									return false;
+								}
+							}
+							if(ttg.getHead().equals("Practical"))
+							{
+								if(ttg.getDivision().equals(rs.getString(1)))
+								{
+									if(ttg.getPractical_batch().equals(rs.getString(8))||ttg.getTutorial_batch()!=null)
+									{
+										return false;
+									}
+								}
+								
+							}
+							if(ttg.getHead().equals("Tutorial"))
+							{
+								if(ttg.getDivision().equals(rs.getString(1)) )
+								{
+									if(ttg.getTutorial_batch().equals(rs.getString(9))||ttg.getPractical_batch()!=null)
+									{
+										return false;
+									}
+								}
+								
+							}
+							if(ttg.getHead().equals("Break"))
+							{
+								if(ttg.getDivision().equals(rs.getString(1))||ttg.getPractical_batch()!=null||ttg.getTutorial_batch()!=null)
+								{
+									return false;
+								}
+							}
+						}
+						
+						//to time same from time +1
+						newFromTime=Integer.parseInt(ttg.getFromtime().substring(0,2))+1;
+						newToTime=Integer.parseInt(ttg.getTotime().substring(0,2));
+						
+						System.out.println("new from time with PLUS 1 :"+newFromTime);
+						System.out.println("new to time with PLUS 1 :"+newToTime);
+						
+						pstat=con.prepareStatement("select *from timetable_generation where day=? and fromtime=? and totime=?");
+						pstat.setString(1, ttg.getDay());
+						pstat.setString(2,Integer.toString(newFromTime)+":00" );
+						pstat.setString(3, Integer.toString(newToTime)+":00");
+						rs=pstat.executeQuery();
+						while(rs.next())
+						{
+							if(ttg.getClassroom().equals(rs.getString(10))||ttg.getFaculty().equals(rs.getString(7)))
+							{
+								return false;
+							}
+							if(ttg.getHead().equals("Theory"))
+							{
+								if(ttg.getDivision().equals(rs.getString(1)))
+								{
+									return false;
+								}
+							}
+							if(ttg.getHead().equals("Practical"))
+							{
+								if(ttg.getDivision().equals(rs.getString(1)) )
+								{
+									if(ttg.getPractical_batch().equals(rs.getString(8))||ttg.getTutorial_batch()!=null)
+									{
+										return false;
+									}
+								}
+								
+							}
+							if(ttg.getHead().equals("Tutorial"))
+							{
+								if(ttg.getDivision().equals(rs.getString(1)) )
+								{
+									if(ttg.getTutorial_batch().equals(rs.getString(9))||ttg.getPractical_batch()!=null)
+									{
+										return false;
+									}
+								}
+								
+							}
+							if(ttg.getHead().equals("Break"))
+							{
+								if(ttg.getDivision().equals(rs.getString(1))||ttg.getPractical_batch()!=null||ttg.getTutorial_batch()!=null)
+								{
+									return false;
+								}
+							}
+						}
+						
+						//from time same to time -1
+						newFromTime=Integer.parseInt(ttg.getFromtime().substring(0,2));
+						newToTime=Integer.parseInt(ttg.getTotime().substring(0,2))-1;
+						
+						System.out.println("new from time with PLUS 1 :"+newFromTime);
+						System.out.println("new to time with PLUS 1 :"+newToTime);
+						
+						pstat=con.prepareStatement("select *from timetable_generation where day=? and fromtime=? and totime=?");
+						pstat.setString(1, ttg.getDay());
+						pstat.setString(2,Integer.toString(newFromTime)+":00" );
+						pstat.setString(3, Integer.toString(newToTime)+":00");
+						rs=pstat.executeQuery();
+						while(rs.next())
+						{
+							if(ttg.getClassroom().equals(rs.getString(10))||ttg.getFaculty().equals(rs.getString(7)))
+							{
+								return false;
+							}
+							if(ttg.getHead().equals("Theory"))
+							{
+								if(ttg.getDivision().equals(rs.getString(1)))
+								{
+									return false;
+								}
+							}
+							if(ttg.getHead().equals("Practical"))
+							{
+								if(ttg.getDivision().equals(rs.getString(1)) )
+								{
+									if(ttg.getPractical_batch().equals(rs.getString(8))||ttg.getTutorial_batch()!=null)
+									{
+										return false;
+									}
+								}
+								
+							}
+							if(ttg.getHead().equals("Tutorial"))
+							{
+								if(ttg.getDivision().equals(rs.getString(1)) )
+								{
+									if(ttg.getTutorial_batch().equals(rs.getString(9))||ttg.getPractical_batch()!=null)
+									{
+										return false;
+									}
+								}
+								
+							}
+							if(ttg.getHead().equals("Break"))
+							{
+								if(ttg.getDivision().equals(rs.getString(1))||ttg.getPractical_batch()!=null||ttg.getTutorial_batch()!=null)
+								{
+									return false;
+								}
+							}
+						}	
+						
+						
+						//to time same from time -1
+						newFromTime=Integer.parseInt(ttg.getFromtime().substring(0,2))-1;
+						newToTime=Integer.parseInt(ttg.getTotime().substring(0,2));	
+						
+						System.out.println("new from time with PLUS 1 :"+newFromTime);
+						System.out.println("new to time with PLUS 1 :"+newToTime);
+						
+						pstat=con.prepareStatement("select *from timetable_generation where day=? and fromtime=? and totime=?");
+						pstat.setString(1, ttg.getDay());
+						pstat.setString(2,Integer.toString(newFromTime)+":00" );
+						pstat.setString(3, Integer.toString(newToTime)+":00");
+						rs=pstat.executeQuery();
+						while(rs.next())
+						{
+							if(ttg.getClassroom().equals(rs.getString(10))||ttg.getFaculty().equals(rs.getString(7)))
+							{
+								return false;
+							}
+							if(ttg.getHead().equals("Theory"))
+							{
+								if(ttg.getDivision().equals(rs.getString(1)))
+								{
+									return false;
+								}
+							}
+							if(ttg.getHead().equals("Practical"))
+							{
+								if(ttg.getDivision().equals(rs.getString(1)) )
+								{
+									if(ttg.getPractical_batch().equals(rs.getString(8))||ttg.getTutorial_batch()!=null)
+									{
+										return false;
+									}
+								}
+								
+							}
+							if(ttg.getHead().equals("Tutorial"))
+							{
+								if(ttg.getDivision().equals(rs.getString(1)) )
+								{
+									if(ttg.getTutorial_batch().equals(rs.getString(9))||ttg.getPractical_batch()!=null)
+									{
+										return false;
+									}
+								}
+								
+							}
+							if(ttg.getHead().equals("Break"))
+							{
+								if(ttg.getDivision().equals(rs.getString(1))||ttg.getPractical_batch()!=null||ttg.getTutorial_batch()!=null)
+								{
+									return false;
+								}
+							}
+						}
 			
-			
+			}
+						
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+				
 		return true;
+		
+		/*
+		 * try { con=DbConnection.getConnection(); pstat=con.
+		 * prepareStatement("select * from timetable_generation where DAY=? and FROMTIME=? and TOTIME=? and division=?"
+		 * );
+		 * 
+		 * pstat.setString(1,ttg.getDay()); pstat.setString(2,ttg.getFromtime());
+		 * pstat.setString(3,ttg.getTotime()); pstat.setString(4,ttg.getDivision());
+		 * 
+		 * rs=pstat.executeQuery(); if(rs.next()) { String day=rs.getString(4); String
+		 * faculty=rs.getString(7); String classroom=rs.getString(10); String
+		 * fromtime=rs.getString(5); String totime=rs.getString(6); String
+		 * division=rs.getString(1);
+		 * 
+		 * if(faculty.equals(ttg.getFaculty()) || classroom.equals(ttg.getClassroom())
+		 * || division.equals(ttg.getDivision())&&(fromtime.equals(ttg.getFromtime()) ||
+		 * totime.equals(ttg.getTotime())))
+		 * 
+		 * 
+		 * {
+		 * 
+		 * return false; } }
+		 * 
+		 * 
+		 * 
+		 * } catch (SQLException e) { // TODO Auto-generated catch block
+		 * e.printStackTrace(); }
+		 * 
+		 * return true;
+		 */
 	}
 	
 	
@@ -321,5 +719,56 @@ public class TimeTableGenerationDao {
 	 * 
 	 * }
 	 */
+	
+	public ResultSet getTimeTable(String division)
+	{
+		con=DbConnection.getConnection();
+		try {
+			pstat=con.prepareStatement("select *from timetable_generation where division=?");
+			pstat.setString(1, division);
+			
+			rs=pstat.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
+	
+	public ResultSet getTimeTableByDay(String div, String day)
+	{
+		System.out.println("hello in getTimetable by day");
+		con=DbConnection.getConnection();
+		try {
+			pstat=con.prepareStatement("select *from timetable_generation where division=? and day=? order by(fromtime)");
+			pstat.setString(1, div);
+			pstat.setString(2, day);
+			rs=pstat.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return rs;
+	}
+	
+	public ResultSet getDuplicateRow(String ft,String tt,String day)
+	{
+		System.out.println("hello hello");
+		con=DbConnection.getConnection();
+		try {
+			pstat=con.prepareStatement("select *from timetable_generation where fromtime=? and totime=? and day=?");
+			pstat.setString(1, ft);
+			pstat.setString(2, tt);
+			pstat.setString(3, day);
+			rs=pstat.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return rs;
+				
+	}
 
 }

@@ -60,9 +60,10 @@ public class TimeTableGenerationController extends HttpServlet {
 		}
 		else
 		{
+			System.out.println("outcome "+tgd.checkLoadTimetable(ttg));
 			if(tgd.checkLoadTimetable(ttg))
 			{
-				
+				System.out.println("ello in after true check load in servlet");
 				boolean status=tgd.check(ttg);
 				//boolean status=true;
 				if(status)

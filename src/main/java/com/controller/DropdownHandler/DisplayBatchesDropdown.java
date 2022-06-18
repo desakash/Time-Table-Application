@@ -35,7 +35,6 @@ public class DisplayBatchesDropdown extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.out.println("Welcome to DisplayBatchesDropdown");
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 
 		String division = request.getParameter("division");
 		String course = request.getParameter("course");
@@ -45,7 +44,7 @@ public class DisplayBatchesDropdown extends HttpServlet {
 		String tag1, tag2;
 
 		System.out.println(division + "\t" + course + "\t" + faculty);
-		String tag = "<select class='form-select' id='batch' name='batch' required style='font-size: 17px'> <option selected disabled value=''>Choose...</option>";
+		String tag = "<select class='form-select' id='batch' name='batch' required style='font-size: 17px'> <option selected disabled value=''>Choose...</option><option style='font-size:17px;'>None</option>";
 
 		if (head.equals("Practical")) {
 
@@ -74,7 +73,7 @@ public class DisplayBatchesDropdown extends HttpServlet {
 						tag1 = "<option style='font-size: 17px'>A Batch</option>";
 						tag2 = "<option style='font-size: 17px'>B Batch</option>";
 						tag = tag1 + tag2;
-
+ 
 					} else {
 						System.out.println("Inside else block for practicals");
 						tag = tag + "<option style='font-size: 17px'>" + rs.getString(9) + "</option>";

@@ -398,7 +398,7 @@ session.removeAttribute("error_msg");
 							<label for="validationCustom04" class="form-label"
 								style="font-size: 17px">Courses</label> <select
 								class="form-select" id="offered_courses" name="offered_courses"
-								required style="font-size: 17px">
+								 style="font-size: 17px">
 								<option selected disabled value="" style="font-size: 17px">Courses</option>
 								<!-- <option>Python With Programming [CM5102]</option>
                 <option>Android Application Programming</option> -->
@@ -435,7 +435,7 @@ session.removeAttribute("error_msg");
 								<option style="font-size: 17px">Monday</option>
 								<option style="font-size: 17px">Tuesday</option>
 								<option style="font-size: 17px">Wednesday</option>
-								<option style="font-size: 17px">Thrusday</option>
+								<option style="font-size: 17px">Thursday</option>
 								<option style="font-size: 17px">Friday</option>
 								<option style="font-size: 17px">Saturday</option>
 
@@ -545,7 +545,7 @@ session.removeAttribute("error_msg");
 								class="form-select" id="validationCustom04" name="classroom"
 								 style="font-size: 17px">
 								<option selected disabled value="" style="font-size: 17px">Classroom</option>
-
+								<option style='font-size:17px;'>None</option>
 								<%
                 	ClassDao cd=new ClassDao();
             		ResultSet rs1=cd.getClassDetails();

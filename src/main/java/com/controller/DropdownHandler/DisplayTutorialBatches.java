@@ -44,7 +44,7 @@ public class DisplayTutorialBatches extends HttpServlet {
 		String tag1, tag2;
 
 		System.out.println(division + "\t" + course + "\t" + faculty);
-		String tag = "<select class='form-select' id='tutbatch' name='tutbatch' required style='font-size: 17px'> <option selected disabled value=''>Choose...</option>";
+		String tag = "<select class='form-select' id='tutbatch' name='tutbatch' required style='font-size: 17px'> <option selected disabled value=''>Choose...</option><option style='font-size:17px;'>None</option>";
 
 		if (head.equals("Tutorial")) {
 

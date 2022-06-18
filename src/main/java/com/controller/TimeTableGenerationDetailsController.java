@@ -1,4 +1,4 @@
-package com.controller.DropdownHandler;
+package com.controller;
 
 import java.io.IOException;
 import java.sql.ResultSet;
@@ -9,20 +9,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.dao.OfferedCourseDao;
+import com.dao.TimeTableGenerationDao;
 
 /**
- * Servlet implementation class OfferedCoursesDropdown
+ * Servlet implementation class TimeTableGenerationDetailsController
  */
-@WebServlet("/OfferedCoursesDropdown")
-public class OfferedCoursesDropdown extends HttpServlet {
+@WebServlet("/TimeTableGenerationDetailsController")
+public class TimeTableGenerationDetailsController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public OfferedCoursesDropdown() {
+    public TimeTableGenerationDetailsController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,32 +32,31 @@ public class OfferedCoursesDropdown extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("hello in Offered Course servlet");
-		ResultSet rs=null;
-		String division=request.getParameter("division");
 		
-		 String tag="<select  class='form1-select' style='font-size: 17px' id='validationCustom04' name='offered_courses' required> <option selected disabled value=''>Choose...</option><option style='font-size:17px;'>None</option>";
-		 
-		 System.out.println("division : "+division);
-		 
-		 OfferedCourseDao ocdao=new OfferedCourseDao();
-		 rs=ocdao.getOfferedCourseForDivision(division);
-		 
-		 
-		 
-		 try {
-			while(rs.next())
+		HttpSession session=request.getSession();
+		String div=request.getParameter("division");
+		TimeTableGenerationDao ttgd=new TimeTableGenerationDao();
+		ResultSet rs=ttgd.getTimeTable(div);
+		try {
+			if(rs.next())
 			{
-				System.out.println(rs.getString(3)+" - "+rs.getString(4));
-					tag=tag+"<option  style='font-size: 17px'>"+rs.getString(3)+" - "+rs.getString(4)+"</option>"; 
-			 }
+				session.setAttribute("div",div);
+				session.setAttribute("res", "true");
+				response.sendRedirect("TimeTableGenerationDetails.jsp");
+			}
+			else
+			{
+				session.setAttribute("status-fail", "true");
+				response.sendRedirect("TimeTableGenerationDetails.jsp");
+
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		 
-		 tag=tag+"</select>";
-		 response.getWriter().println(tag);
+		
+		
+		
 	}
 
 	/**

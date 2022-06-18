@@ -34,7 +34,7 @@ public class DisplayFacultyDropDown extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		String tag="<select class='form-select' id='validationCustom04' name='faculty' required style='font-size: 17px'> <option selected disabled value=''>Choose...</option>";
+		String tag="<select class='form-select' id='validationCustom04' name='faculty' required style='font-size: 17px'> <option selected disabled value=''>Choose...</option><option style='font-size:17px;'>None</option>";
 		
 		String division=request.getParameter("division");
 		String course=request.getParameter("course");

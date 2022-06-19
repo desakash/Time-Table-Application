@@ -167,7 +167,7 @@
 	        
 	        
             <div class="col-12">
-              <button class="btn btn-success" type="submit" style="font-size: 17px"; text-align:"center";> <i class="fas fa-plus"></i>Search Course</button>
+              <button class="btn btn-success" type="submit" style="font-size: 17px"; text-align:"center";> <i class="fas fa-plus"></i> Offer Courses</button>
             </div>
           </form>
        

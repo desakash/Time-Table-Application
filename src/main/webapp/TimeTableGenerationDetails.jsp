@@ -133,6 +133,8 @@
             	                            <thead>
             	                                
             	                                    <th>Day</th>
+            	                                    <th>08:00-09:00</th>
+            	                                    <th>09:00-10:00</th>
             	                                    <th>10:00-11:00</th>
             	                                    <th>11:00-12:00</th>
             	                                    <th>12:00-13:00</th>
@@ -141,60 +143,105 @@
             	                                    <th>15:00-16:00</th>
             	                                    <th>16:00-17:00</th>
             	                                    <th>17:00-18:00</th>
+            	                                    <th>18:00-19:00</th>
+            	                                    <th>19:00-20:00</th>
             	                  
             	                            </thead>
             	 <ol id="list">
                                     <tbody>
                                     <%
 										String day[]={"Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"}; 
+                                    	String slot[]={"08:00-09:00","09:00-10:00","10:00-11:00","11:00-12:00","12:00-13:00","13:00-14:00","14:00-15:00","15:00-16:00","16:00-17:00","17:00-18:00","18:00-19:00","19:00-20:00"};
                                     	int cnt=0;
                                     	int flag=0;
                                     	int counter=0;
+                                    	
+                                    	
+                                    	
                                     	ResultSet rs2=null;
                                     	ArrayList<String> time=new ArrayList<String>();
+                                    	ArrayList<Integer> chkOff=new ArrayList<Integer>();
                                     	
                                     	TimeTableGenerationDao ttgd=new TimeTableGenerationDao();
-                          				String div=(String)session.getAttribute("div");
+                          				String div="N3";
                           				System.out.println(div);
                           			
                                     	
-                                    	  do
-                                    	{   
+                                    	 while(cnt<6)
+                                    	{ 
+                                    		 counter=0;
+                                    	
                                     %>
                                     
                                     		<tr>
                                     		<td><%=day[cnt] %></td>
+                                    		
                                     <% 
+                                    while(counter<slot.length)
+                            		{
+                                    	
+                            		System.out.println("slot array length "+slot.length);
                                     try{
-                                    		ResultSet rs=ttgd.getTimeTableByDay(div,day[cnt]);
+                                    		System.out.println("Day "+day[cnt]);
+                                    		ResultSet rs=ttgd.getTimeTableByDay(div,day[cnt],slot,counter);
+                                    		if(!rs.isBeforeFirst())
+                                    		{
+                                    			if(!chkOff.contains(1))
+                                    			{
+                                    		
+                                    	%>
+                                    		<td>OFF</td>
+                                    	<% 
+                                    			
+                                    			}
+                                    			else
+                                    			{
+                                    				chkOff.clear();
+                                    			}
+                                    		}
                                     		while(rs.next())
                                     		{
-                                    			if(time.contains(rs.getString(5)+"-"+rs.getString(6)))
-                                    			{
-                                    				continue;
-                                    			}
-                                    			StringBuilder sb=new StringBuilder();
+                                    			
                                     		
                                     			int nft=Integer.parseInt(rs.getString(5).substring(0, 2));
                                     			int ntt=Integer.parseInt(rs.getString(6).substring(0,2));
                                     			
-                                    				rs2=ttgd.getDuplicateRow(rs.getString(5), rs.getString(6), day[cnt]);
+                                    			if((ntt-nft)>1)
+                                    			{
+                                    				chkOff.add(1);
+                                    			}
+                                    			
+                                    		
+                                    			
+                                    			System.out.println("inside main rs");
+                                    			System.out.println("course  and faculty ::: "+rs.getString(2)+" "+rs.getString(7));
+                                    			String faculty=rs.getString(7);
+                                    			if(time.contains(rs.getString(5)+"-"+rs.getString(6)))
+                                    			{
+                                    				
+                                    			System.out.println("inside continue");
+                                    				continue;
+                                    			}
+                                    			StringBuilder sb=new StringBuilder();
+                                    			sb.setLength(0);
+                                    		
+                                    			nft=Integer.parseInt(rs.getString(5).substring(0, 2));
+                                    			ntt=Integer.parseInt(rs.getString(6).substring(0,2));
+                                    			
+                                    				rs2=ttgd.getDuplicateRow(div,rs.getString(5), rs.getString(6), day[cnt]);
                                     				while(rs2.next())
                                         			{
                                         				time.add(rs2.getString(5)+"-"+rs2.getString(6));
                                     					flag=1;
                                         				sb.append(rs2.getString(2)+" ");
                                         			}
-                                    			
                                     				
-                                    			
-                                    			
-                                    			
-                                    			
                                     			if(flag==1)
                                     			{
                                     				if((ntt-nft)>1)
 													{
+                                    					System.out.println("String builder "+sb);
+													
                                     	%>
                                     					<td colspan="2"><%=sb%></td>
                                     	<% 
@@ -213,17 +260,23 @@
             	                
 													
 													<%
-													
+													System.out.println("rs.getString(2) "+rs.getString(2));
 													if((ntt-nft)>1)
 													{
+														System.out.println("============================================"+rs.getString(6));
+
 													%>
-														<td colspan="2"><%=rs.getString(2)%></td>	
+														<%-- <td colspan="2"><%=rs2.getString(5)+"-"+rs2.getString(6)%></td>	 --%>
+														<td colspan="2"><%=rs.getString(2)+" "+rs.getString(7)%></td>	
 													<% 
 													}
 													else
 													{
+														System.out.println("============================================"+rs.getString(6));
 													%>
-														<td><%=rs.getString(2)%></td>
+														<%-- <td><%=rs2.getString(5)+"-"+rs2.getString(6)%></td> --%>
+														
+														 <td><%=rs.getString(2)+" "+rs.getString(7)%></td> 
 													<% 
 													}
 													%>
@@ -239,14 +292,26 @@
             	                    			
             	                    	<% 
                                     			}
-                                    		
-                                    		
+                                    			
                                     	}
+                                    		
+                            		
                                     	}catch(Exception e){
                             				e.printStackTrace();
                             			}
-                                      cnt++;
-                                    	}while(cnt<6); 
+                                    	
+                                    %>
+                                    		
+                                   
+                                    <% 
+                                    
+                                    counter++;
+                                    System.out.println("Counter "+counter);
+                            		}
+                                    
+                                       cnt++;
+                                       time.clear();
+                                    	} 
         	
                                     	
                                     %>

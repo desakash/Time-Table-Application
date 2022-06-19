@@ -132,4 +132,23 @@ public class SlotDao {
 		return i;
 		
 	}
+	
+	public int getTotalSlotsForDay(String day)
+	{
+		int count = 0;
+		con=DbConnection.getConnection();
+		try {
+			pstate=con.prepareStatement("select count(*) from slot_master where day=?");
+			pstate.setString(1, day);
+			rs=pstate.executeQuery();
+			if(rs.next())
+			{
+				count=rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return count;
+	}
 }

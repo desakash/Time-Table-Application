@@ -141,8 +141,8 @@ if(!session.isNew())
             	                        <table class="table " id="mytable">
             	                            <thead>
             	                                
-            	                                    <th>Sr. No</th>
-            	                                    <th>Term</th>
+            	                                   <th>Sr. No</th>
+            	                                    <th>Term</th> 
             	                                    <th>Course Code</th>
             	                                    <th>CourseName</th>
             	                                   
@@ -159,8 +159,8 @@ if(!session.isNew())
             	                            do{
 												            	                            %>
             	                                <tr>
-            	                                    <td><%=cnt %></td>
-            	                                    <td><%=rs.getString(1)%></td>
+            	                                     <td><%=cnt %></td>
+            	                                     <td><%=rs.getString(1)%></td>
             	                                    <td><%=rs.getString(2)%></td>
             	                                    <td><%=rs.getString(3)%></td>
             	             

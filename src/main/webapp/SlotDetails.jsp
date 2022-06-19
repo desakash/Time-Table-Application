@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="com.dao.SlotDao"%>
 <%@page import="com.dao.DivisionDao"%>
 <%@page import="java.sql.ResultSet"%>
@@ -124,7 +125,88 @@ if(!session.isNew())
                             </thead>
                             <ol id="list">
                             <tbody>
+                            
                             <%
+                            try{
+                            	SlotDao sdao=new SlotDao();
+                            	int cnt=1;
+	                        	int flag=0;
+                            	int srNo=1;
+                            	
+                            	ArrayList<String> slotArrayList=new ArrayList<String>();
+                            	ResultSet rs=sdao.getAllSlots();
+                            	while(rs.next())
+                            	{
+                            		if(slotArrayList.contains(rs.getString(1)))
+                            		{
+                            			continue;
+                            		}
+                            		int count=sdao.getTotalSlotsForDay(rs.getString(1));
+                            		ResultSet rs1=sdao.getSlotDetailsById(rs.getString(1));
+                            		while(rs1.next())
+                            		{
+                            			slotArrayList.add(rs.getString(1));
+                            			if(cnt==count)
+	                                	{
+	                                		flag=1;
+	                                	}
+                            			%>
+    	                                <tr>
+    	                                   <%
+											if(flag==1 && cnt<=1)
+											{
+										   %>
+											<td><%=srNo%></td>
+											<td><%=rs1.getString(1)%></td>
+							 			  <% 
+											}
+								if(flag==0 && cnt<=1)
+								{
+									
+    	                      %>
+    	                      <td rowspan='<%=count %>'><%=srNo%></td>
+							  <td rowspan='<%=count %>'><%=rs1.getString(1)%></td>
+							  <% 
+								}
+                            		
+							%>
+                            	<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<%=rs1.getString(2) %></td>
+									<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<%=rs1.getString(3) %></td>
+									 <td>
+                                        <ul class="action-list">
+                                           <a href="EditModals/EditSlotModal.jsp?slotDay=<%=rs.getString(1)%>&slotfromtime=<%=rs.getString(2)%>&slottotime=<%=rs.getString(3)%>"> <button type="button" class="btn btn-success " style="font-size: 15px"><i class="fa fa-edit">  </i> Edit</button>&nbsp &nbsp &nbsp</a>
+
+                                            <!-- <li><a href="#" data-tip="edit"><i class="fa fa-edit"></i></a></li> -->
+                                            <a href="DeleteSlotController?slotDay=<%=rs.getString(1)%>&slotfromtime=<%=rs.getString(2)%>&slottotime=<%=rs.getString(3)%>"> <button type="button" class="btn btn-danger "  style="font-size: 15px"><i class="fa fa-trash"> </i> Delete</button></a>
+                                            <!-- <li><a href="#" data-tip="delete"><i class="fa fa-trash"></i></a></li> -->
+                                        </ul>
+                                    </td>
+            	                    </tr>
+						<% 
+									if(cnt==count)
+									{
+										srNo++;
+										flag=0;
+										cnt=1;
+									}
+									else
+									{
+										cnt++;
+									}
+									
+                            	}
+                            	
+                            	}
+                            }catch(Exception e)
+                            {
+                            	e.printStackTrace();
+                            }
+            	
+            	
+            	%>
+                       
+                              </tr>
+                            <%-- <%
                             int flag=0;
                             SlotDao sdao=new SlotDao();
                             ResultSet rs=sdao.getAllSlots();
@@ -152,7 +234,7 @@ if(!session.isNew())
                               		cnt++;
                             	}
                             
-                              %>
+                              %> --%>
                             </tbody>
                         </ol>
                         </table>

@@ -175,13 +175,13 @@
 											if(flag==1 && cnt<=1)
 											{
 										%>
-											<td ><button type="button" class="btn btn-warning "  style="font-size: 15px"><i class="fa fa-eye"> </i> Total Load</button></td>
+											<td ><a href="EditModals/ShowTotalLoad.jsp?facultyId=<%=rs.getInt(1)%>"><button type="button" class="btn btn-warning "  style="font-size: 15px"><i class="fa fa-eye"> </i> Total Load</button></a></td>
 										<% 
 											}
 											if(flag==0 &&cnt<=1)
 											{
 										%>		
-											 <td rowspan='<%=count %>'><button type="button" class="btn btn-warning "  style="font-size: 15px"><i class="fa fa-eye"> </i> Total Load</button></td>
+											  <td rowspan='<%=count %>'><a href="EditModals/ShowTotalLoad.jsp?facultyId=<%=rs.getInt(1)%>"><button type="button" class="btn btn-warning "  style="font-size: 15px"><i class="fa fa-eye"> </i> Total Load</button></a></td>
 											
 										<%
 											}

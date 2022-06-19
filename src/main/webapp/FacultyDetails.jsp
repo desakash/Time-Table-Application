@@ -207,6 +207,7 @@ session.removeAttribute("update-msg");
                                                  <button type="button" class="btn btn-warning "  style="font-size: 15px"><i class="fa fa-eye"> </i> Courses</button>
 
                                                  <!-- <li><a href="#" data-tip="delete"><i class="fa fa-trash"></i></a></li> -->
+                                                 
                                              </ul>
                                          </td>
                                      </tr>

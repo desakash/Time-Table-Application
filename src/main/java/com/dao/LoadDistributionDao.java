@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import com.model.LoadDistribution;
+import com.sun.net.httpserver.Authenticator.Result;
 
 
 public class LoadDistributionDao {
@@ -263,6 +264,21 @@ public class LoadDistributionDao {
 			e.printStackTrace();
 		}
 		
+		return rs;
+	}
+	
+	public ResultSet getFacultyTotalLoad(int facultyId)
+	{
+		System.out.println("fac_id "+facultyId);
+		con=DbConnection.getConnection();
+		try {
+			pstate=con.prepareStatement("select *from total_load_distribution where fac_id=?");
+			pstate.setInt(1, facultyId);
+			rs=pstate.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return rs;
 	}
 }

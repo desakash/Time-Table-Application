@@ -123,7 +123,7 @@
             	                    <div class="panel-heading">
             	                        <div class="row">
             	                            <div class="col col-md-6 col-xs-12">
-            	                                <h4 class="title">Class Details </h4>
+            	                                <h4 class="title">Division Course Allocation Details </h4>
             	                            </div>
             	                            <div class="col-md-6 col-xs-12 text-right">
             	                                <div class="btn_group">

@@ -222,8 +222,8 @@ session.removeAttribute("delete-success");
     										<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<%=rs.getInt(3) %></td>
     										<td>
     											<ul class="action-list">
-    												<a
-    													href="EditModals/EditBuildingModal.jsp?buildingId=<%=rs.getInt(1) %> ">
+    												
+    													<a href="EditModals/EditBuildingModal.jsp?buildingId=<%=rs.getInt(1) %> ">
     													<button type="button" data-target="#exampleModal" data-toggle="modal" data-backdrop="static" data-keyboard="false" class="btn btn-success "
     														style="font-size: 15px">
     														<i class="fa fa-edit"> </i> Edit

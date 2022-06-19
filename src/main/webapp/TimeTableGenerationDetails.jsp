@@ -41,7 +41,7 @@
         <div class="card card-4">
         <div class="card-body">
         <h5 class="title" style="font-size: 30px">Time Table Details</h5>
-        <form class="row g-3 needs-validation" action="TimeTableGenerationDetailsController" method="post" novalidate>
+        <form class="row g-3 needs-validation" action="TimeTableGenerationDetails.jsp" method="post" novalidate>
            
         <div class="col-md-6">
               <label for="validationCustom04" class="form-label" style="font-size: 17px" >Division</label>
@@ -163,7 +163,7 @@
                                     	ArrayList<Integer> chkOff=new ArrayList<Integer>();
                                     	
                                     	TimeTableGenerationDao ttgd=new TimeTableGenerationDao();
-                          				String div="N3";
+                          				String div=request.getParameter("division");
                           				System.out.println(div);
                           			
                                     	
@@ -174,7 +174,7 @@
                                     %>
                                     
                                     		<tr>
-                                    		<td><%=day[cnt] %></td>
+                                    		<td style="color: #fff;background-color: #42498f ;font-size: 16px;font-weight: 1000;text-transform: uppercase;padding: 15px 20px;border: 2px solid black;"><%=day[cnt] %></td>
                                     		
                                     <% 
                                     while(counter<slot.length)
@@ -215,7 +215,7 @@
                                     			
                                     			System.out.println("inside main rs");
                                     			System.out.println("course  and faculty ::: "+rs.getString(2)+" "+rs.getString(7));
-                                    			String faculty=rs.getString(7);
+                                    			
                                     			if(time.contains(rs.getString(5)+"-"+rs.getString(6)))
                                     			{
                                     				
@@ -231,9 +231,35 @@
                                     				rs2=ttgd.getDuplicateRow(div,rs.getString(5), rs.getString(6), day[cnt]);
                                     				while(rs2.next())
                                         			{
+                                    					
+                                        				String course=rs.getString(2);
+                                        				String head=rs.getString(3);
+                                        				
+                                        				
+                                    					String faculty=rs2.getString(7);
+                                    					String practBatch=rs.getString(8);
+                                    					 if(practBatch==null)
+                                    					{
+                                    						practBatch="";
+                                    					} 
+                                    					String tutBatch=rs.getString(9);
+                                    					if(tutBatch==null)
+                                    					{
+                                    						tutBatch="";
+                                    					} 
+                                    					String classRoom=rs.getString(10);
+                                        			
                                         				time.add(rs2.getString(5)+"-"+rs2.getString(6));
                                     					flag=1;
-                                        				sb.append(rs2.getString(2)+" ");
+                                        				
+                                        				if(head.equals("Break"))
+                                        				{
+                                        					sb.append("BREAK");
+                                        				}
+                                        				else
+                                        				{
+                                        					sb.append(course.substring(8)+"-"+head+"-"+practBatch+"-"+tutBatch+"-"+faculty+"-"+classRoom+"<hr>");
+                                        				}
                                         			}
                                     				
                                     			if(flag==1)
@@ -255,11 +281,8 @@
                                     			}
                                     			else if(flag==0)
                                     			{
-                                    	%>	
-                                    			
-            	                
-													
-													<%
+                                    	%>
+											<%
 													System.out.println("rs.getString(2) "+rs.getString(2));
 													if((ntt-nft)>1)
 													{
@@ -273,6 +296,7 @@
 													else
 													{
 														System.out.println("============================================"+rs.getString(6));
+														
 													%>
 														<%-- <td><%=rs2.getString(5)+"-"+rs2.getString(6)%></td> --%>
 														

@@ -18,6 +18,9 @@
 	rel="stylesheet"
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
+	
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
@@ -208,7 +211,7 @@ session.removeAttribute("delete-success");
 									<input type="text" id="search" class="form-control"
 										placeholder="Search">
 <!-- 									<button class="btn btn-search " title="Reload"><i class="fa fa-sync-alt"></i></button>
- -->									<button class="btn btn-default" style="background-color: brown" title="Pdf"><i class="fa fa-file-pdf"></i></button>
+ -->									<button class="btn btn-default" style="background-color: #ff7f7f" id="btnExport" onclick="Export()" title="Pdf"><i class="fa fa-file-pdf"></i></button>
                                     <button class="btn btn-default" style="background-color: green" title="Excel" onclick="ExportToExcel('xlsx')"><i class="fas fa-file-excel fa-lg"></i></button>
 								</div>
 							</div>
@@ -361,6 +364,25 @@ session.removeAttribute("delete-success");
 })
  }
 </script>
+ <script type="text/javascript">
+        function Export() {
+        	
+        	console.log("inside export fnunction")
+            html2canvas(document.getElementById('tbl_exporttable_to_xls'), {
+                onrendered: function (canvas) {
+                    var data = canvas.toDataURL();
+                    var docDefinition = {
+                        content: [{
+                            image: data,
+                            width: 500
+                        }]
+                    };
+                    pdfMake.createPdf(docDefinition).download("Building Details.pdf");
+                }
+            });
+        }
+    </script>
+    
 	<script src="js/table.js"></script>
 
 

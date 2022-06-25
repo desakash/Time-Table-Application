@@ -225,7 +225,7 @@
         function Export() {
         	
         	console.log("inside export fnunction")
-            html2canvas(document.getElementById('tblCustomers'), {
+            html2canvas(document.getElementById('tbl_exporttable_to_xls'), {
                 onrendered: function (canvas) {
                     var data = canvas.toDataURL();
                     var docDefinition = {

@@ -8,6 +8,8 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Division Details - GPP</title>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
 <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
 
 <!-- Required meta tags -->
@@ -132,7 +134,7 @@ session.removeAttribute("update-msg");
                                 <div class="btn_group">
                                     <input type="text" id="search" class="form-control" placeholder="Search">
                                     <!-- <button class="btn btn-search " title="Reload"><i class="fa fa-sync-alt"></i></button> -->
-                                     <button class="btn btn-default" style="background-color: brown" title="Pdf"><i class="fa fa-file-pdf"></i></button>
+                                     <button class="btn btn-default" style="background-color: #ff7f7f" id="btnExport" onclick="Export()" title="Pdf"><i class="fa fa-file-pdf"></i></button>
                                     <button class="btn btn-default" title="Excel" onclick="ExportToExcel('xlsx')"><i class="fas fa-file-excel"></i></button>
                                 </div>
                             </div>
@@ -322,6 +324,24 @@ session.removeAttribute("update-msg");
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     -->
+    <script type="text/javascript">
+        function Export() {
+        	
+        	console.log("inside export fnunction")
+            html2canvas(document.getElementById('tbl_exporttable_to_xls'), {
+                onrendered: function (canvas) {
+                    var data = canvas.toDataURL();
+                    var docDefinition = {
+                        content: [{
+                            image: data,
+                            width: 500
+                        }]
+                    };
+                    pdfMake.createPdf(docDefinition).download("Division Details.pdf");
+                }
+            });
+        }
+    </script>
     <script src="js/table.js"></script>
 </body>
 </html>

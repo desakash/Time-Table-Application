@@ -38,10 +38,10 @@
     border-radius: 50px;
 /*     transition: all 0.3s ease 0s;
  */}
-/* .panel .panel-heading .btn:hover{
+ .panel .panel-heading .btn:hover{
     color: #fff;
     text-shadow: 3px 3px rgba(255,255,255,0.2);
-} */
+} 
 .panel .panel-heading .form-control{
     color: #fff;
     background-color: transparent;

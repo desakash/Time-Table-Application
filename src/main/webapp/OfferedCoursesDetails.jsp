@@ -6,6 +6,8 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
 <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
@@ -142,7 +144,7 @@ if(!session.isNew())
             	                                <div class="btn_group">
             	                                    <input type="text" id="search" class="form-control" placeholder="Search">
             	                                    <!-- <button class="btn btn-search " title="Reload"><i class="fa fa-sync-alt"></i></button> -->
-            	                                     <button class="btn btn-default" style="background-color: brown" title="Pdf"><i class="fa fa-file-pdf"></i></button>
+            	                                     <button class="btn btn-default" style="background-color: #ff7f7f" id="btnExport" onclick="Export()"" title="Pdf"><i class="fa fa-file-pdf"></i></button>
             	                                    <button class="btn btn-default" title="Excel" onclick="ExportToExcel('xlsx')"><i class="fas fa-file-excel"></i></button>
             	                                </div>
             	                            </div>
@@ -215,6 +217,24 @@ if(!session.isNew())
       
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
  	 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js"></script> 
+ 	 <script type="text/javascript">
+        function Export() {
+        	
+        	console.log("inside export fnunction")
+            html2canvas(document.getElementById('tbl_exporttable_to_xls'), {
+                onrendered: function (canvas) {
+                    var data = canvas.toDataURL();
+                    var docDefinition = {
+                        content: [{
+                            image: data,
+                            width: 500
+                        }]
+                    };
+                    pdfMake.createPdf(docDefinition).download("Offered Course Details.pdf");
+                }
+            });
+        }
+    </script>
        <script  src="js/form.js"></script> 
 </body>
 </html>

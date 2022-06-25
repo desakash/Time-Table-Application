@@ -69,7 +69,7 @@
 	       var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
 	       return dl ?
 	         XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }):
-	         XLSX.writeFile(wb, fn || ('MySheetName.' + (type || 'xlsx')));
+	         XLSX.writeFile(wb, fn || ('Load Distribution.' + (type || 'xlsx')));
 	    }
 	</script>
 
@@ -91,8 +91,8 @@
 									<input type="text" id="search" class="form-control"
 										placeholder="Search">
 									<!-- <button class="btn btn-search " title="Reload"><i class="fa fa-sync-alt"></i></button> -->
-									<!-- <button class="btn btn-default" title="Pdf"><i class="fa fa-file-pdf"></i></button>
-                                    <button class="btn btn-default" title="Excel"><i class="fas fa-file-excel"></i></button> -->
+									<button class="btn btn-default" style="background-color: brown" title="Pdf"><i class="fa fa-file-pdf"></i></button>
+                                    <button class="btn btn-default" title="Excel" onclick="ExportToExcel('xlsx')"><i class="fas fa-file-excel"></i></button>
 								</div>
 							</div>
 						</div>
@@ -228,7 +228,6 @@
 							</ol>
 						</table>
 						
-						<button onclick="ExportToExcel('xlsx')">Export table to excel</button>
 						
 						
 					</div>

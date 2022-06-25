@@ -7,6 +7,8 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Course Details - GPP</title>
+<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css /">
 <!-- Bootstrap CSS -->
@@ -35,6 +37,16 @@
 	onunload="">
 
 	<%@ include file="html/sidenav.html"%>
+	
+	<script type="text/javascript">
+	function ExportToExcel(type, fn, dl) {
+	       var elt = document.getElementById('tbl_exporttable_to_xls');
+	       var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+	       return dl ?
+	         XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }):
+	         XLSX.writeFile(wb, fn || ('Course Details.' + (type || 'xlsx')));
+	    }
+	</script>
 
 	<%
 if(!session.isNew())
@@ -198,13 +210,17 @@ if(!session.isNew())
 								<div class="btn_group">
 									<input type="text" id="search" class="form-control"
 										placeholder="Search">
+										
+<!-- 										<button class="btn btn-search " title="Reload"><i class="fa fa-sync-alt"></i></button>
+ -->									<button class="btn btn-default"style="background-color: brown" title="Pdf"><i class="fa fa-file-pdf"></i></button>
+                                    <button class="btn btn-default" style="background-color: green" title="Excel" onclick="ExportToExcel('xlsx')"><i class="fas fa-file-excel"></i></button>
 									
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="panel-body table-responsive">
-						<table class="table">
+						<table class="table" id="tbl_exporttable_to_xls">
 							<thead>
 
 								<th>Sr.No</th>

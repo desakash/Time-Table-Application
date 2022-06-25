@@ -10,9 +10,12 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Slot Details - GPP</title>
+
 <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+    
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css /">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -36,6 +39,16 @@
   <body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
  
  		<%@ include file="html/sidenav.html" %>  
+ 		
+ 		<script type="text/javascript">
+ 		function ExportToExcel(type, fn, dl) {
+ 	       var elt = document.getElementById('tbl_exporttable_to_xls');
+ 	       var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+ 	       return dl ?
+ 	         XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }):
+ 	         XLSX.writeFile(wb, fn || ('Slot Details.' + (type || 'xlsx')));
+ 	    }
+ 		</script>
 <%
 if(!session.isNew())
 {
@@ -106,14 +119,14 @@ if(!session.isNew())
                                 <div class="btn_group">
                                     <input type="text" id="search" class="form-control" placeholder="Search">
                                     <!-- <button class="btn btn-search " title="Reload"><i class="fa fa-sync-alt"></i></button> -->
-                                     <!-- <button class="btn btn-default" title="Pdf"><i class="fa fa-file-pdf"></i></button>
-                                    <button class="btn btn-default" title="Excel"><i class="fas fa-file-excel"></i></button> -->
+                                      <button class="btn btn-default" style="background-color: brown" title="Pdf"><i class="fa fa-file-pdf"></i></button>
+                                    <button class="btn btn-default" title="Excel" onclick="ExportToExcel('xlsx')"><i class="fas fa-file-excel"></i></button>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="panel-body table-responsive">
-                        <table class="table" style="width: 2500px">
+                        <table class="table" id="tbl_exporttable_to_xls" style="width: 2500px">
                             <thead>
                                 
                                     <th>Sr.No</th>

@@ -9,6 +9,9 @@
 <meta charset="ISO-8859-1">
 <title>Class Details - GPP</title>
 
+<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+
+
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
 
@@ -31,6 +34,17 @@
  <body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
  
  		<%@ include file="html/sidenav.html" %> 
+ 		
+ 		<script type="text/javascript">
+ 		function ExportToExcel(type, fn, dl) {
+ 	       var elt = document.getElementById('tbl_exporttable_to_xls');
+ 	       var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+ 	       return dl ?
+ 	         XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }):
+ 	         XLSX.writeFile(wb, fn || ('Class Details.' + (type || 'xlsx')));
+ 	    }
+ 		
+ 		</script>
  		
  		<%
  			if(!session.isNew())
@@ -116,14 +130,14 @@
                                 <div class="btn_group">
                                     <input type="text" id="search" class="form-control" placeholder="Search">
                                     <!-- <button class="btn btn-search " title="Reload"><i class="fa fa-sync-alt"></i></button> -->
-                                     <button class="btn btn-default" id="btnExport" onclick="Export()" title="Pdf"><i class="fa fa-file-pdf"></i></button>
-                                    <!-- <button class="btn btn-default" title="Excel"><i class="fas fa-file-excel"></i></button> -->
+                                     <button class="btn btn-default" style="background-color: brown" id="btnExport" onclick="Export()" title="Pdf"><i class="fa fa-file-pdf"></i></button>
+                                    <button class="btn btn-default"  title="Excel" onclick="ExportToExcel('xlsx')"><i class="fas fa-file-excel"></i></button>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="panel-body table-responsive">
-                        <table class="table" id="tblCustomers">
+                        <table class="table" id="tbl_exporttable_to_xls">
                             <thead>
                                 
                                     <th>Sr.No</th>

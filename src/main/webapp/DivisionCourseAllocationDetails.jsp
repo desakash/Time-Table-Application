@@ -7,6 +7,8 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
@@ -38,6 +40,16 @@
 </head>
 <body >
 <%@ include file="html/sidenav.html" %>
+
+<script type="text/javascript">
+function ExportToExcel(type, fn, dl) {
+    var elt = document.getElementById('tbl_exporttable_to_xls');
+    var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+    return dl ?
+      XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }):
+      XLSX.writeFile(wb, fn || ('Division Course Allocation.' + (type || 'xlsx')));
+ }
+</script>
 
 <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
         <div class="wrapper wrapper--w680">
@@ -128,15 +140,15 @@
             	                            <div class="col-md-6 col-xs-12 text-right">
             	                                <div class="btn_group">
             	                                    <input type="text" id="search" class="form-control" placeholder="Search">
-            	                                    <!-- <button class="btn btn-search " title="Reload"><i class="fa fa-sync-alt"></i></button> -->
-            	                                     <!-- <button class="btn btn-default" title="Pdf"><i class="fa fa-file-pdf"></i></button>
-            	                                    <button class="btn btn-default" title="Excel"><i class="fas fa-file-excel"></i></button> -->
+<!--             	                                    <button class="btn btn-search " title="Reload"><i class="fa fa-sync-alt"></i></button>
+ -->            	                                      <button class="btn btn-default" style="background-color: brown" title="Pdf"><i class="fa fa-file-pdf"></i></button>
+            	                                    <button class="btn btn-default" title="Excel" onclick="ExportToExcel('xlsx')"><i class="fas fa-file-excel"></i></button>
             	                                </div>
             	                            </div>
             	                        </div>
             	                    </div>
             	                    <div class="panel-body table-responsive">
-            	                        <table class="table " id="mytable">
+            	                        <table class="table " id="tbl_exporttable_to_xls">
             	                            <thead>
             	                                
             	                                    <th>Sr.No</th>

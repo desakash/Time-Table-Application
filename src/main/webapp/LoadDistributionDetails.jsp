@@ -50,6 +50,9 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
 	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
 	crossorigin="anonymous"></script>
+	
+	<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+	
 
 <script src="sweetalert2.all.min.js"></script>
 <script src="sweetalert2.min.js"></script>
@@ -58,6 +61,17 @@
 </head>
 <body onload="noBack();" onpageshow="if (event.persisted) noBack();"
 	onunload="">
+	
+		<script type="text/javascript">
+	function ExportToExcel(type, fn, dl) {
+		console.log("Hello in excel")
+	       var elt = document.getElementById('tbl_exporttable_to_xls');
+	       var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+	       return dl ?
+	         XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }):
+	         XLSX.writeFile(wb, fn || ('MySheetName.' + (type || 'xlsx')));
+	    }
+	</script>
 
 	<%@ include file="html/sidenav.html"%>
 
@@ -84,7 +98,7 @@
 						</div>
 					</div>
 					<div class="panel-body table-responsive">
-						<table class="table">
+						<table class="table" id="tbl_exporttable_to_xls">
 							<thead>
 
 								<th>Sr.No</th>
@@ -213,6 +227,10 @@
 								</tbody>
 							</ol>
 						</table>
+						
+						<button onclick="ExportToExcel('xlsx')">Export table to excel</button>
+						
+						
 					</div>
 					<div class="panel-footer">
 						<div class="row"></div>

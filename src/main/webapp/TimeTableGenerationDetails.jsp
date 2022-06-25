@@ -25,6 +25,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.8.1/js/bootstrap-select.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     
+    	<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+    
+    
     <script src="sweetalert2.all.min.js"></script>
 <script src="sweetalert2.min.js"></script>
 <link rel="stylesheet" href="sweetalert2.min.css">
@@ -35,6 +38,16 @@
 <body>
 <%@ include file="html/sidenav.html" %>
 
+	<script type="text/javascript">
+	function ExportToExcel(type, fn, dl) {
+		console.log("Hello in excel")
+	       var elt = document.getElementById('tbl_exporttable_to_xls');
+	       var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+	       return dl ?
+	         XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }):
+	         XLSX.writeFile(wb, fn || ('MySheetName.' + (type || 'xlsx')));
+	    }
+	</script>
 
 <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
         <div class="wrapper wrapper--w680">
@@ -129,7 +142,7 @@
         	                    </div>
         	                    
         	                    <div class="panel-body table-responsive">
-            	                        <table class="table " id="mytable">
+            	                        <table class="table " id="tbl_exporttable_to_xls">
             	                            <thead>
             	                                
             	                                    <th>Day</th>
@@ -348,6 +361,8 @@
 								</tbody>
 							</ol>
 						</table>
+							<button onclick="ExportToExcel('xlsx')">Export table to excel</button>
+						
             	                    </div>
             	               <div class="panel-footer">
                                 <div class="row">

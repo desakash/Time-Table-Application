@@ -47,6 +47,9 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
 	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
 	crossorigin="anonymous"></script>
+	
+<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+
 
 <script src="sweetalert2.all.min.js"></script>
 <script src="sweetalert2.min.js"></script>
@@ -57,6 +60,16 @@
 	onunload="">
 
 	<%@ include file="html/sidenav.html"%>
+	<script type="text/javascript">
+	function ExportToExcel(type, fn, dl) {
+		console.log("Hello in excel")
+	       var elt = document.getElementById('tbl_exporttable_to_xls');
+	       var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+	       return dl ?
+	         XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }):
+	         XLSX.writeFile(wb, fn || ('MySheetName.' + (type || 'xlsx')));
+	    }
+	</script>
 	<% 
 
 if(!session.isNew())
@@ -196,13 +209,13 @@ session.removeAttribute("delete-success");
 										placeholder="Search">
 									<button class="btn btn-search " title="Reload"><i class="fa fa-sync-alt"></i></button>
 									<button class="btn btn-default" title="Pdf"><i class="fa fa-file-pdf"></i></button>
-                                    <button class="btn btn-default" title="Excel"><i class="fas fa-file-excel"></i></button>
+                                    <button class="btn btn-default" title="Excel" onclick="ExportToExcel('xlsx')"><i class="fas fa-file-excel"></i></button>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="panel-body table-responsive">
-						<table class="table">
+						<table class="table" id="tbl_exporttable_to_xls">
 							<thead>
 
 								<th>Sr.No</th>
@@ -257,6 +270,8 @@ session.removeAttribute("delete-success");
 								</tbody>
 							</ol>
 						</table>
+						
+						
 					</div>
 					<div class="panel-footer">
 						<div class="row"></div>

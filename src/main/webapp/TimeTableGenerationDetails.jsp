@@ -232,22 +232,22 @@
                                     				while(rs2.next())
                                         			{
                                     					
-                                        				String course=rs.getString(2);
-                                        				String head=rs.getString(3);
+                                        				String course=rs2.getString(2);
+                                        				String head=rs2.getString(3);
                                         				
                                         				
                                     					String faculty=rs2.getString(7);
-                                    					String practBatch=rs.getString(8);
+                                    					String practBatch=rs2.getString(8);
                                     					 if(practBatch==null)
                                     					{
                                     						practBatch="";
                                     					} 
-                                    					String tutBatch=rs.getString(9);
+                                    					String tutBatch=rs2.getString(9);
                                     					if(tutBatch==null)
                                     					{
                                     						tutBatch="";
                                     					} 
-                                    					String classRoom=rs.getString(10);
+                                    					String classRoom=rs2.getString(10);
                                         			
                                         				time.add(rs2.getString(5)+"-"+rs2.getString(6));
                                     					flag=1;

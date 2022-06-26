@@ -151,18 +151,20 @@
           <span class="tooltip">TimeTableGeneration</span>
         </li>
         
+        <li>
           <a href="FacultyTimeTableDetails.jsp">
             <i class="fa-solid fa-chart-line"  aria-hidden="true"></i>
             <span class="links_name">Faculty Timetable Report</span>
           </a>
-          <span class="tooltip">Faculty Timetable Report</span>
+          <span class="tooltip">Faculty Report</span>
         </li>
         
+        <li>
          <a href="ClassTimeTableDetails.jsp">
             <i class="fa-solid fa-chart-line"  aria-hidden="true"></i>
             <span class="links_name">Classroom Timetable Report</span>
           </a>
-          <span class="tooltip">Classroom Timetable Report</span>
+          <span class="tooltip">Classroom Report</span>
         </li>
     
           <!-- <li>
@@ -317,10 +319,10 @@
          <div class="card" style="width: 18rem;">
         <img src="icons/load.png" style="padding-top: 20px;padding-left: 70px;" class="card-img-top" alt="..."/>
         <div class="card-body">
-          <h5 class="card-title" style="text-align: center;">Faculty Timetable Report</h5>
+          <h5 class="card-title" style="text-align: center;">Faculty Report</h5>
               <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
           <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-          <a href="FacultyTimeTableDetails.jsp" class="btn btn-light "><i class="fa fa-eye"></i> View</a>
+          <center><a href="FacultyTimeTableDetails.jsp" class="btn btn-light "><i class="fa fa-eye"></i> View</a></center>
         </div>
         </div>
         </div>
@@ -329,26 +331,15 @@
          <div class="card" style="width: 18rem;">
         <img src="icons/load.png" style="padding-top: 20px;padding-left: 70px;" class="card-img-top" alt="..."/>
         <div class="card-body">
-          <h5 class="card-title" style="text-align: center;">Classroom Timetable Report</h5>
+          <h5 class="card-title" style="text-align: center;">Classroom Report</h5>
               <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
           <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-          <a href="ClassTimeTableDetails.jsp" class="btn btn-light "><i class="fa fa-eye"></i> View</a>
+          <center><a href="ClassTimeTableDetails.jsp" class="btn btn-light "><i class="fa fa-eye"></i> View</a></center>
         </div>
         </div>
         </div>
         
-         <div class="col-md-4">
-         <div class="card" style="width: 18rem;">
-        <img src="icons/load.png" style="padding-top: 20px;padding-left: 70px;" class="card-img-top" alt="..."/>
-        <div class="card-body">
-          <h5 class="card-title" style="text-align: center;">TimeTable Generation</h5>
-              <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
-          <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-          <a href="TimeTableGeneration.jsp" class="btn btn-light" style="margin-right: 10px;"><i class="fas fa-plus"></i> Add</a>
-          <a href="TimeTableGenerationDetails.jsp" class="btn btn-light "><i class="fa fa-eye"></i> View</a>
-        </div>
-        </div>
-        </div>
+        
 
         <!-- <div class="col-md-4">
             <div class="card" style="width: 18rem;">

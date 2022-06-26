@@ -96,6 +96,7 @@ public class LoadDistributionController extends HttpServlet {
 		String A_Batch=request.getParameter("a");
 		String B_Batch=request.getParameter("b");
 		String C_Batch=request.getParameter("c");
+		System.out.println(A_Batch+""+B_Batch+""+C_Batch);
 		
 		int practicalCount=0;
 		if(A_Batch!=null && A_Batch.equals("on"))
@@ -117,6 +118,7 @@ public class LoadDistributionController extends HttpServlet {
 		{
 			sb.append("-");
 		}
+		
 		System.out.println(practicalCount);
 		System.out.println("batches : "+sb);
 		
@@ -142,7 +144,7 @@ public class LoadDistributionController extends HttpServlet {
 		}
 		if(t1==null && t2==null && t3==null)
 		{
-			sb.append("-");
+			sb2.append("-");
 		}
 		System.out.println(tutorialCount);
 		System.out.println("batches : "+sb2);

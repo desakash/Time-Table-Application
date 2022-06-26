@@ -87,7 +87,7 @@ create table total_load_distribution
 create table division_total_load
 (
 	division_name varchar2(3000),
-	course_name varchar(3000),
+	course_code varchar(3000),
 	theory number(10),
 	practical number(10),
 	tutorial number(10),

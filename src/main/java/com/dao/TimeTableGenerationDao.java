@@ -16,12 +16,16 @@ public class TimeTableGenerationDao {
 	int i=0;
 	public int insert(TimeTableGenerationn ttg)
 	{
+		String courseAbbr=null;
 		con=DbConnection.getConnection();
 		
 		CourseDao cdao=new CourseDao();
 		FacultyDao fdao=new FacultyDao();
 		
-		String courseAbbr=cdao.getCourseAbbrByName(ttg.getOffered_courses().substring(9));
+		if(ttg.getOffered_courses()!=null)
+		{
+			courseAbbr=cdao.getCourseAbbrByName(ttg.getOffered_courses().substring(9));
+		}
 		String facultyAbbr=fdao.getFacultyAbbrByName(ttg.getFaculty());
 		try {
 			pstat=con.prepareStatement("insert into timetable_generation values(?,?,?,?,?,?,?,?,?,?)");

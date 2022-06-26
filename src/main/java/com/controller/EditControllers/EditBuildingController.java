@@ -41,6 +41,8 @@ public class EditBuildingController extends HttpServlet {
 		
 		System.out.println("edit building controller");
 		String buildingName=request.getParameter("building_name");
+		int buildingFloor=Integer.parseInt(request.getParameter("no_of_floors"));
+
 
 		ResultSet rs=bd.getBuildingDetails();
 		try {
@@ -48,9 +50,13 @@ public class EditBuildingController extends HttpServlet {
 			{
 				if(buildingName.equals(rs.getString(2)))
 				{
-					flag=1;
-					session.setAttribute("Duplicate_Building", "true");
-					response.sendRedirect("BuildingDetails.jsp");
+					if(buildingFloor==rs.getInt(3))
+					{
+						flag=1;
+						session.setAttribute("Duplicate_Building", "true");
+						response.sendRedirect("BuildingDetails.jsp");
+					}
+					
 				}
 			}
 		} catch (SQLException e) {
@@ -65,7 +71,7 @@ public class EditBuildingController extends HttpServlet {
 		
 		if(flag==0)
 		{
-			int buildingFloor=Integer.parseInt(request.getParameter("no_of_floors"));
+//			int buildingFloor=Integer.parseInt(request.getParameter("no_of_floors"));
 			int buildingid=Integer.parseInt(request.getParameter("building_id"));
 		
 		int i=bd.buldingUpdate(buildingName,buildingFloor,buildingid);

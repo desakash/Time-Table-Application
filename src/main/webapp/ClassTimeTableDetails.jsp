@@ -1,7 +1,11 @@
+<%@page import="com.dao.ClassTimeTableReportDao"%>
+<%@page import="com.dao.ClassDao"%>
+<%@page import="com.dao.FacultyTimeTableReportDao"%>
+<%@page import="com.dao.FacultyDao"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.dao.TimeTableGenerationDao"%>
 <%@page import="java.sql.ResultSet"%>
-<%@page import="com.dao.DivisionDao"%>
+<%@page import="com.dao.ClassDao"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@page errorPage="error.jsp" %>
@@ -37,7 +41,7 @@
 <link rel="stylesheet" href="sweetalert2.min.css">
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
    
-<title>Timetable Generation Details | GPP</title>
+<title>Classroom Timetable Report | GPP</title>
 </head>
 <body>
 <%@ include file="html/sidenav.html" %>
@@ -49,7 +53,7 @@
 	       var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
 	       return dl ?
 	         XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }):
-	         XLSX.writeFile(wb, fn || ('Time Table Generation.' + (type || 'xlsx')));
+	         XLSX.writeFile(wb, fn || ('Classroom Timetable Report.' + (type || 'xlsx')));
 	    }
 	</script>
 
@@ -57,17 +61,17 @@
         <div class="wrapper wrapper--w680">
         <div class="card card-4">
         <div class="card-body">
-        <h5 class="title" style="font-size: 30px">Time Table Details</h5>
-        <form class="row g-3 needs-validation" action="TimeTableGenerationDetails.jsp" method="post" novalidate>
+        <h5 class="title" style="font-size: 30px">Classroom Time Table Details</h5>
+        <form class="row g-3 needs-validation" action="ClassTimeTableDetails.jsp" method="post" novalidate>
            
         <div class="col-md-6">
-              <label for="validationCustom04" class="form-label" style="font-size: 17px" >Division</label>
-              <select class="form-select" style="font-size: 17px" id="validationCustom04" name="division" onChange="getMainTerm()" required>
+              <label for="validationCustom04" class="form-label" style="font-size: 17px" >Classroom</label>
+              <select class="form-select" style="font-size: 17px" id="validationCustom04" name="classroom" onChange="getMainTerm()" required>
                 <option selected disabled value="">Choose...</option>
                  <%
                 try{
-               	DivisionDao dd=new DivisionDao();
-               	ResultSet rs=dd.getDivisionNames();
+               	ClassDao cdao=new ClassDao();
+               	ResultSet rs=cdao.getClassNames();
           		while(rs.next())
           		{
                 %>
@@ -80,7 +84,7 @@
                 %>              
 	              </select>
               <div class="invalid-feedback" style="font-size: 17px">
-                 Please select Division
+                 Please select Class
               </div>
             </div>
            
@@ -132,7 +136,7 @@
         	                    <div class="panel-heading">
         	                        <div class="row">
         	                            <div class="col col-md-6 col-xs-12">
-        	                                <h4 class="title">Time Table Details </h4>
+        	                                <h4 class="title">Classroom Time Table Details </h4>
         	                            </div>
         	                            <div class="col-md-6 col-xs-12 text-right">
         	                                <div class="btn_group">
@@ -179,9 +183,9 @@
                                     	ArrayList<String> time=new ArrayList<String>();
                                     	ArrayList<Integer> chkOff=new ArrayList<Integer>();
                                     	
-                                    	TimeTableGenerationDao ttgd=new TimeTableGenerationDao();
-                          				String div=request.getParameter("division");
-                          				System.out.println(div);
+                                    	ClassTimeTableReportDao cttd=new ClassTimeTableReportDao();
+                          				String classroom=request.getParameter("classroom");
+                          				System.out.println(classroom);
                           			
                                     	
                                     	 while(cnt<6)
@@ -200,7 +204,7 @@
                             		System.out.println("slot array length "+slot.length);
                                     try{
                                     		System.out.println("Day "+day[cnt]);
-                                    		ResultSet rs=ttgd.getTimeTableByDay(div,day[cnt],slot,counter);
+                                    		ResultSet rs=cttd.getClassTimeTableByDay(classroom,day[cnt],slot,counter);
                                     		if(!rs.isBeforeFirst())
                                     		{
                                     			if(!chkOff.contains(1))
@@ -244,17 +248,42 @@
                                     		
                                     			nft=Integer.parseInt(rs.getString(5).substring(0, 2));
                                     			ntt=Integer.parseInt(rs.getString(6).substring(0,2));
+                                    			String head=rs.getString(3);
+                                    			String practBatch=rs.getString(8);
+                                    			 if(practBatch==null)
+                             					{
+                             						practBatch="";
+                             					} 
+                             					 else
+                             					 {
+                             						 practBatch=practBatch.substring(0,1).toUpperCase();
+                             					 }
+                                    			String tutBatch=rs.getString(9);
+                                    			if(tutBatch==null)
+                            					{
+                            						tutBatch="";
+                            					} 
+                            					else
+                           					 	{
+                           						 	tutBatch=tutBatch.substring(0,2).toUpperCase();
+                           					 	}
+                                    			String classRoom=rs.getString(10);
+                                    			String course=rs.getString(2);
+                                    			String div=rs.getString(1);
+                                    			String faculty=rs.getString(7);
                                     			
-                                    				rs2=ttgd.getDuplicateRow(div,rs.getString(5), rs.getString(6), day[cnt]);
+                                    				rs2=cttd.getDuplicateRow(classroom,rs.getString(5), rs.getString(6), day[cnt]);
                                     				while(rs2.next())
                                         			{
                                     					
-                                        				String course=rs2.getString(2);
-                                        				String head=rs2.getString(3);
+                                        				course=rs2.getString(2);
+                                        				head=rs2.getString(3);
+                                        				div=rs2.getString(1);
+                                        				faculty=rs2.getString(7);
                                         				
                                         				
-                                    					String faculty=rs2.getString(7);
-                                    					String practBatch=rs2.getString(8);
+                                    					
+                                    					practBatch=rs2.getString(8);
                                     					 if(practBatch==null)
                                     					{
                                     						practBatch="";
@@ -263,7 +292,7 @@
                                     					 {
                                     						 practBatch=practBatch.substring(0,1).toUpperCase();
                                     					 }
-                                    					String tutBatch=rs2.getString(9);
+                                    					tutBatch=rs2.getString(9);
                                     					if(tutBatch==null)
                                     					{
                                     						tutBatch="";
@@ -272,7 +301,7 @@
                                    					 	{
                                    						 	tutBatch=tutBatch.substring(0,2).toUpperCase();
                                    					 	}
-                                    					String classRoom=rs2.getString(10);
+                                    					classRoom=rs2.getString(10);
                                         			
                                         				time.add(rs2.getString(5)+"-"+rs2.getString(6));
                                     					flag=1;
@@ -284,7 +313,7 @@
                                         				else
                                         				{
                                         					//sb.append(course.substring(8)+"-"+head+"-"+practBatch+"-"+tutBatch+"-"+faculty+"-"+classRoom+"<hr>");
-                                        					sb.append(course+"-"+head.substring(0,2).toUpperCase()+"-"+practBatch+"-"+tutBatch+"-"+faculty+"-"+classRoom+"<hr>");
+                                        					sb.append(div+"-"+course+"-"+faculty+"-"+head.substring(0,2).toUpperCase()+"-"+practBatch+"-"+tutBatch+"-"+"-"+"<hr>");
                                         				}
                                         			}
                                     				
@@ -316,7 +345,7 @@
 
 													%>
 														<%-- <td colspan="2"><%=rs2.getString(5)+"-"+rs2.getString(6)%></td>	 --%>
-														<td colspan="2"><%=rs.getString(2)+" "+rs.getString(7)%></td>	
+														<td colspan="2"><%=div+"-"+course+"-"+faculty+"-"+head.substring(0,2).toUpperCase()+"-"+practBatch+"-"+tutBatch+"-"+"<hr>"%></td>	
 													<% 
 													}
 													else
@@ -326,7 +355,7 @@
 													%>
 														<%-- <td><%=rs2.getString(5)+"-"+rs2.getString(6)%></td> --%>
 														
-														 <td><%=rs.getString(2)+" "+rs.getString(7)%></td> 
+														 <td><%=div+"-"+course+"-"+faculty+"-"+head.substring(0,2).toUpperCase()+"-"+practBatch+"-"+tutBatch+"-"+"<hr>"%></td> 
 													<% 
 													}
 													%>
@@ -402,7 +431,7 @@
                             width: 500
                         }]
                     };
-                    pdfMake.createPdf(docDefinition).download("Time Table Generation.pdf");
+                    pdfMake.createPdf(docDefinition).download("Classroom Timetable report.pdf");
                 }
             });
         }

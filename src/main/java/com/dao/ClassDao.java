@@ -96,4 +96,18 @@ public class ClassDao {
 		return i;
 
 	}
+	
+	public ResultSet getClassNames()
+	{
+		con=DbConnection.getConnection();
+		try {
+			st=con.createStatement();
+			rs=st.executeQuery("select classroom_name from class_master");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return rs;
+	}
 }

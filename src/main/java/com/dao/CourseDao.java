@@ -159,5 +159,26 @@ public class CourseDao {
 		return rs;
 	}
 	
+	public String getCourseAbbrByName(String courseName)
+	{
+		String courseAbbr=null;
+		con=DbConnection.getConnection();
+		System.out.println("course name in getCourseAbbrByName is  "+courseName);
+		try {
+			pstate=con.prepareStatement("select course_abbreviation from course_master where course_name=?");
+			pstate.setString(1, courseName);
+			rs=pstate.executeQuery();
+			if(rs.next())
+			{
+				courseAbbr=rs.getString(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return courseAbbr;
+	}
+	
 
 }

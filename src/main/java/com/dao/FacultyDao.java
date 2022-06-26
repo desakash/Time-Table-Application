@@ -156,4 +156,40 @@ public class FacultyDao {
 		return facultyName;
 	}
 	
+	
+	public String getFacultyAbbrByName(String facultyName)
+	{
+		String facultyAbbr=null;
+		con=DbConnection.getConnection();
+		try {
+			pstate=con.prepareStatement("select faculty_abbreviation from faculty_master where faculty_name=?");
+			pstate.setString(1, facultyName);
+			
+			rs=pstate.executeQuery();
+			
+			if(rs.next())
+			{
+				facultyAbbr=rs.getString(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return facultyAbbr;
+	}
+	
+	public ResultSet getFacultyAbbr()
+	{
+		con=DbConnection.getConnection();
+		try {
+			st=con.createStatement();
+			rs=st.executeQuery("select faculty_abbreviation from faculty_master");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
+	
 }

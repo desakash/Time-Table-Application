@@ -17,15 +17,23 @@ public class TimeTableGenerationDao {
 	public int insert(TimeTableGenerationn ttg)
 	{
 		con=DbConnection.getConnection();
+		
+		CourseDao cdao=new CourseDao();
+		FacultyDao fdao=new FacultyDao();
+		
+		String courseAbbr=cdao.getCourseAbbrByName(ttg.getOffered_courses().substring(9));
+		String facultyAbbr=fdao.getFacultyAbbrByName(ttg.getFaculty());
 		try {
 			pstat=con.prepareStatement("insert into timetable_generation values(?,?,?,?,?,?,?,?,?,?)");
 			pstat.setString(1,ttg.getDivision());
-			pstat.setString(2,ttg.getOffered_courses());
+		//	pstat.setString(2,ttg.getOffered_courses());
+			pstat.setString(2,courseAbbr);
 			pstat.setString(3,ttg.getHead());
 			pstat.setString(4,ttg.getDay());
 			pstat.setString(5,ttg.getFromtime());
 			pstat.setString(6,ttg.getTotime());
-			pstat.setString(7,ttg.getFaculty());
+		//	pstat.setString(7,ttg.getFaculty());
+			pstat.setString(7,facultyAbbr);
 			pstat.setString(8,ttg.getPractical_batch());
 			pstat.setString(9,ttg.getTutorial_batch());
 			pstat.setString(10,ttg.getClassroom());

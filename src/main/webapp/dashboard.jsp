@@ -346,7 +346,7 @@
         </div>
          <div class="col-md-4">
          <div class="card" style="width: 18rem;">
-        <img src="icons/load.png" style="padding-top: 20px;padding-left: 70px;" class="card-img-top" alt="..."/>
+        <img src="icons/faculty.png" style="padding-top: 20px;padding-left: 70px;" class="card-img-top" alt="..."/>
         <div class="card-body">
           <h5 class="card-title" style="text-align: center;">Faculty Report</h5>
               <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
@@ -358,7 +358,7 @@
         
          <div class="col-md-4">
          <div class="card" style="width: 18rem;">
-        <img src="icons/load.png" style="padding-top: 20px;padding-left: 70px;" class="card-img-top" alt="..."/>
+        <img src="icons/classroom.png" style="padding-top: 20px;padding-left: 70px;" class="card-img-top" alt="..."/>
         <div class="card-body">
           <h5 class="card-title" style="text-align: center;">Classroom Report</h5>
               <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->

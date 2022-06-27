@@ -28,12 +28,23 @@
         });
     </script> -->
     <title>Document</title>
+    <script type="text/javascript">
+    
+    window.history.forward();
+    function noBack()
+    {
+        window.history.forward();
+    }
+    </script>
+    
 </head>
 <body>
 <%
-	String success_msg=(String)session.getAttribute("success_msg");
 	if(!session.isNew())
 	{
+		session=request.getSession();
+		String success_msg=(String)session.getAttribute("success_msg");
+
 		if(success_msg!=null)
 		{
 %>
@@ -50,9 +61,14 @@
   </script>
   <% 
 		}
+		
+		session.removeAttribute("success_msg");
+
 	}
-	/* session.invalidate(); */
-	session.removeAttribute("success_msg");
+
+
+
+	
   %>
 		
 	

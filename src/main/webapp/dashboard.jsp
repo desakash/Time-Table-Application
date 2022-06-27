@@ -166,7 +166,20 @@
           </a>
           <span class="tooltip">Classroom Report</span>
         </li>
-    
+     <li>
+         <a href="ClassTimeTableDetails.jsp">
+            <i class="fa-solid fa-chart-line"  aria-hidden="true"></i>
+            <span class="links_name">Classroom Timetable Report</span>
+          </a>
+          <span class="tooltip">Classroom Report</span>
+        </li> 
+        <li>
+         <a href="ClassTimeTableDetails.jsp">
+            <i class="fa-solid fa-chart-line"  aria-hidden="true"></i>
+            <span class="links_name">Classroom Timetable Report</span>
+          </a>
+          <span class="tooltip">Classroom Report</span>
+        </li>
           <!-- <li>
            <a href="#">
              <i class='fa fa-check' ></i>

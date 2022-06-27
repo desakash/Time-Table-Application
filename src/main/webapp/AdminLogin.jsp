@@ -9,6 +9,8 @@
     integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
     crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+   	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+       <script src="https://kit.fontawesome.com/a4f00a5269.js" crossorigin="anonymous"></script>
    
   <link rel="stylesheet" href="css/admin_login.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -23,25 +25,24 @@
 <script src="sweetalert2.min.js"></script>
 <link rel="stylesheet" href="sweetalert2.min.css">
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="text/javascript">
+    window.history.forward();
+    function noBack()
+    {
+        window.history.forward();
+    }
+</script>
+
+
 </head>
-<body>
+<body onLoad="noBack();" onpageshow="if (event.persisted) noBack();" onUnload="">
 
 	<nav class="navbar navbar-light fixed-top">
       <div class="gpp_image fixed-top" >
       </div>
     </nav>
     
-    
-	<div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins"style="margin-top: 100px">
-    <div class="wrapper wrapper--w680">
-      <div class="card card-4">
-        <div class="card-body">
-
-          <div id=div1>
-            <div class="msg ng-binding"><b>Admin Login</b></div>
-          </div>
-          
-		 <%
+     <%
                 		if(!session.isNew())
                 		{
 						String error_msg=(String)session.getAttribute("error_msg");
@@ -63,45 +64,77 @@
 				<%
 						}
                 	}
-/*                 		session.invalidate();
- */                		session.removeAttribute("error_msg");
-                		
+/*  		session.removeAttribute("error_msg");
+ */		session.invalidate();
+
+ 
+
+
+                 		
 				%> 
-          <form action="AdminLoginController" method="post" class="row g-3 needs-validation" style="margin-top: 30px;" novalidate>
-            <div class="col-md-9">
+	<section class="ftco-section">
+		<div class="container">
+			
+			<div class="row justify-content-center" >
+				<div class="col-md-7 col-lg-5" >
+					<div class="login-wrap p-4 p-md-5">
+		      	<div class="icon d-flex align-items-center justify-content-center">
+		      		<span class="fa fa-user-o"></span>
+		      	</div>
+		      	<h3 class="text-center mb-4">Sign In</h3>
+						<form action="AdminLoginController" class="login-form">
+		      		<div class="form-group">
+		      			<input type="text" id="validationCustom04" autocomplete="off" style="width: 300px;margin-left: 20px" class="form-control" placeholder="Username" name="uname" required>
+		      		</div>
+		      		
+	            <div class="form-group d-flex">
+	              <input type="password" id="validationCustom04" autocapitalize="off" style="width: 300px;margin-left: 20px" class="form-control" placeholder="Password" name="pass" required >
+	            </div>
 
-              <div id="div2">
-                <label for="validationCustom01" class="form-label">username :</label>
-                <input type="text" id="name" name="uname" autocomplete="off" class="form-control" placeholder="Enter username" onkeyup="manage(this)" />
-                <div class="valid-feedback">
-                </div>
-              </div>
-            </div>
+		<div class="form-group">
+							<div class="g-recaptcha" style="width: 300px;margin-left: 20px"   data-sitekey="6LfpHp8gAAAAALv2upG2sPnRjXhTWg2dTyL3rOJL" data-callback="enableBtn"></div>		      
+							
+							</div>
 
-            <div class="col-md-9">
-              <p>
-              <div id="div3">
-                <label for="validationCustom02" class="form-label">password :</label>
-                <input type="password" id="desig" autocomplete="off" name="pass" class="form-control" placeholder="Enter password"
-                  onkeyup="manage(this)" /> 
-                  <i class="bi bi-eye-slash" id="togglePassword"></i>
-                
-              </div>
-           
-            </div>
-        
-            <div class="div4">
-              <input type="submit" id="submit" class="btn btn-primary" style="margin-left: 200px;margin-top: 30px;"
-                value="login" disabled />
-            </div>
-          </form>
+				
 
-        </div>
-      </div>
-    </div>
-      <script src="js/admin_login.js"></script>
-    
-  </div>
+	            <div class="form-group">
+	            	<button type="submit" id="button1" disabled="disabled" class="form-control btn btn-primary rounded submit px-3"  >Login</button>
+	            </div>
+	            
+	          </form>
+	        </div>
+				</div>
+			</div>
+		</div>
+	</section>
+<script type="text/javascript">
 
-</body>
+function enableBtn(){
+	
+	   document.getElementById("button1").disabled = false;
+	 }
+  
+</script>
+<script type="text/javascript">
+(function () {
+    'use strict'
+  console.log('formjs');
+    var forms = document.querySelectorAll('.needs-validation')
+  
+    Array.prototype.slice.call(forms)
+      .forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
+  
+          form.classList.add('was-validated')
+        }, false)
+      })
+  })()
+</script>
+<!-- <script src="js/form.js"></script>
+ --></body>
 </html>
